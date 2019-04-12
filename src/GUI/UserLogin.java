@@ -197,7 +197,10 @@ public class UserLogin extends javax.swing.JFrame {
     }
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        System.exit(0);
+        if(JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "Login", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            System.exit(0);
+        }
+        
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed

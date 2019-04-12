@@ -6,8 +6,10 @@
 package GUI;
 
 import Database.DatabaseConnection;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +25,66 @@ public class ManagerScreen extends javax.swing.JFrame {
         nameLoad();
     }
 
+    public void nameLoad(){
+        UserLogin l = new UserLogin();
+        String username = l.usernameSender();
+        String name[] = username.split(" ");
+        
+        hiLabel.setText("Hi, "+name[0]);
+    }
+    
+    public void reset(){
+        cheeseBurger.setSelected(false);
+        chickenBurger.setSelected(false);
+        beefBurger.setSelected(false);
+        vegSubmarine.setSelected(false);
+        nonvegSubmarine.setSelected(false);
+        frenchFries.setSelected(false);
+        chickenNuggets.setSelected(false);
+        
+        cocacolaS.setSelected(false);
+        cocacolaL.setSelected(false);
+        spriteS.setSelected(false);
+        spriteL.setSelected(false);
+        milkShake.setSelected(false);
+        hotChocolate.setSelected(false);
+        iceCoffee.setSelected(false);
+        
+        vanilaCone.setSelected(false);
+        chocolateCone.setSelected(false);
+        strawberryCone.setSelected(false);
+        vanilaSundaes.setSelected(false);
+        chocolateSundaes.setSelected(false);
+        lavaCake.setSelected(false);
+        
+        
+        cheeseBurgerCount.setText(null);
+        chickenBurgerCount.setText(null);
+        beefBurgerCount.setText(null);
+        vegSubmarineCount.setText(null);
+        nonvegSubmarineCount.setText(null);
+        frenchFriesCount.setText(null);
+        chickenNuggetsCount.setText(null);
+        
+        cocacolaSCount.setText(null);
+        cocacolaLCount.setText(null);
+        spriteSCount.setText(null);
+        spriteLCount.setText(null);
+        milkShakeCount.setText(null);
+        hotChocolateCount.setText(null);
+        iceCoffeeCount.setText(null);
+        
+        vanilaConeCount.setText(null);
+        chocolateConeCount.setText(null);
+        strawberryConeCount.setText(null);
+        vanilaSundaesCount.setText(null);
+        chocolateSundaesCount.setText(null);
+        lavaCakeCount.setText(null);
+        
+        serviceChargesTextField.setText(null);
+        totalTextField.setText(null);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,7 +111,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         chickenBurgerCount = new javax.swing.JTextField();
         beefBurgerCount = new javax.swing.JTextField();
         vegSubmarineCount = new javax.swing.JTextField();
-        nonVegSubmarineCount = new javax.swing.JTextField();
+        nonvegSubmarineCount = new javax.swing.JTextField();
         frenchFries = new javax.swing.JCheckBox();
         chickenNuggets = new javax.swing.JCheckBox();
         frenchFriesCount = new javax.swing.JTextField();
@@ -83,7 +145,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         lavaCakeCount = new javax.swing.JTextField();
         vanilaConeCount = new javax.swing.JTextField();
         chocolateConeCount = new javax.swing.JTextField();
-        strawberryConrCount = new javax.swing.JTextField();
+        strawberryConeCount = new javax.swing.JTextField();
         dessertLabel = new javax.swing.JLabel();
         mealsTabelPanel = new javax.swing.JScrollPane();
         mealsTabel = new javax.swing.JTable();
@@ -172,65 +234,142 @@ public class ManagerScreen extends javax.swing.JFrame {
         beefBurger.setBackground(new java.awt.Color(255, 255, 255));
         beefBurger.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         beefBurger.setText("Beef Burger");
+        beefBurger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beefBurgerActionPerformed(evt);
+            }
+        });
 
         cheeseBurger.setBackground(new java.awt.Color(255, 255, 255));
         cheeseBurger.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cheeseBurger.setText("Cheese Burger");
+        cheeseBurger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cheeseBurgerActionPerformed(evt);
+            }
+        });
 
         chickenBurger.setBackground(new java.awt.Color(255, 255, 255));
         chickenBurger.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chickenBurger.setText("Chicke Burger");
+        chickenBurger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chickenBurgerActionPerformed(evt);
+            }
+        });
 
         vegSubmarine.setBackground(new java.awt.Color(255, 255, 255));
         vegSubmarine.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vegSubmarine.setText("Veg Submarine");
+        vegSubmarine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vegSubmarineActionPerformed(evt);
+            }
+        });
 
         nonvegSubmarine.setBackground(new java.awt.Color(255, 255, 255));
         nonvegSubmarine.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         nonvegSubmarine.setText("Non-veg Submarine");
+        nonvegSubmarine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nonvegSubmarineActionPerformed(evt);
+            }
+        });
 
+        cheeseBurgerCount.setBackground(null);
         cheeseBurgerCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cheeseBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        cheeseBurgerCount.setText("0");
         cheeseBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        cheeseBurgerCount.setEnabled(false);
+        cheeseBurgerCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cheeseBurgerCountKeyTyped(evt);
+            }
+        });
 
+        chickenBurgerCount.setBackground(null);
         chickenBurgerCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chickenBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        chickenBurgerCount.setText("0");
         chickenBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        chickenBurgerCount.setEnabled(false);
+        chickenBurgerCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                chickenBurgerCountKeyTyped(evt);
+            }
+        });
 
+        beefBurgerCount.setBackground(null);
         beefBurgerCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         beefBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        beefBurgerCount.setText("0");
         beefBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        beefBurgerCount.setEnabled(false);
+        beefBurgerCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                beefBurgerCountKeyTyped(evt);
+            }
+        });
 
+        vegSubmarineCount.setBackground(null);
         vegSubmarineCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        vegSubmarineCount.setText("0");
         vegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        vegSubmarineCount.setEnabled(false);
+        vegSubmarineCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vegSubmarineCountKeyTyped(evt);
+            }
+        });
 
-        nonVegSubmarineCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        nonVegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nonVegSubmarineCount.setText("0");
-        nonVegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        nonvegSubmarineCount.setBackground(null);
+        nonvegSubmarineCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        nonvegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nonvegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        nonvegSubmarineCount.setEnabled(false);
+        nonvegSubmarineCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nonvegSubmarineCountKeyTyped(evt);
+            }
+        });
 
         frenchFries.setBackground(new java.awt.Color(255, 255, 255));
         frenchFries.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         frenchFries.setText("French Fries");
+        frenchFries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frenchFriesActionPerformed(evt);
+            }
+        });
 
         chickenNuggets.setBackground(new java.awt.Color(255, 255, 255));
         chickenNuggets.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chickenNuggets.setText("Chicken Nuggets");
+        chickenNuggets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chickenNuggetsActionPerformed(evt);
+            }
+        });
 
+        frenchFriesCount.setBackground(null);
         frenchFriesCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         frenchFriesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        frenchFriesCount.setText("0");
         frenchFriesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        frenchFriesCount.setEnabled(false);
+        frenchFriesCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                frenchFriesCountKeyTyped(evt);
+            }
+        });
 
+        chickenNuggetsCount.setBackground(null);
         chickenNuggetsCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chickenNuggetsCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        chickenNuggetsCount.setText("0");
         chickenNuggetsCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        chickenNuggetsCount.setEnabled(false);
+        chickenNuggetsCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                chickenNuggetsCountKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout casualMealsPanelLayout = new javax.swing.GroupLayout(casualMealsPanel);
         casualMealsPanel.setLayout(casualMealsPanelLayout);
@@ -256,7 +395,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                             .addComponent(chickenBurgerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(beefBurgerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vegSubmarineCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nonVegSubmarineCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nonvegSubmarineCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(casualMealsPanelLayout.createSequentialGroup()
                         .addComponent(frenchFries)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -285,7 +424,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(casualMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nonvegSubmarine)
-                    .addComponent(nonVegSubmarineCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nonvegSubmarineCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(casualMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(frenchFries)
@@ -306,65 +445,142 @@ public class ManagerScreen extends javax.swing.JFrame {
         cocacolaS.setBackground(new java.awt.Color(255, 255, 255));
         cocacolaS.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cocacolaS.setText("Coca-cola (S)");
+        cocacolaS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cocacolaSActionPerformed(evt);
+            }
+        });
 
         cocacolaL.setBackground(new java.awt.Color(255, 255, 255));
         cocacolaL.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cocacolaL.setText("Coca-cola (L)");
+        cocacolaL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cocacolaLActionPerformed(evt);
+            }
+        });
 
         spriteS.setBackground(new java.awt.Color(255, 255, 255));
         spriteS.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         spriteS.setText("Sprite (S)");
+        spriteS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spriteSActionPerformed(evt);
+            }
+        });
 
         spriteL.setBackground(new java.awt.Color(255, 255, 255));
         spriteL.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         spriteL.setText("Sprite (L)");
+        spriteL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spriteLActionPerformed(evt);
+            }
+        });
 
         milkShake.setBackground(new java.awt.Color(255, 255, 255));
         milkShake.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         milkShake.setText("Milk Shake");
+        milkShake.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                milkShakeActionPerformed(evt);
+            }
+        });
 
         hotChocolate.setBackground(new java.awt.Color(255, 255, 255));
         hotChocolate.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         hotChocolate.setText("Hot Chocolate");
+        hotChocolate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hotChocolateActionPerformed(evt);
+            }
+        });
 
         iceCoffee.setBackground(new java.awt.Color(255, 255, 255));
         iceCoffee.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         iceCoffee.setText("Ice Coffee");
+        iceCoffee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iceCoffeeActionPerformed(evt);
+            }
+        });
 
+        cocacolaSCount.setBackground(null);
         cocacolaSCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cocacolaSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        cocacolaSCount.setText("0");
         cocacolaSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        cocacolaSCount.setEnabled(false);
+        cocacolaSCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cocacolaSCountKeyTyped(evt);
+            }
+        });
 
+        cocacolaLCount.setBackground(null);
         cocacolaLCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cocacolaLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        cocacolaLCount.setText("0");
         cocacolaLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        cocacolaLCount.setEnabled(false);
+        cocacolaLCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cocacolaLCountKeyTyped(evt);
+            }
+        });
 
+        spriteSCount.setBackground(null);
         spriteSCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         spriteSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        spriteSCount.setText("0");
         spriteSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        spriteSCount.setEnabled(false);
+        spriteSCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                spriteSCountKeyTyped(evt);
+            }
+        });
 
+        spriteLCount.setBackground(null);
         spriteLCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         spriteLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        spriteLCount.setText("0");
         spriteLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        spriteLCount.setEnabled(false);
+        spriteLCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                spriteLCountKeyTyped(evt);
+            }
+        });
 
+        milkShakeCount.setBackground(null);
         milkShakeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         milkShakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        milkShakeCount.setText("0");
         milkShakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        milkShakeCount.setEnabled(false);
+        milkShakeCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                milkShakeCountKeyTyped(evt);
+            }
+        });
 
+        hotChocolateCount.setBackground(null);
         hotChocolateCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         hotChocolateCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        hotChocolateCount.setText("0");
         hotChocolateCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        hotChocolateCount.setEnabled(false);
+        hotChocolateCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                hotChocolateCountKeyTyped(evt);
+            }
+        });
 
+        iceCoffeeCount.setBackground(null);
         iceCoffeeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         iceCoffeeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        iceCoffeeCount.setText("0");
         iceCoffeeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        iceCoffeeCount.setEnabled(false);
+        iceCoffeeCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                iceCoffeeCountKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout drinksPanelLayout = new javax.swing.GroupLayout(drinksPanel);
         drinksPanel.setLayout(drinksPanelLayout);
@@ -434,56 +650,122 @@ public class ManagerScreen extends javax.swing.JFrame {
         vanilaCone.setBackground(new java.awt.Color(255, 255, 255));
         vanilaCone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vanilaCone.setText("Vanila Cones");
+        vanilaCone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vanilaConeActionPerformed(evt);
+            }
+        });
 
         chocolateCone.setBackground(new java.awt.Color(255, 255, 255));
         chocolateCone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chocolateCone.setText("Chocolate Cones");
+        chocolateCone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chocolateConeActionPerformed(evt);
+            }
+        });
 
         strawberryCone.setBackground(new java.awt.Color(255, 255, 255));
         strawberryCone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         strawberryCone.setText("Strawberry Cones");
+        strawberryCone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                strawberryConeActionPerformed(evt);
+            }
+        });
 
         vanilaSundaes.setBackground(new java.awt.Color(255, 255, 255));
         vanilaSundaes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vanilaSundaes.setText("Vanila Sundaes");
+        vanilaSundaes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vanilaSundaesActionPerformed(evt);
+            }
+        });
 
         chocolateSundaes.setBackground(new java.awt.Color(255, 255, 255));
         chocolateSundaes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chocolateSundaes.setText("Chocolate Sundaes");
+        chocolateSundaes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chocolateSundaesActionPerformed(evt);
+            }
+        });
 
         lavaCake.setBackground(new java.awt.Color(255, 255, 255));
         lavaCake.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lavaCake.setText("Lava Cake");
+        lavaCake.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lavaCakeActionPerformed(evt);
+            }
+        });
 
+        vanilaSundaesCount.setBackground(null);
         vanilaSundaesCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vanilaSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        vanilaSundaesCount.setText("0");
         vanilaSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        vanilaSundaesCount.setEnabled(false);
+        vanilaSundaesCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vanilaSundaesCountKeyTyped(evt);
+            }
+        });
 
+        chocolateSundaesCount.setBackground(null);
         chocolateSundaesCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chocolateSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        chocolateSundaesCount.setText("0");
         chocolateSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        chocolateSundaesCount.setEnabled(false);
+        chocolateSundaesCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                chocolateSundaesCountKeyTyped(evt);
+            }
+        });
 
+        lavaCakeCount.setBackground(null);
         lavaCakeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lavaCakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lavaCakeCount.setText("0");
         lavaCakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        lavaCakeCount.setEnabled(false);
+        lavaCakeCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                lavaCakeCountKeyTyped(evt);
+            }
+        });
 
+        vanilaConeCount.setBackground(null);
         vanilaConeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vanilaConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        vanilaConeCount.setText("0");
         vanilaConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        vanilaConeCount.setEnabled(false);
+        vanilaConeCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vanilaConeCountKeyTyped(evt);
+            }
+        });
 
+        chocolateConeCount.setBackground(null);
         chocolateConeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chocolateConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        chocolateConeCount.setText("0");
         chocolateConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        chocolateConeCount.setEnabled(false);
+        chocolateConeCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                chocolateConeCountKeyTyped(evt);
+            }
+        });
 
-        strawberryConrCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        strawberryConrCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        strawberryConrCount.setText("0");
-        strawberryConrCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        strawberryConeCount.setBackground(null);
+        strawberryConeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        strawberryConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        strawberryConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        strawberryConeCount.setEnabled(false);
+        strawberryConeCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                strawberryConeCountKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout dessertPanelLayout = new javax.swing.GroupLayout(dessertPanel);
         dessertPanel.setLayout(dessertPanelLayout);
@@ -506,7 +788,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addComponent(lavaCakeCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(chocolateSundaesCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(chocolateConeCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(strawberryConrCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(strawberryConeCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
         dessertPanelLayout.setVerticalGroup(
@@ -523,7 +805,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(dessertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(strawberryCone)
-                    .addComponent(strawberryConrCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(strawberryConeCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(dessertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vanilaSundaes)
@@ -598,20 +880,32 @@ public class ManagerScreen extends javax.swing.JFrame {
         totalLabel.setText("Total");
 
         serviceChargesTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        serviceChargesTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         serviceChargesTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
         totalTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        totalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         totalTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
         proceedButton.setBackground(new java.awt.Color(0, 51, 255));
         proceedButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         proceedButton.setForeground(new java.awt.Color(255, 255, 255));
         proceedButton.setText("Proceed");
+        proceedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proceedButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setBackground(new java.awt.Color(255, 51, 51));
         cancelButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
         cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -689,17 +983,385 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_userRegisterButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        new UserLogin().setVisible(true);
-        this.dispose();
+        if(JOptionPane.showConfirmDialog(this, "Do you really want to log out?", "Order Screen", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            new UserLogin().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    public void nameLoad(){
-        UserLogin l = new UserLogin();
-        String username = l.usernameSender();
-        String name[] = username.split(" ");
+    private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
+        boolean cheeseB = cheeseBurger.isSelected();
+        boolean chickenB = chickenBurger.isSelected();
+        boolean beefB = beefBurger.isSelected();
+        boolean vegS = vegSubmarine.isSelected();
+        boolean nonvegS = nonvegSubmarine.isSelected();
+        boolean frenchF = frenchFries.isSelected();
+        boolean chickenN = chickenNuggets.isSelected();
         
-        hiLabel.setText("Hi, "+name[0]);
-    }
+        boolean colaS = cocacolaS.isSelected();
+        boolean colaL = cocacolaL.isSelected();
+        boolean spriteSm = spriteS.isSelected();
+        boolean spriteLa = spriteL.isSelected();
+        boolean milkS = milkShake.isSelected();
+        boolean hotC = hotChocolate.isSelected();
+        boolean iceC = iceCoffee.isSelected();
+        
+        boolean vanilaC = vanilaCone.isSelected();
+        boolean chocolateC = chocolateCone.isSelected();
+        boolean StrawberryC = strawberryCone.isSelected();
+        boolean vanilaS = vanilaSundaes.isSelected();
+        boolean chocolateS = chocolateSundaes.isSelected();
+        boolean lavaC = lavaCake.isSelected();
+        
+        
+    }//GEN-LAST:event_proceedButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        if(JOptionPane.showConfirmDialog(this, "Do you really want cancel the order?", "Order cancel", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            reset();
+        }
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void cheeseBurgerCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cheeseBurgerCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_cheeseBurgerCountKeyTyped
+
+    private void chickenBurgerCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chickenBurgerCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_chickenBurgerCountKeyTyped
+
+    private void beefBurgerCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_beefBurgerCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_beefBurgerCountKeyTyped
+
+    private void vegSubmarineCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vegSubmarineCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }    
+    }//GEN-LAST:event_vegSubmarineCountKeyTyped
+
+    private void nonvegSubmarineCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nonvegSubmarineCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }     
+    }//GEN-LAST:event_nonvegSubmarineCountKeyTyped
+
+    private void frenchFriesCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_frenchFriesCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }    
+    }//GEN-LAST:event_frenchFriesCountKeyTyped
+
+    private void chickenNuggetsCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chickenNuggetsCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }     
+    }//GEN-LAST:event_chickenNuggetsCountKeyTyped
+
+    private void cocacolaSCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cocacolaSCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_cocacolaSCountKeyTyped
+
+    private void cocacolaLCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cocacolaLCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_cocacolaLCountKeyTyped
+
+    private void spriteSCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriteSCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_spriteSCountKeyTyped
+
+    private void spriteLCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriteLCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }     
+    }//GEN-LAST:event_spriteLCountKeyTyped
+
+    private void milkShakeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_milkShakeCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }     
+    }//GEN-LAST:event_milkShakeCountKeyTyped
+
+    private void hotChocolateCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hotChocolateCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }      
+    }//GEN-LAST:event_hotChocolateCountKeyTyped
+
+    private void iceCoffeeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iceCoffeeCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }      
+    }//GEN-LAST:event_iceCoffeeCountKeyTyped
+
+    private void vanilaConeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vanilaConeCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }      
+    }//GEN-LAST:event_vanilaConeCountKeyTyped
+
+    private void chocolateConeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chocolateConeCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }     
+    }//GEN-LAST:event_chocolateConeCountKeyTyped
+
+    private void strawberryConeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_strawberryConeCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }     
+    }//GEN-LAST:event_strawberryConeCountKeyTyped
+
+    private void vanilaSundaesCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vanilaSundaesCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }      
+    }//GEN-LAST:event_vanilaSundaesCountKeyTyped
+
+    private void chocolateSundaesCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chocolateSundaesCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }       
+    }//GEN-LAST:event_chocolateSundaesCountKeyTyped
+
+    private void lavaCakeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lavaCakeCountKeyTyped
+        char c = evt.getKeyChar();
+        if(Character.isLetter(c)){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        } 
+    }//GEN-LAST:event_lavaCakeCountKeyTyped
+
+    private void cheeseBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBurgerActionPerformed
+        if(cheeseBurger.isSelected()){
+            cheeseBurgerCount.setEnabled(true);
+            cheeseBurgerCount.requestFocus();
+        }else{
+            cheeseBurgerCount.setEnabled(false);
+        }
+    }//GEN-LAST:event_cheeseBurgerActionPerformed
+
+    private void chickenBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickenBurgerActionPerformed
+        if(chickenBurger.isSelected()){
+            chickenBurgerCount.setEnabled(true);
+            chickenBurgerCount.requestFocus();
+        }else{
+            chickenBurgerCount.setEnabled(false);
+        }
+    }//GEN-LAST:event_chickenBurgerActionPerformed
+
+    private void beefBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beefBurgerActionPerformed
+        if(beefBurger.isSelected()){
+            beefBurgerCount.setEnabled(true);
+            beefBurgerCount.requestFocus();
+        }else{
+            beefBurgerCount.setEnabled(false);
+        }
+    }//GEN-LAST:event_beefBurgerActionPerformed
+
+    private void vegSubmarineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vegSubmarineActionPerformed
+        if(vegSubmarine.isSelected()){
+            vegSubmarineCount.setEnabled(true);
+            vegSubmarineCount.requestFocus();
+        }else{
+            vegSubmarineCount.setEnabled(false);
+        }  
+    }//GEN-LAST:event_vegSubmarineActionPerformed
+
+    private void nonvegSubmarineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonvegSubmarineActionPerformed
+        if(nonvegSubmarine.isSelected()){
+            nonvegSubmarineCount.setEnabled(true);
+            nonvegSubmarineCount.requestFocus();
+        }else{
+            nonvegSubmarineCount.setEnabled(false);
+        }  
+    }//GEN-LAST:event_nonvegSubmarineActionPerformed
+
+    private void frenchFriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frenchFriesActionPerformed
+        if(frenchFries.isSelected()){
+            frenchFriesCount.setEnabled(true);
+            frenchFriesCount.requestFocus();
+        }else{
+            frenchFriesCount.setEnabled(false);
+        }   
+    }//GEN-LAST:event_frenchFriesActionPerformed
+
+    private void chickenNuggetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickenNuggetsActionPerformed
+        if(chickenNuggets.isSelected()){
+            chickenNuggetsCount.setEnabled(true);
+            chickenNuggetsCount.requestFocus();
+        }else{
+            chickenNuggetsCount.setEnabled(false);
+        }  
+    }//GEN-LAST:event_chickenNuggetsActionPerformed
+
+    private void cocacolaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cocacolaSActionPerformed
+        if(cocacolaS.isSelected()){
+            cocacolaSCount.setEnabled(true);
+            cocacolaSCount.requestFocus();
+        }else{
+            cocacolaSCount.setEnabled(false);
+        }        
+    }//GEN-LAST:event_cocacolaSActionPerformed
+
+    private void cocacolaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cocacolaLActionPerformed
+        if(cocacolaL.isSelected()){
+            cocacolaLCount.setEnabled(true);
+            cocacolaLCount.requestFocus();
+        }else{
+            cocacolaLCount.setEnabled(false);
+        }         
+    }//GEN-LAST:event_cocacolaLActionPerformed
+
+    private void spriteSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriteSActionPerformed
+        if(spriteS.isSelected()){
+            spriteSCount.setEnabled(true);
+             spriteSCount.requestFocus();
+        }else{
+            spriteSCount.setEnabled(false);
+        }       
+    }//GEN-LAST:event_spriteSActionPerformed
+
+    private void spriteLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriteLActionPerformed
+        if(spriteL.isSelected()){
+            spriteLCount.setEnabled(true);
+            spriteLCount.requestFocus();
+        }else{
+            spriteLCount.setEnabled(false);
+        }   
+    }//GEN-LAST:event_spriteLActionPerformed
+
+    private void milkShakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_milkShakeActionPerformed
+        if(milkShake.isSelected()){
+            milkShakeCount.setEnabled(true);
+             milkShakeCount.requestFocus();
+        }else{
+            milkShakeCount.setEnabled(false);
+        }        
+    }//GEN-LAST:event_milkShakeActionPerformed
+
+    private void hotChocolateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotChocolateActionPerformed
+        if(hotChocolate.isSelected()){
+            hotChocolateCount.setEnabled(true);
+            hotChocolateCount.requestFocus();
+        }else{
+            hotChocolateCount.setEnabled(false);
+        }  
+    }//GEN-LAST:event_hotChocolateActionPerformed
+
+    private void iceCoffeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iceCoffeeActionPerformed
+        if(iceCoffee.isSelected()){
+            iceCoffeeCount.setEnabled(true);
+            iceCoffeeCount.requestFocus();
+        }else{
+            iceCoffeeCount.setEnabled(false);
+        }        
+    }//GEN-LAST:event_iceCoffeeActionPerformed
+
+    private void vanilaConeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanilaConeActionPerformed
+        if(vanilaCone.isSelected()){
+            vanilaConeCount.setEnabled(true);
+            vanilaConeCount.requestFocus();
+        }else{
+            vanilaConeCount.setEnabled(false);
+        }   
+    }//GEN-LAST:event_vanilaConeActionPerformed
+
+    private void chocolateConeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chocolateConeActionPerformed
+        if(chocolateCone.isSelected()){
+            chocolateConeCount.setEnabled(true);
+            chocolateConeCount.requestFocus();
+        }else{
+            chocolateConeCount.setEnabled(false);
+        }      
+    }//GEN-LAST:event_chocolateConeActionPerformed
+
+    private void strawberryConeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strawberryConeActionPerformed
+        if(strawberryCone.isSelected()){
+            strawberryConeCount.setEnabled(true);
+            strawberryConeCount.requestFocus();
+        }else{
+            strawberryConeCount.setEnabled(false);
+        }       
+    }//GEN-LAST:event_strawberryConeActionPerformed
+
+    private void vanilaSundaesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanilaSundaesActionPerformed
+        if(vanilaSundaes.isSelected()){
+            vanilaSundaesCount.setEnabled(true);
+            vanilaSundaesCount.requestFocus();
+        }else{
+            vanilaSundaesCount.setEnabled(false);
+        }
+    }//GEN-LAST:event_vanilaSundaesActionPerformed
+
+    private void chocolateSundaesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chocolateSundaesActionPerformed
+        if(chocolateSundaes.isSelected()){
+           chocolateSundaesCount.setEnabled(true);
+           chocolateSundaesCount.requestFocus();
+        }else{
+           chocolateSundaesCount.setEnabled(false);
+        }
+    }//GEN-LAST:event_chocolateSundaesActionPerformed
+
+    private void lavaCakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lavaCakeActionPerformed
+        if(lavaCake.isSelected()){
+           lavaCakeCount.setEnabled(true);
+           lavaCakeCount.requestFocus();
+        }else{
+           lavaCakeCount.setEnabled(false);
+        }
+    }//GEN-LAST:event_lavaCakeActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -777,8 +1439,8 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane mealsTabelPanel;
     private javax.swing.JCheckBox milkShake;
     private javax.swing.JTextField milkShakeCount;
-    private javax.swing.JTextField nonVegSubmarineCount;
     private javax.swing.JCheckBox nonvegSubmarine;
+    private javax.swing.JTextField nonvegSubmarineCount;
     private javax.swing.JButton proceedButton;
     private javax.swing.JLabel serviceChargesLabel;
     private javax.swing.JTextField serviceChargesTextField;
@@ -788,7 +1450,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JCheckBox spriteS;
     private javax.swing.JTextField spriteSCount;
     private javax.swing.JCheckBox strawberryCone;
-    private javax.swing.JTextField strawberryConrCount;
+    private javax.swing.JTextField strawberryConeCount;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalTextField;
     private javax.swing.JButton userRegisterButton;
