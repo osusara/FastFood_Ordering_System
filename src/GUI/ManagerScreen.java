@@ -108,6 +108,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         lavaCakeCount.setText(null);
         lavaCakeCount.setEnabled(false);
         
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        dtm.setRowCount(0);
         serviceChargesTextField.setText(null);
         totalTextField.setText(null);
     }
@@ -279,7 +281,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         chickenBurger.setBackground(new java.awt.Color(255, 255, 255));
         chickenBurger.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        chickenBurger.setText("Chicke Burger");
+        chickenBurger.setText("Chicken Burger");
         chickenBurger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chickenBurgerActionPerformed(evt);
@@ -323,6 +325,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         chickenBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chickenBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chickenBurgerCount.setEnabled(false);
+        chickenBurgerCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chickenBurgerCountActionPerformed(evt);
+            }
+        });
         chickenBurgerCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 chickenBurgerCountKeyTyped(evt);
@@ -333,6 +340,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         beefBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         beefBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         beefBurgerCount.setEnabled(false);
+        beefBurgerCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                beefBurgerCountActionPerformed(evt);
+            }
+        });
         beefBurgerCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 beefBurgerCountKeyTyped(evt);
@@ -343,6 +355,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         vegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         vegSubmarineCount.setEnabled(false);
+        vegSubmarineCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vegSubmarineCountActionPerformed(evt);
+            }
+        });
         vegSubmarineCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 vegSubmarineCountKeyTyped(evt);
@@ -353,6 +370,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         nonvegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nonvegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         nonvegSubmarineCount.setEnabled(false);
+        nonvegSubmarineCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nonvegSubmarineCountActionPerformed(evt);
+            }
+        });
         nonvegSubmarineCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nonvegSubmarineCountKeyTyped(evt);
@@ -381,6 +403,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         frenchFriesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         frenchFriesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         frenchFriesCount.setEnabled(false);
+        frenchFriesCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frenchFriesCountActionPerformed(evt);
+            }
+        });
         frenchFriesCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 frenchFriesCountKeyTyped(evt);
@@ -391,6 +418,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         chickenNuggetsCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chickenNuggetsCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chickenNuggetsCount.setEnabled(false);
+        chickenNuggetsCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chickenNuggetsCountActionPerformed(evt);
+            }
+        });
         chickenNuggetsCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 chickenNuggetsCountKeyTyped(evt);
@@ -415,7 +447,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                             .addComponent(chickenBurger)
                             .addComponent(cheeseBurger)
                             .addComponent(beefBurger))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addGroup(casualMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cheeseBurgerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chickenBurgerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -535,6 +567,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         cocacolaSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cocacolaSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         cocacolaSCount.setEnabled(false);
+        cocacolaSCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cocacolaSCountActionPerformed(evt);
+            }
+        });
         cocacolaSCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cocacolaSCountKeyTyped(evt);
@@ -545,6 +582,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         cocacolaLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cocacolaLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         cocacolaLCount.setEnabled(false);
+        cocacolaLCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cocacolaLCountActionPerformed(evt);
+            }
+        });
         cocacolaLCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cocacolaLCountKeyTyped(evt);
@@ -555,6 +597,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         spriteSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         spriteSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         spriteSCount.setEnabled(false);
+        spriteSCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spriteSCountActionPerformed(evt);
+            }
+        });
         spriteSCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 spriteSCountKeyTyped(evt);
@@ -565,6 +612,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         spriteLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         spriteLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         spriteLCount.setEnabled(false);
+        spriteLCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spriteLCountActionPerformed(evt);
+            }
+        });
         spriteLCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 spriteLCountKeyTyped(evt);
@@ -575,6 +627,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         milkShakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         milkShakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         milkShakeCount.setEnabled(false);
+        milkShakeCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                milkShakeCountActionPerformed(evt);
+            }
+        });
         milkShakeCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 milkShakeCountKeyTyped(evt);
@@ -585,6 +642,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         hotChocolateCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         hotChocolateCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         hotChocolateCount.setEnabled(false);
+        hotChocolateCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hotChocolateCountActionPerformed(evt);
+            }
+        });
         hotChocolateCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 hotChocolateCountKeyTyped(evt);
@@ -595,6 +657,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         iceCoffeeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         iceCoffeeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         iceCoffeeCount.setEnabled(false);
+        iceCoffeeCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iceCoffeeCountActionPerformed(evt);
+            }
+        });
         iceCoffeeCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 iceCoffeeCountKeyTyped(evt);
@@ -668,7 +735,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         vanilaCone.setBackground(new java.awt.Color(255, 255, 255));
         vanilaCone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        vanilaCone.setText("Vanila Cones");
+        vanilaCone.setText("Vanila Cone");
         vanilaCone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vanilaConeActionPerformed(evt);
@@ -677,7 +744,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         chocolateCone.setBackground(new java.awt.Color(255, 255, 255));
         chocolateCone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        chocolateCone.setText("Chocolate Cones");
+        chocolateCone.setText("Chocolate Cone");
         chocolateCone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chocolateConeActionPerformed(evt);
@@ -686,7 +753,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         strawberryCone.setBackground(new java.awt.Color(255, 255, 255));
         strawberryCone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        strawberryCone.setText("Strawberry Cones");
+        strawberryCone.setText("Strawberry Cone");
         strawberryCone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 strawberryConeActionPerformed(evt);
@@ -695,7 +762,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         vanilaSundaes.setBackground(new java.awt.Color(255, 255, 255));
         vanilaSundaes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        vanilaSundaes.setText("Vanila Sundaes");
+        vanilaSundaes.setText("Vanila Sundae");
         vanilaSundaes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vanilaSundaesActionPerformed(evt);
@@ -704,7 +771,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         chocolateSundaes.setBackground(new java.awt.Color(255, 255, 255));
         chocolateSundaes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        chocolateSundaes.setText("Chocolate Sundaes");
+        chocolateSundaes.setText("Chocolate Sundae");
         chocolateSundaes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chocolateSundaesActionPerformed(evt);
@@ -724,6 +791,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         vanilaSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vanilaSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         vanilaSundaesCount.setEnabled(false);
+        vanilaSundaesCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vanilaSundaesCountActionPerformed(evt);
+            }
+        });
         vanilaSundaesCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 vanilaSundaesCountKeyTyped(evt);
@@ -734,6 +806,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         chocolateSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chocolateSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chocolateSundaesCount.setEnabled(false);
+        chocolateSundaesCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chocolateSundaesCountActionPerformed(evt);
+            }
+        });
         chocolateSundaesCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 chocolateSundaesCountKeyTyped(evt);
@@ -744,6 +821,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         lavaCakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lavaCakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         lavaCakeCount.setEnabled(false);
+        lavaCakeCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lavaCakeCountActionPerformed(evt);
+            }
+        });
         lavaCakeCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 lavaCakeCountKeyTyped(evt);
@@ -754,6 +836,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         vanilaConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vanilaConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         vanilaConeCount.setEnabled(false);
+        vanilaConeCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vanilaConeCountActionPerformed(evt);
+            }
+        });
         vanilaConeCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 vanilaConeCountKeyTyped(evt);
@@ -764,6 +851,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         chocolateConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chocolateConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chocolateConeCount.setEnabled(false);
+        chocolateConeCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chocolateConeCountActionPerformed(evt);
+            }
+        });
         chocolateConeCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 chocolateConeCountKeyTyped(evt);
@@ -774,6 +866,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         strawberryConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         strawberryConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         strawberryConeCount.setEnabled(false);
+        strawberryConeCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                strawberryConeCountActionPerformed(evt);
+            }
+        });
         strawberryConeCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 strawberryConeCountKeyTyped(evt);
@@ -845,7 +942,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(casualMealsLabel)
-                    .addComponent(casualMealsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
+                    .addComponent(casualMealsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                 .addGap(45, 45, 45)
                 .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(drinksLabel)
@@ -1398,11 +1495,16 @@ public class ManagerScreen extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
         String meal = cheeseBurger.getText();
         int qty = Integer.parseInt(cheeseBurgerCount.getText());
+        Double price;
 
         try {
             Statement s = DatabaseConnection.getConnection();
             ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            Double price = Double.parseDouble(rs.getString("unit_price"));
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
 
             Vector v = new Vector();
             v.add(meal);
@@ -1416,6 +1518,538 @@ public class ManagerScreen extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }//GEN-LAST:event_cheeseBurgerCountActionPerformed
+
+    private void chickenBurgerCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickenBurgerCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = chickenBurger.getText();
+        int qty = Integer.parseInt(chickenBurgerCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_chickenBurgerCountActionPerformed
+
+    private void beefBurgerCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beefBurgerCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = beefBurger.getText();
+        int qty = Integer.parseInt(beefBurgerCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_beefBurgerCountActionPerformed
+
+    private void vegSubmarineCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vegSubmarineCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = vegSubmarine.getText();
+        int qty = Integer.parseInt(vegSubmarineCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_vegSubmarineCountActionPerformed
+
+    private void nonvegSubmarineCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonvegSubmarineCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = nonvegSubmarine.getText();
+        int qty = Integer.parseInt(nonvegSubmarineCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } 
+    }//GEN-LAST:event_nonvegSubmarineCountActionPerformed
+
+    private void frenchFriesCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frenchFriesCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = frenchFries.getText();
+        int qty = Integer.parseInt(frenchFriesCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_frenchFriesCountActionPerformed
+
+    private void chickenNuggetsCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickenNuggetsCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = chickenNuggets.getText();
+        int qty = Integer.parseInt(chickenNuggetsCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_chickenNuggetsCountActionPerformed
+
+    private void cocacolaSCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cocacolaSCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = cocacolaS.getText();
+        int qty = Integer.parseInt(cocacolaSCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_cocacolaSCountActionPerformed
+
+    private void cocacolaLCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cocacolaLCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = cocacolaL.getText();
+        int qty = Integer.parseInt(cocacolaLCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cocacolaLCountActionPerformed
+
+    private void spriteSCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriteSCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = spriteS.getText();
+        int qty = Integer.parseInt(spriteSCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } 
+    }//GEN-LAST:event_spriteSCountActionPerformed
+
+    private void spriteLCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriteLCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = spriteL.getText();
+        int qty = Integer.parseInt(spriteLCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_spriteLCountActionPerformed
+
+    private void milkShakeCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_milkShakeCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = milkShake.getText();
+        int qty = Integer.parseInt(milkShakeCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_milkShakeCountActionPerformed
+
+    private void hotChocolateCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotChocolateCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = hotChocolate.getText();
+        int qty = Integer.parseInt(hotChocolateCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_hotChocolateCountActionPerformed
+
+    private void iceCoffeeCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iceCoffeeCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String drink = iceCoffee.getText();
+        int qty = Integer.parseInt(iceCoffeeCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(drink);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_iceCoffeeCountActionPerformed
+
+    private void vanilaConeCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanilaConeCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String dessert = vanilaCone.getText();
+        int qty = Integer.parseInt(vanilaConeCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(dessert);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } 
+    }//GEN-LAST:event_vanilaConeCountActionPerformed
+
+    private void chocolateConeCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chocolateConeCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String dessert = chocolateCone.getText();
+        int qty = Integer.parseInt(chocolateConeCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(dessert);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_chocolateConeCountActionPerformed
+
+    private void strawberryConeCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strawberryConeCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String dessert = strawberryCone.getText();
+        int qty = Integer.parseInt(strawberryConeCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(dessert);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_strawberryConeCountActionPerformed
+
+    private void vanilaSundaesCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanilaSundaesCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String dessert = vanilaSundaes.getText();
+        int qty = Integer.parseInt(vanilaSundaesCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(dessert);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_vanilaSundaesCountActionPerformed
+
+    private void chocolateSundaesCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chocolateSundaesCountActionPerformed
+     DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String dessert = chocolateSundaes.getText();
+        int qty = Integer.parseInt(chocolateSundaesCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(dessert);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_chocolateSundaesCountActionPerformed
+
+    private void lavaCakeCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lavaCakeCountActionPerformed
+     DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String dessert = lavaCake.getText();
+        int qty = Integer.parseInt(lavaCakeCount.getText());
+        Double price;
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
+            if(rs.first()){
+                price = Double.parseDouble(rs.getString("unit_price"));
+            }else{
+                price = 0.0;
+            }
+
+            Vector v = new Vector();
+            v.add(dessert);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_lavaCakeCountActionPerformed
 
     
     /**
