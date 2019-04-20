@@ -6,10 +6,17 @@
 package GUI;
 
 import Database.DatabaseConnection;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -59,27 +66,47 @@ public class ManagerScreen extends javax.swing.JFrame {
         
         
         cheeseBurgerCount.setText(null);
+        cheeseBurgerCount.setEnabled(false);
         chickenBurgerCount.setText(null);
+        chickenBurgerCount.setEnabled(false);
         beefBurgerCount.setText(null);
+        beefBurgerCount.setEnabled(false);
         vegSubmarineCount.setText(null);
+        vegSubmarineCount.setEnabled(false);
         nonvegSubmarineCount.setText(null);
+        nonvegSubmarineCount.setEnabled(false);
         frenchFriesCount.setText(null);
+        frenchFriesCount.setEnabled(false);
         chickenNuggetsCount.setText(null);
+        chickenNuggetsCount.setEnabled(false);
         
         cocacolaSCount.setText(null);
+        cocacolaSCount.setEnabled(false);
         cocacolaLCount.setText(null);
+        cocacolaLCount.setEnabled(false);
         spriteSCount.setText(null);
+        spriteSCount.setEnabled(false);
         spriteLCount.setText(null);
+        spriteLCount.setEnabled(false);
         milkShakeCount.setText(null);
+        milkShakeCount.setEnabled(false);
         hotChocolateCount.setText(null);
+        hotChocolateCount.setEnabled(false);
         iceCoffeeCount.setText(null);
+        iceCoffeeCount.setEnabled(false);
         
         vanilaConeCount.setText(null);
+        vanilaConeCount.setEnabled(false);
         chocolateConeCount.setText(null);
+        chocolateConeCount.setEnabled(false);
         strawberryConeCount.setText(null);
+        strawberryConeCount.setEnabled(false);
         vanilaSundaesCount.setText(null);
+        vanilaSundaesCount.setEnabled(false);
         chocolateSundaesCount.setText(null);
+        chocolateSundaesCount.setEnabled(false);
         lavaCakeCount.setText(null);
+        lavaCakeCount.setEnabled(false);
         
         serviceChargesTextField.setText(null);
         totalTextField.setText(null);
@@ -148,13 +175,14 @@ public class ManagerScreen extends javax.swing.JFrame {
         strawberryConeCount = new javax.swing.JTextField();
         dessertLabel = new javax.swing.JLabel();
         mealsTabelPanel = new javax.swing.JScrollPane();
-        mealsTabel = new javax.swing.JTable();
+        mealsTable = new javax.swing.JTable();
         serviceChargesLabel = new javax.swing.JLabel();
         totalLabel = new javax.swing.JLabel();
         serviceChargesTextField = new javax.swing.JTextField();
         totalTextField = new javax.swing.JTextField();
-        proceedButton = new javax.swing.JButton();
+        confirmButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        proceedButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
@@ -276,18 +304,21 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        cheeseBurgerCount.setBackground(null);
         cheeseBurgerCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cheeseBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cheeseBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         cheeseBurgerCount.setEnabled(false);
+        cheeseBurgerCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cheeseBurgerCountActionPerformed(evt);
+            }
+        });
         cheeseBurgerCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cheeseBurgerCountKeyTyped(evt);
             }
         });
 
-        chickenBurgerCount.setBackground(null);
         chickenBurgerCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chickenBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chickenBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -298,7 +329,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        beefBurgerCount.setBackground(null);
         beefBurgerCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         beefBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         beefBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -309,7 +339,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        vegSubmarineCount.setBackground(null);
         vegSubmarineCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -320,7 +349,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        nonvegSubmarineCount.setBackground(null);
         nonvegSubmarineCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         nonvegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nonvegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -349,7 +377,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        frenchFriesCount.setBackground(null);
         frenchFriesCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         frenchFriesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         frenchFriesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -360,7 +387,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        chickenNuggetsCount.setBackground(null);
         chickenNuggetsCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chickenNuggetsCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chickenNuggetsCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -505,7 +531,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        cocacolaSCount.setBackground(null);
         cocacolaSCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cocacolaSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cocacolaSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -516,7 +541,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        cocacolaLCount.setBackground(null);
         cocacolaLCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cocacolaLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cocacolaLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -527,7 +551,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        spriteSCount.setBackground(null);
         spriteSCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         spriteSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         spriteSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -538,7 +561,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        spriteLCount.setBackground(null);
         spriteLCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         spriteLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         spriteLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -549,7 +571,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        milkShakeCount.setBackground(null);
         milkShakeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         milkShakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         milkShakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -560,7 +581,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        hotChocolateCount.setBackground(null);
         hotChocolateCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         hotChocolateCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         hotChocolateCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -571,7 +591,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        iceCoffeeCount.setBackground(null);
         iceCoffeeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         iceCoffeeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         iceCoffeeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -701,7 +720,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        vanilaSundaesCount.setBackground(null);
         vanilaSundaesCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vanilaSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vanilaSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -712,7 +730,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        chocolateSundaesCount.setBackground(null);
         chocolateSundaesCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chocolateSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chocolateSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -723,7 +740,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        lavaCakeCount.setBackground(null);
         lavaCakeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lavaCakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lavaCakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -734,7 +750,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        vanilaConeCount.setBackground(null);
         vanilaConeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         vanilaConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vanilaConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -745,7 +760,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        chocolateConeCount.setBackground(null);
         chocolateConeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         chocolateConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chocolateConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -756,7 +770,6 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        strawberryConeCount.setBackground(null);
         strawberryConeCount.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         strawberryConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         strawberryConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -859,9 +872,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
         );
 
-        mealsTabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        mealsTabel.setForeground(new java.awt.Color(51, 51, 51));
-        mealsTabel.setModel(new javax.swing.table.DefaultTableModel(
+        mealsTable.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        mealsTable.setForeground(new java.awt.Color(51, 51, 51));
+        mealsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -869,9 +882,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                 "Meal", "Quantity", "Unit Price", "Sub Total Price"
             }
         ));
-        mealsTabel.setGridColor(new java.awt.Color(153, 153, 153));
-        mealsTabel.setShowHorizontalLines(false);
-        mealsTabelPanel.setViewportView(mealsTabel);
+        mealsTable.setGridColor(new java.awt.Color(153, 153, 153));
+        mealsTable.setShowHorizontalLines(false);
+        mealsTabelPanel.setViewportView(mealsTable);
 
         serviceChargesLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         serviceChargesLabel.setText("Service Charges");
@@ -887,13 +900,13 @@ public class ManagerScreen extends javax.swing.JFrame {
         totalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         totalTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
-        proceedButton.setBackground(new java.awt.Color(0, 51, 255));
-        proceedButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        proceedButton.setForeground(new java.awt.Color(255, 255, 255));
-        proceedButton.setText("Proceed");
-        proceedButton.addActionListener(new java.awt.event.ActionListener() {
+        confirmButton.setBackground(new java.awt.Color(0, 51, 255));
+        confirmButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        confirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                proceedButtonActionPerformed(evt);
+                confirmButtonActionPerformed(evt);
             }
         });
 
@@ -907,6 +920,16 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
+        proceedButton.setBackground(new java.awt.Color(51, 102, 255));
+        proceedButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        proceedButton.setForeground(new java.awt.Color(255, 255, 255));
+        proceedButton.setText("Proceed");
+        proceedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proceedButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -916,8 +939,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mealsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(mealsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
@@ -933,11 +955,14 @@ public class ManagerScreen extends javax.swing.JFrame {
                                         .addComponent(serviceChargesLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(serviceChargesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(proceedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(proceedButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62))))
+                        .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -956,11 +981,14 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(totalLabel)
-                            .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(proceedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52))
+                            .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(proceedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -989,7 +1017,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         boolean cheeseB = cheeseBurger.isSelected();
         boolean chickenB = chickenBurger.isSelected();
         boolean beefB = beefBurger.isSelected();
@@ -1014,7 +1042,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         boolean lavaC = lavaCake.isSelected();
         
         
-    }//GEN-LAST:event_proceedButtonActionPerformed
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         if(JOptionPane.showConfirmDialog(this, "Do you really want cancel the order?", "Order cancel", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
@@ -1362,6 +1390,33 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lavaCakeActionPerformed
 
+    private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_proceedButtonActionPerformed
+
+    private void cheeseBurgerCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBurgerCountActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String meal = cheeseBurger.getText();
+        int qty = Integer.parseInt(cheeseBurgerCount.getText());
+
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
+            Double price = Double.parseDouble(rs.getString("unit_price"));
+
+            Vector v = new Vector();
+            v.add(meal);
+            v.add(qty);
+            v.add(price);
+            v.add(qty*price);
+
+            dtm.addRow(v);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_cheeseBurgerCountActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -1418,6 +1473,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField cocacolaLCount;
     private javax.swing.JCheckBox cocacolaS;
     private javax.swing.JTextField cocacolaSCount;
+    private javax.swing.JButton confirmButton;
     private javax.swing.JLabel dessertLabel;
     private javax.swing.JPanel dessertPanel;
     private javax.swing.JLabel drinksLabel;
@@ -1435,8 +1491,8 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel mealsPanel;
-    private javax.swing.JTable mealsTabel;
     private javax.swing.JScrollPane mealsTabelPanel;
+    private javax.swing.JTable mealsTable;
     private javax.swing.JCheckBox milkShake;
     private javax.swing.JTextField milkShakeCount;
     private javax.swing.JCheckBox nonvegSubmarine;
