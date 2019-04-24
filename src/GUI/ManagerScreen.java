@@ -47,9 +47,22 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }
     
-    public int userLoad(){
+    public int useridLoad(){
         String username = new UserLogin().usernameSender();
-        System.out.println(username);
+        int uid = 0;
+        try {
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
+            if(rs1.first())
+            uid = Integer.parseInt(rs1.getString("user_id"));
+        } catch (Exception ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return uid;
+    }
+    
+    public void userLoad(){
+        String username = new UserLogin().usernameSender();
         int uid = 0;
         String name="";
         
@@ -70,9 +83,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        System.out.println(uid);
-        return uid;
     }
     
     public void dateTimeLoad(){
@@ -1454,42 +1464,42 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
-
+     
+        //customer table
+        int cid = Integer.parseInt(cidLabel.getText());
+        String cname = nameTextField.getText();
+        String phone = phoneTextField.getText();
+        String email = emailTextField.getText();
+        
+        try {
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO customer(customer_id, name, phone, email) VALUES ("+cid+", '"+cname+"', '"+phone+"', '"+email+"')");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
         //order table
         int oid = Integer.parseInt(oidLabel.getText());
-        String date = java.time.LocalDateTime.now().toString();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+        Date d = new Date();
+        String date = formatter.format(d);
         String[] t = totalTextField.getText().split(" ");
         String total = t[0];
         String[] s = recievedTextField.getText().split(" ");
         String payment = s[0];
         String balance = (Double.parseDouble(payment) - Double.parseDouble(total))+"";
-        int cid = Integer.parseInt(cidLabel.getText());
-        int uid = userLoad();
+        int uid = useridLoad();
         
         try {
-            DatabaseConnection.getConnection().executeUpdate("INSERT INTO restaurentsystem.order(order_id, date, total, recieved, balance, customer_id, user_id) VALUES ("+oid+", "+date+", "+total+", "+payment+", "+balance+", "+cid+", "+uid+")");
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO restaurentsystem.order(order_id, date, total, recieved, balance, customer_id, user_id) VALUES ("+oid+", '"+date+"', '"+total+"', '"+payment+"', '"+balance+"', "+cid+", "+uid+")");
         } catch (Exception e) {
             System.out.println(e);
         }
-        
-        //customer table
-        
-        String name = nameTextField.getText();
-        String phone = phoneTextField.getText();
-        String email = emailTextField.getText();
-        
-        try {
-            DatabaseConnection.getConnection().executeUpdate("INSERT INTO customer(customer_id, name, phone, email) VALUES ("+cid+", "+name+", "+phone+", "+email+")");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        
         
         //order_has table
         DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
-        String[] meals = null;
-        String[] drinks = null;
-        String[] desserts = null;
+        String[] meals = new String[100];
+        String[] drinks = new String[100];
+        String[] desserts = new String[100];
         
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal");
