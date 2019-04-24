@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -192,8 +194,36 @@ public class UserLogin extends javax.swing.JFrame {
     }
     
     public String usernameSender(){
-        String username = "Osusara Kammalawatta";  //usernameTextField.getText();
-        return username;   
+        int uid = useridSender();
+        String name = "";
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = '"+uid+"'");
+            if(rs.first()){
+                name = rs.getString("name");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return name;
+        //return "Osusara Kammalawatta";
+    }
+    
+    public int useridSender(){
+        String username = usernameTextField.getText();
+        int uid = 0;
+        
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
+            if(rs.first()){
+                uid = Integer.parseInt(rs.getString("user_id"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return uid;
+        //return 1;
     }
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
