@@ -192,38 +192,11 @@ public class UserLogin extends javax.swing.JFrame {
         }
         return size;
     }
-    
+
+    static String username;
     public String usernameSender(){
-        int uid = useridSender();
-        String name = "";
-        try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = '"+uid+"'");
-            if(rs.first()){
-                name = rs.getString("name");
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return name;
-        //return "Osusara Kammalawatta";
-    }
-    
-    public int useridSender(){
-        String username = usernameTextField.getText();
-        int uid = 0;
-        
-        try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
-            if(rs.first()){
-                uid = Integer.parseInt(rs.getString("user_id"));
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return uid;
-        //return 1;
+        //String username = usernameTextField.getText();
+        return username;
     }
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
@@ -234,7 +207,7 @@ public class UserLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
-        String username = usernameTextField.getText();
+        username = usernameTextField.getText();
         String password = passwordField.getText();
 
         try{
@@ -265,12 +238,6 @@ public class UserLogin extends javax.swing.JFrame {
             }
         }catch(Exception ex){
                 System.out.println(ex);
-        }
-        
-        if(true){
-            usernameSender();
-        }else{
-            
         }
     }//GEN-LAST:event_confirmButtonActionPerformed
 

@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
@@ -45,14 +47,32 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }
     
-    int uid;
-    public void userLoad(){
-        UserLogin l = new UserLogin();
-        uid = l.useridSender();
-        String username = l.usernameSender();
-        String name[] = username.split(" ");
+    public int userLoad(){
+        String username = new UserLogin().usernameSender();
+        System.out.println(username);
+        int uid = 0;
+        String name="";
         
-        hiLabel.setText("Hi, "+name[0]);
+        try {
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
+            if(rs1.first()){
+                uid = Integer.parseInt(rs1.getString("user_id"));
+            }
+            
+            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = '"+uid+"'");
+            if(rs2.first()){
+                name = rs2.getString("name");
+            }
+            
+            String nameA[] = name.split(" ");
+            
+            hiLabel.setText("Hi, "+nameA[0]);
+        } catch (Exception ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println(uid);
+        return uid;
     }
     
     public void dateTimeLoad(){
@@ -1414,6 +1434,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         String payment = recievedTextField.getText();
         if(!payment.isEmpty() && !payment.endsWith("LKR"))
         recievedTextField.setText(payment + " LKR");
+        
+        String[] t = totalTextField.getText().split(" ");
+        String total = t[0];
+        String balance = (Double.parseDouble(payment) - Double.parseDouble(total))+"";
+        balanceTextField.setText(balance+" LKR");
     }//GEN-LAST:event_recievedTextFieldFocusLost
 
     private void recievedTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_recievedTextFieldFocusGained
@@ -1429,9 +1454,8 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
-        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
 
-        //order table variables
+        //order table
         int oid = Integer.parseInt(oidLabel.getText());
         String date = java.time.LocalDateTime.now().toString();
         String[] t = totalTextField.getText().split(" ");
@@ -1439,23 +1463,120 @@ public class ManagerScreen extends javax.swing.JFrame {
         String[] s = recievedTextField.getText().split(" ");
         String payment = s[0];
         String balance = (Double.parseDouble(payment) - Double.parseDouble(total))+"";
-        int uid = this.uid;
-        
-        //customer table variables
         int cid = Integer.parseInt(cidLabel.getText());
+        int uid = userLoad();
+        
+        try {
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO restaurentsystem.order(order_id, date, total, recieved, balance, customer_id, user_id) VALUES ("+oid+", "+date+", "+total+", "+payment+", "+balance+", "+cid+", "+uid+")");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        //customer table
+        
         String name = nameTextField.getText();
         String phone = phoneTextField.getText();
         String email = emailTextField.getText();
         
-        //order_has_meal table variables
+        try {
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO customer(customer_id, name, phone, email) VALUES ("+cid+", "+name+", "+phone+", "+email+")");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         
         
-        //order_has_drink table variables
+        //order_has table
+        DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+        String[] meals = null;
+        String[] drinks = null;
+        String[] desserts = null;
         
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal");
+            int i = 0;
+            while(rs.next()){
+                meals[i] = rs.getString("name");
+                i++;
+            }
+        } catch (Exception e) {
+            System.out.println("A - "+e);
+        }
         
-        //order_has_dessert table variables
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink");
+            int i = 0;
+            while(rs.next()){
+                drinks[i] = rs.getString("name");
+                i++;
+            }
+        } catch (Exception e) {
+            System.out.println("A - "+e);
+        }
+        
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert");
+            int i = 0;
+            while(rs.next()){
+                desserts[i] = rs.getString("name");
+                i++;
+            }
+        } catch (Exception e) {
+            System.out.println("A - "+e);
+        }
+        
+        for (int i = 0; i < mealsTable.getRowCount(); i++) {
+            for (String meal : meals) {
+                if(dtm.getValueAt(i, 0).toString().equals(meal)){
+                    int mealid;
+                    int qty = Integer.parseInt(dtm.getValueAt(i, 1).toString());
+                    try {
+                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal WHERE name='"+meal+"'");
+                        if(rs.first()){
+                            mealid = Integer.parseInt(rs.getString("meal_id"));
+                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_meal(order_id, meal_id, qty) VALUES ("+oid+", "+mealid+", "+qty+")");
+                        }
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(ManagerScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            for (String drink : drinks) {
+                if(dtm.getValueAt(i, 0).equals(drink)){
+                    int drinkid;
+                    int qty = Integer.parseInt(dtm.getValueAt(i, 1).toString());
+                    try {
+                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink WHERE name='"+drink+"'");
+                        if(rs.first()){
+                            drinkid = Integer.parseInt(rs.getString("drink_id"));
+                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_drink(order_id, drink_id, qty) VALUES ("+oid+", "+drinkid+", "+qty+")");
+                        }
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(ManagerScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            for (String dessert : desserts) {
+                if(dtm.getValueAt(i, 0).equals(dessert)){
+                    int dessertid;
+                    int qty = Integer.parseInt(dtm.getValueAt(i, 1).toString());
+                    try {
+                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert WHERE name='"+dessert+"'");
+                        if(rs.first()){
+                            dessertid = Integer.parseInt(rs.getString("dessert_id"));
+                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_dessert(order_id, dessert_id, qty) VALUES ("+oid+", "+dessertid+", "+qty+")");
+                        }
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(ManagerScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
 
-        balanceTextField.setText(balance+" LKR");
+        //Other Functions
+        
 
         loadID();
     }//GEN-LAST:event_proceedButtonActionPerformed
