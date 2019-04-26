@@ -81,6 +81,7 @@ public class UserRegistration extends javax.swing.JFrame {
         usernameTextField.setToolTipText("<html>Enter a New Username <br>\nEg: brian001");
         usernameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         usernameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        usernameTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         usernameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernameTextFieldFocusGained(evt);
@@ -105,6 +106,7 @@ public class UserRegistration extends javax.swing.JFrame {
         passwordField.setText("New Password");
         passwordField.setToolTipText("<html>Enter a New Password <br>\nEg: bahd34da");
         passwordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        passwordField.setSelectionColor(new java.awt.Color(102, 153, 255));
         passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusGained(evt);
@@ -118,6 +120,7 @@ public class UserRegistration extends javax.swing.JFrame {
         confirmPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         confirmPasswordField.setText("Retype the Password");
         confirmPasswordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        confirmPasswordField.setSelectionColor(new java.awt.Color(102, 153, 255));
         confirmPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 confirmPasswordFieldFocusGained(evt);
@@ -135,6 +138,7 @@ public class UserRegistration extends javax.swing.JFrame {
         nameTextField.setToolTipText("<html>Enter Full Name <br>\nEg: Brain Adams");
         nameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         nameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        nameTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         nameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 nameTextFieldFocusGained(evt);
@@ -160,6 +164,7 @@ public class UserRegistration extends javax.swing.JFrame {
         genderTextField.setToolTipText("<html>Enter The Gender (m/f)<br>\nEg: m");
         genderTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         genderTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        genderTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         genderTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 genderTextFieldFocusGained(evt);
@@ -190,6 +195,7 @@ public class UserRegistration extends javax.swing.JFrame {
         dobTextField.setToolTipText("<html>Enter Date of Birth in (Date/Month/Year) Format<br>\nEg: 18/05/1996");
         dobTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         dobTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        dobTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         dobTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 dobTextFieldFocusGained(evt);
@@ -215,6 +221,7 @@ public class UserRegistration extends javax.swing.JFrame {
         phoneTextField.setToolTipText("<html>Enter Mobile/Phone Number <br>\nEg: 0740490459");
         phoneTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         phoneTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        phoneTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         phoneTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 phoneTextFieldFocusGained(evt);
@@ -240,6 +247,7 @@ public class UserRegistration extends javax.swing.JFrame {
         emailTextField.setToolTipText("<html>Enter Your Email <br>\nEg: brianadams@gmail.com");
         emailTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         emailTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        emailTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         emailTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 emailTextFieldFocusGained(evt);
@@ -265,6 +273,7 @@ public class UserRegistration extends javax.swing.JFrame {
         addressTextField.setToolTipText("<html>Enter Your Address <br>\nEg: 12/B, Main Street, LA");
         addressTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         addressTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        addressTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         addressTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 addressTextFieldFocusGained(evt);

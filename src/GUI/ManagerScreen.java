@@ -5,12 +5,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -30,6 +32,10 @@ public class ManagerScreen extends javax.swing.JFrame {
         userLoad();
         dateTimeLoad();
         loadID();
+        userListLoad();
+        
+        confirmationPasswordField.setEchoChar((char)0);
+        confirmationPasswordField.setForeground(Color.gray);
     }
     
     public void loadID() {
@@ -84,6 +90,24 @@ public class ManagerScreen extends javax.swing.JFrame {
             hiLabel.setText("Hi, "+nameA[0]);
         } catch (Exception ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void userListLoad(){
+        DefaultListModel dlm = new DefaultListModel();
+        String type = null;
+        try {
+            Statement s = DatabaseConnection.getConnection();
+            ResultSet rs = s.executeQuery("SELECT * FROM user;");
+            while(rs.next()){
+                String uid = rs.getString("user_id");
+                String userName = rs.getString("name");
+                String listItem = uid +" | "+ userName;
+                dlm.addElement(listItem);
+            }
+            userList.setModel(dlm);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
     
@@ -176,6 +200,18 @@ public class ManagerScreen extends javax.swing.JFrame {
         emailTextField.setText(null);
     }
     
+    public static int getResultSetRowCount(ResultSet resultSet){
+        int size = 0;
+        try{
+            resultSet.last();
+            size = resultSet.getRow();
+            resultSet.beforeFirst();
+        }catch(SQLException ex){
+            return 0;
+        }
+        return size;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -260,15 +296,49 @@ public class ManagerScreen extends javax.swing.JFrame {
         cidLabel = new javax.swing.JLabel();
         orderNoLabel1 = new javax.swing.JLabel();
         userManagementPanel = new javax.swing.JPanel();
-        userRegisterButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        userListScrollPane = new javax.swing.JScrollPane();
+        userList = new javax.swing.JList<>();
+        userListLabel = new javax.swing.JLabel();
+        userDetailsPanel = new javax.swing.JPanel();
+        dobInUMLabel = new javax.swing.JLabel();
+        addressInUMLabel = new javax.swing.JLabel();
+        emailInUMLabel = new javax.swing.JLabel();
+        phoneInUMLabel = new javax.swing.JLabel();
+        genderInUMLabel = new javax.swing.JLabel();
+        nameInUMLabel = new javax.swing.JLabel();
+        addressInUMTextField = new javax.swing.JTextField();
+        emailInUMTextField = new javax.swing.JTextField();
+        phoneInUMTextField = new javax.swing.JTextField();
+        dobInUMTextField = new javax.swing.JTextField();
+        genderInUMTextField = new javax.swing.JTextField();
+        nameInUMTextField = new javax.swing.JTextField();
+        usernameInUMTextField = new javax.swing.JTextField();
+        orderNoLabel2 = new javax.swing.JLabel();
+        uidInUMLabel = new javax.swing.JLabel();
+        usernameInUMLabel = new javax.swing.JLabel();
+        inUMPasswordField = new javax.swing.JPasswordField();
+        passwordInUMLabel = new javax.swing.JLabel();
+        inUMConfirmPasswordField = new javax.swing.JPasswordField();
+        passwordInUMLabel1 = new javax.swing.JLabel();
+        managementInUMCheckBox = new javax.swing.JCheckBox();
+        editInUMToggleButton = new javax.swing.JToggleButton();
+        activeInUMCheckBox = new javax.swing.JCheckBox();
+        userDetailsLabel = new javax.swing.JLabel();
+        controlPanel = new javax.swing.JPanel();
+        confirmationPasswordField = new javax.swing.JPasswordField();
+        saveUserButton = new javax.swing.JButton();
+        addUserButton = new javax.swing.JButton();
+        userListLabel1 = new javax.swing.JLabel();
+        saveUserButton1 = new javax.swing.JButton();
+        searchInUMTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
         mainPanel.setBackground(new java.awt.Color(51, 51, 51));
@@ -320,7 +390,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addComponent(dateLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                 .addComponent(logoutButton)
                 .addGap(35, 35, 35))
         );
@@ -389,6 +459,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         cheeseBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cheeseBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         cheeseBurgerCount.setEnabled(false);
+        cheeseBurgerCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         cheeseBurgerCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cheeseBurgerCountFocusLost(evt);
@@ -409,6 +480,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         chickenBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chickenBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chickenBurgerCount.setEnabled(false);
+        chickenBurgerCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         chickenBurgerCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 chickenBurgerCountFocusLost(evt);
@@ -429,6 +501,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         beefBurgerCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         beefBurgerCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         beefBurgerCount.setEnabled(false);
+        beefBurgerCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         beefBurgerCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 beefBurgerCountFocusLost(evt);
@@ -449,6 +522,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         vegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         vegSubmarineCount.setEnabled(false);
+        vegSubmarineCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         vegSubmarineCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 vegSubmarineCountFocusLost(evt);
@@ -469,6 +543,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         nonvegSubmarineCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nonvegSubmarineCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         nonvegSubmarineCount.setEnabled(false);
+        nonvegSubmarineCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         nonvegSubmarineCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nonvegSubmarineCountFocusLost(evt);
@@ -507,6 +582,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         frenchFriesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         frenchFriesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         frenchFriesCount.setEnabled(false);
+        frenchFriesCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         frenchFriesCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 frenchFriesCountFocusLost(evt);
@@ -527,6 +603,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         chickenNuggetsCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chickenNuggetsCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chickenNuggetsCount.setEnabled(false);
+        chickenNuggetsCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         chickenNuggetsCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 chickenNuggetsCountFocusLost(evt);
@@ -681,6 +758,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         cocacolaSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cocacolaSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         cocacolaSCount.setEnabled(false);
+        cocacolaSCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         cocacolaSCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cocacolaSCountFocusLost(evt);
@@ -701,6 +779,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         cocacolaLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cocacolaLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         cocacolaLCount.setEnabled(false);
+        cocacolaLCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         cocacolaLCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cocacolaLCountFocusLost(evt);
@@ -721,6 +800,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         spriteSCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         spriteSCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         spriteSCount.setEnabled(false);
+        spriteSCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         spriteSCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 spriteSCountFocusLost(evt);
@@ -741,6 +821,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         spriteLCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         spriteLCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         spriteLCount.setEnabled(false);
+        spriteLCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         spriteLCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 spriteLCountFocusLost(evt);
@@ -761,6 +842,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         milkShakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         milkShakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         milkShakeCount.setEnabled(false);
+        milkShakeCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         milkShakeCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 milkShakeCountFocusLost(evt);
@@ -781,6 +863,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         hotChocolateCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         hotChocolateCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         hotChocolateCount.setEnabled(false);
+        hotChocolateCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         hotChocolateCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 hotChocolateCountFocusLost(evt);
@@ -801,6 +884,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         iceCoffeeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         iceCoffeeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         iceCoffeeCount.setEnabled(false);
+        iceCoffeeCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         iceCoffeeCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 iceCoffeeCountFocusLost(evt);
@@ -940,6 +1024,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         vanilaSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vanilaSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         vanilaSundaesCount.setEnabled(false);
+        vanilaSundaesCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         vanilaSundaesCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 vanilaSundaesCountFocusLost(evt);
@@ -960,6 +1045,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         chocolateSundaesCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chocolateSundaesCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chocolateSundaesCount.setEnabled(false);
+        chocolateSundaesCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         chocolateSundaesCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 chocolateSundaesCountFocusLost(evt);
@@ -980,6 +1066,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         lavaCakeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lavaCakeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         lavaCakeCount.setEnabled(false);
+        lavaCakeCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         lavaCakeCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 lavaCakeCountFocusLost(evt);
@@ -1000,6 +1087,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         vanilaConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         vanilaConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         vanilaConeCount.setEnabled(false);
+        vanilaConeCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         vanilaConeCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 vanilaConeCountFocusLost(evt);
@@ -1020,6 +1108,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         chocolateConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         chocolateConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         chocolateConeCount.setEnabled(false);
+        chocolateConeCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         chocolateConeCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 chocolateConeCountFocusLost(evt);
@@ -1040,6 +1129,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         strawberryConeCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         strawberryConeCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         strawberryConeCount.setEnabled(false);
+        strawberryConeCount.setSelectionColor(new java.awt.Color(102, 153, 255));
         strawberryConeCount.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 strawberryConeCountFocusLost(evt);
@@ -1124,6 +1214,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         ));
         mealsTable.setGridColor(new java.awt.Color(153, 153, 153));
+        mealsTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
         mealsTable.setShowHorizontalLines(false);
         mealsTable.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
@@ -1149,10 +1240,12 @@ public class ManagerScreen extends javax.swing.JFrame {
         serviceChargesTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         serviceChargesTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         serviceChargesTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        serviceChargesTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
 
         totalTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         totalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         totalTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        totalTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
 
         totalLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         totalLabel.setText("Total");
@@ -1190,6 +1283,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         recievedTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         recievedTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         recievedTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        recievedTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         recievedTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 recievedTextFieldFocusGained(evt);
@@ -1207,6 +1301,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         balanceTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         balanceTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         balanceTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        balanceTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
 
         recievedLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         recievedLabel.setText("Payment");
@@ -1220,6 +1315,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         emailTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         emailTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         emailTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        emailTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
 
         emailLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         emailLabel.setText("Email");
@@ -1230,6 +1326,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         phoneTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         phoneTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         phoneTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        phoneTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         phoneTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 phoneTextFieldKeyTyped(evt);
@@ -1239,6 +1336,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         nameTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         nameTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        nameTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
 
         customerNameLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         customerNameLabel.setText("Name");
@@ -1345,7 +1443,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(mealsPanelLayout.createSequentialGroup()
-                        .addComponent(proceedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(proceedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(dessertPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1424,49 +1522,420 @@ public class ManagerScreen extends javax.swing.JFrame {
         userManagementPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         userManagementPanel.setInheritsPopupMenu(true);
 
-        userRegisterButton.setBackground(new java.awt.Color(255, 255, 255));
-        userRegisterButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        userRegisterButton.setForeground(new java.awt.Color(51, 51, 51));
-        userRegisterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/addUser.png"))); // NOI18N
-        userRegisterButton.setText("Add User");
-        userRegisterButton.setBorderPainted(false);
-        userRegisterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userRegisterButtonActionPerformed(evt);
+        userList.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        userList.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        userList.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                userListFocusGained(evt);
+            }
+        });
+        userList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userListMouseClicked(evt);
+            }
+        });
+        userListScrollPane.setViewportView(userList);
+
+        userListLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        userListLabel.setText("Users List");
+
+        userDetailsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        userDetailsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+
+        dobInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        dobInUMLabel.setText("DoB");
+
+        addressInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        addressInUMLabel.setText("Address");
+
+        emailInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        emailInUMLabel.setText("Email");
+
+        phoneInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        phoneInUMLabel.setText("Phone");
+
+        genderInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        genderInUMLabel.setText("Gender");
+
+        nameInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        nameInUMLabel.setText("Name");
+
+        addressInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        addressInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        addressInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        addressInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        addressInUMTextField.setEnabled(false);
+        addressInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+
+        emailInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        emailInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        emailInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        emailInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        emailInUMTextField.setEnabled(false);
+        emailInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+
+        phoneInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        phoneInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        phoneInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        phoneInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        phoneInUMTextField.setEnabled(false);
+        phoneInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        phoneInUMTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneInUMTextFieldKeyTyped(evt);
             }
         });
 
-        jList1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "User's Names 1", "User's Names 2", "User's Names 3", "User's Names 4" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        dobInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        dobInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dobInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        dobInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        dobInUMTextField.setEnabled(false);
+        dobInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+
+        genderInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        genderInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        genderInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        genderInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        genderInUMTextField.setEnabled(false);
+        genderInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        genderInUMTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                genderInUMTextFieldFocusLost(evt);
+            }
         });
-        jScrollPane2.setViewportView(jList1);
+
+        nameInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        nameInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nameInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        nameInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        nameInUMTextField.setEnabled(false);
+        nameInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+
+        usernameInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        usernameInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernameInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        usernameInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        usernameInUMTextField.setEnabled(false);
+        usernameInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+
+        orderNoLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        orderNoLabel2.setText("User ID");
+
+        uidInUMLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        uidInUMLabel.setText("0");
+
+        usernameInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        usernameInUMLabel.setText("Username");
+
+        inUMPasswordField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        inUMPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inUMPasswordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        inUMPasswordField.setEnabled(false);
+
+        passwordInUMLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        passwordInUMLabel.setText("Password");
+
+        inUMConfirmPasswordField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        inUMConfirmPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inUMConfirmPasswordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        inUMConfirmPasswordField.setEnabled(false);
+
+        passwordInUMLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        passwordInUMLabel1.setText("Confirm");
+
+        managementInUMCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        managementInUMCheckBox.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        managementInUMCheckBox.setText("Management Access");
+        managementInUMCheckBox.setToolTipText("Check If the User is a Person in Managerial Level");
+        managementInUMCheckBox.setBorder(null);
+        managementInUMCheckBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        managementInUMCheckBox.setEnabled(false);
+        managementInUMCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        managementInUMCheckBox.setIconTextGap(5);
+
+        editInUMToggleButton.setBackground(new java.awt.Color(255, 255, 255));
+        editInUMToggleButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        editInUMToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/editUser.png"))); // NOI18N
+        editInUMToggleButton.setText("Edit");
+        editInUMToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editInUMToggleButtonActionPerformed(evt);
+            }
+        });
+
+        activeInUMCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        activeInUMCheckBox.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        activeInUMCheckBox.setText("Active");
+        activeInUMCheckBox.setToolTipText("Check If the User is a Person in Managerial Level");
+        activeInUMCheckBox.setBorder(null);
+        activeInUMCheckBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        activeInUMCheckBox.setEnabled(false);
+        activeInUMCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        activeInUMCheckBox.setIconTextGap(5);
+
+        javax.swing.GroupLayout userDetailsPanelLayout = new javax.swing.GroupLayout(userDetailsPanel);
+        userDetailsPanel.setLayout(userDetailsPanelLayout);
+        userDetailsPanelLayout.setHorizontalGroup(
+            userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                        .addComponent(orderNoLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(uidInUMLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                        .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameInUMLabel)
+                            .addComponent(genderInUMLabel)
+                            .addComponent(phoneInUMLabel)
+                            .addComponent(emailInUMLabel)
+                            .addComponent(addressInUMLabel))
+                        .addGap(8, 8, 8)
+                        .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneInUMTextField)
+                            .addComponent(emailInUMTextField)
+                            .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                                        .addComponent(genderInUMTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dobInUMLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(dobInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(nameInUMTextField, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(addressInUMTextField)))
+                    .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                        .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(usernameInUMLabel)
+                                .addComponent(passwordInUMLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(passwordInUMLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inUMPasswordField)
+                            .addComponent(usernameInUMTextField)
+                            .addComponent(inUMConfirmPasswordField)))
+                    .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                        .addComponent(managementInUMCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(activeInUMCheckBox)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userDetailsPanelLayout.createSequentialGroup()
+                .addContainerGap(155, Short.MAX_VALUE)
+                .addComponent(editInUMToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(149, 149, 149))
+        );
+        userDetailsPanelLayout.setVerticalGroup(
+            userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userDetailsPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderNoLabel2)
+                    .addComponent(uidInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genderInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(genderInUMLabel)
+                    .addComponent(dobInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dobInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phoneInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addressInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addressInUMLabel))
+                .addGap(41, 41, 41)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inUMPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordInUMLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inUMConfirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordInUMLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managementInUMCheckBox)
+                    .addComponent(activeInUMCheckBox))
+                .addGap(18, 18, 18)
+                .addComponent(editInUMToggleButton)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        userDetailsLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        userDetailsLabel.setText("User Details");
+
+        controlPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        confirmationPasswordField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        confirmationPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        confirmationPasswordField.setText("Confirmation Password");
+        confirmationPasswordField.setToolTipText("<html>To Confirm the Changes, Enter Your Password <br>\nEg: fdsf34g");
+        confirmationPasswordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        confirmationPasswordField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        confirmationPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                confirmationPasswordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                confirmationPasswordFieldFocusLost(evt);
+            }
+        });
+
+        saveUserButton.setBackground(new java.awt.Color(255, 255, 255));
+        saveUserButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        saveUserButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/saveUser.png"))); // NOI18N
+        saveUserButton.setText("Save");
+        saveUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveUserButtonActionPerformed(evt);
+            }
+        });
+
+        addUserButton.setBackground(new java.awt.Color(255, 255, 255));
+        addUserButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        addUserButton.setForeground(new java.awt.Color(51, 51, 51));
+        addUserButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/addUser.png"))); // NOI18N
+        addUserButton.setText("Add");
+        addUserButton.setBorderPainted(false);
+        addUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserButtonActionPerformed(evt);
+            }
+        });
+
+        userListLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        userListLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userListLabel1.setText("Enter your password to take an action");
+
+        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
+        controlPanel.setLayout(controlPanelLayout);
+        controlPanelLayout.setHorizontalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmationPasswordField)
+                    .addGroup(controlPanelLayout.createSequentialGroup()
+                        .addComponent(userListLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(controlPanelLayout.createSequentialGroup()
+                        .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        controlPanelLayout.setVerticalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(userListLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(confirmationPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addUserButton)
+                    .addComponent(saveUserButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        saveUserButton1.setBackground(new java.awt.Color(255, 255, 255));
+        saveUserButton1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        saveUserButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
+        saveUserButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveUserButton1ActionPerformed(evt);
+            }
+        });
+
+        searchInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        searchInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        searchInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        searchInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        searchInUMTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchInUMTextFieldKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/search.png"))); // NOI18N
 
         javax.swing.GroupLayout userManagementPanelLayout = new javax.swing.GroupLayout(userManagementPanel);
         userManagementPanel.setLayout(userManagementPanelLayout);
         userManagementPanelLayout.setHorizontalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(userRegisterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(816, 816, 816))
+            .addGroup(userManagementPanelLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(userListLabel)
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(saveUserButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(controlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(userDetailsLabel)
+                        .addGap(378, 378, 378))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(userDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(40, Short.MAX_VALUE))))
         );
         userManagementPanelLayout.setVerticalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(userRegisterButton)
-                .addGap(56, 56, 56)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
+                        .addComponent(userDetailsLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
+                        .addComponent(userListLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userManagementPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(saveUserButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(24, 24, 24))
+                            .addGroup(userManagementPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(searchInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(controlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(53, 53, 53))
         );
 
         navPanel.addTab("User Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/userManagement.png")), userManagementPanel); // NOI18N
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1480,7 +1949,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             .addGap(0, 658, Short.MAX_VALUE)
         );
 
-        navPanel.addTab("Help", new javax.swing.ImageIcon(getClass().getResource("/Resources/help.png")), jPanel2); // NOI18N
+        navPanel.addTab("Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), jPanel2); // NOI18N
 
         navPanel.setSelectedIndex(0);
 
@@ -1495,7 +1964,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(navPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(sidePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -1516,9 +1985,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userRegisterButtonActionPerformed
+    private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
         new UserRegistration().setVisible(true);
-    }//GEN-LAST:event_userRegisterButtonActionPerformed
+    }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         if(JOptionPane.showConfirmDialog(this, "Do you really want to log out?", "Order Screen", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
@@ -3569,6 +4038,214 @@ public class ManagerScreen extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_phoneTextFieldKeyTyped
+
+    private void userListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userListFocusGained
+        
+    }//GEN-LAST:event_userListFocusGained
+
+    private void userListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userListMouseClicked
+        String selectedUser = userList.getSelectedValue();
+        String su[] = selectedUser.split(" ");
+        int selectedUserID = Integer.parseInt(su[0]);
+        
+        try {
+            String name = "";
+            String gender = "";
+            String dob = "";
+            String phone= "";
+            String email = "";
+            String address = "";
+            String username = "";
+            String type = "";
+            int status = 0;
+            
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = "+selectedUserID+"");
+            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = "+selectedUserID+"");
+            
+            while(rs1.next()){
+                name = rs1.getString("name");
+                gender = rs1.getString("gender");
+                dob = rs1.getString("dob");
+                phone = rs1.getString("phone");
+                email = rs1.getString("email");
+                address = rs1.getString("address");
+            }
+            
+            while(rs2.next()){
+                username = rs2.getString("username");
+                type = rs2.getString("type");
+                status = Integer.parseInt(rs2.getString("status"));
+                
+            }
+            
+            uidInUMLabel.setText(selectedUserID+"");
+            nameInUMTextField.setText(name);
+            genderInUMTextField.setText(gender);
+            dobInUMTextField.setText(dob);
+            phoneInUMTextField.setText(phone);
+            emailInUMTextField.setText(email);
+            addressInUMTextField.setText(address);
+            usernameInUMTextField.setText(username);
+            managementInUMCheckBox.setSelected(type.equals("Manager") ? true : false);
+            activeInUMCheckBox.setSelected(status == 1 ? true : false);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_userListMouseClicked
+
+    private void confirmationPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmationPasswordFieldFocusGained
+        confirmationPasswordField.setText(null);
+        confirmationPasswordField.setEchoChar('●');
+        confirmationPasswordField.setForeground(Color.black);
+    }//GEN-LAST:event_confirmationPasswordFieldFocusGained
+
+    private void confirmationPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmationPasswordFieldFocusLost
+        if(confirmationPasswordField.getText().isEmpty()){
+            confirmationPasswordField.setForeground(Color.gray);
+            confirmationPasswordField.setEchoChar((char)0);
+            confirmationPasswordField.setText("Confirm Password");
+        }
+    }//GEN-LAST:event_confirmationPasswordFieldFocusLost
+
+    private void editInUMToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInUMToggleButtonActionPerformed
+        if(editInUMToggleButton.isSelected()){
+            nameInUMTextField.setEnabled(true);
+            genderInUMTextField.setEnabled(true);
+            dobInUMTextField.setEnabled(true);
+            phoneInUMTextField.setEnabled(true);
+            emailInUMTextField.setEnabled(true);
+            addressInUMTextField.setEnabled(true);
+            usernameInUMTextField.setEnabled(true);
+            inUMPasswordField.setEnabled(true);
+            inUMConfirmPasswordField.setEnabled(true);
+            managementInUMCheckBox.setEnabled(true);
+            activeInUMCheckBox.setEnabled(true);
+        }else{
+            nameInUMTextField.setEnabled(false);
+            genderInUMTextField.setEnabled(false);
+            dobInUMTextField.setEnabled(false);
+            phoneInUMTextField.setEnabled(false);
+            emailInUMTextField.setEnabled(false);
+            addressInUMTextField.setEnabled(false);
+            usernameInUMTextField.setEnabled(false);
+            inUMPasswordField.setEnabled(false);
+            inUMConfirmPasswordField.setEnabled(false);
+            managementInUMCheckBox.setEnabled(false);
+            activeInUMCheckBox.setEnabled(false);
+        }
+    }//GEN-LAST:event_editInUMToggleButtonActionPerformed
+
+    private void saveUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButtonActionPerformed
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = "+useridLoad()+" AND password = '"+confirmationPasswordField.getText()+"'");
+            if(getResultSetRowCount(rs) == 1){
+                int uid = Integer.parseInt(uidInUMLabel.getText());
+                String name = nameInUMTextField.getText();
+                String gender = genderInUMTextField.getText();
+                String dob = dobInUMTextField.getText();
+                String phone = phoneInUMTextField.getText();
+                String email = emailInUMTextField.getText();
+                String address = addressInUMTextField.getText();
+                String username = usernameInUMTextField.getText();
+                String password = inUMPasswordField.getText();
+                String confirm = inUMConfirmPasswordField.getText();
+                boolean access = managementInUMCheckBox.isSelected();
+                boolean status = activeInUMCheckBox.isSelected();
+                
+                if(!name.isEmpty())
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET name='"+name+"' WHERE user_id="+uid+"");
+                if(!gender.isEmpty())
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET gender='"+gender+"' WHERE user_id="+uid+"");
+                if(!dob.isEmpty())
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET dob='"+dob+"' WHERE user_id="+uid+"");
+                if(!phone.isEmpty())
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET phone='"+phone+"' WHERE user_id="+uid+"");
+                if(!email.isEmpty())
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET email='"+email+"' WHERE user_id="+uid+"");
+                if(!address.isEmpty())
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET address='"+address+"' WHERE user_id="+uid+"");
+                
+                if(!username.isEmpty()){
+                    ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
+                    if(getResultSetRowCount(rs1) == 0){
+                        DatabaseConnection.getConnection().executeUpdate("UPDATE login SET username='"+username+"' WHERE user_id="+uid+"");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Username Already Exist");
+                    }
+                }
+                
+                if(!password.isEmpty()){
+                    if(password.equals(confirm)){
+                        DatabaseConnection.getConnection().executeUpdate("UPDATE login SET password='"+password+"' WHERE user_id="+uid+"");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Passwords Are Not Match");
+                    }
+                }
+                
+                if(access){
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET type='Manager' WHERE user_id="+uid+"");
+                }else{
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET type='Cashier' WHERE user_id="+uid+"");
+                }
+                
+                if(status){
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET status=1 WHERE user_id="+uid+"");
+                }else{
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET status=0 WHERE user_id="+uid+"");
+                }
+                
+                
+                JOptionPane.showMessageDialog(this, "User Information Updated");
+                confirmationPasswordField.setForeground(Color.gray);
+                confirmationPasswordField.setEchoChar((char)0);
+                confirmationPasswordField.setText("Confirm Password");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_saveUserButtonActionPerformed
+
+    private void genderInUMTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_genderInUMTextFieldFocusLost
+        if (genderInUMTextField.getText().equals("m") || genderInUMTextField.getText().equals("M")) {
+            genderInUMTextField.setText("Male");
+        } else if (genderInUMTextField.getText().equals("f") || genderInUMTextField.getText().equals("F")) {
+            genderInUMTextField.setText("Female");
+        }
+    }//GEN-LAST:event_genderInUMTextFieldFocusLost
+
+    private void phoneInUMTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneInUMTextFieldKeyTyped
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            evt.consume();
+        }
+
+        int i = phoneInUMTextField.getText().length();
+        if (i == 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_phoneInUMTextFieldKeyTyped
+
+    private void saveUserButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButton1ActionPerformed
+        userListLoad();
+    }//GEN-LAST:event_saveUserButton1ActionPerformed
+
+    private void searchInUMTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchInUMTextFieldKeyTyped
+        DefaultListModel dlm = new DefaultListModel();
+        String s = searchInUMTextField.getText();
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE name LIKE '%"+s+"%'");
+            while(rs.next()){
+                String uid = rs.getString("user_id");
+                String userName = rs.getString("name");
+                String listItem = uid +" | "+ userName;
+                dlm.addElement(listItem);
+            }
+            userList.setModel(dlm);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_searchInUMTextFieldKeyTyped
   
     /**
      * @param args the command line arguments
@@ -3606,6 +4283,10 @@ public class ManagerScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox activeInUMCheckBox;
+    private javax.swing.JButton addUserButton;
+    private javax.swing.JLabel addressInUMLabel;
+    private javax.swing.JTextField addressInUMTextField;
     private javax.swing.JLabel balanceLabel;
     private javax.swing.JTextField balanceTextField;
     private javax.swing.JCheckBox beefBurger;
@@ -3628,37 +4309,50 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField cocacolaLCount;
     private javax.swing.JCheckBox cocacolaS;
     private javax.swing.JTextField cocacolaSCount;
+    private javax.swing.JPasswordField confirmationPasswordField;
+    private javax.swing.JPanel controlPanel;
     private javax.swing.JLabel customerIDLabel;
     private javax.swing.JLabel customerNameLabel;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel dessertLabel;
     private javax.swing.JPanel dessertPanel;
+    private javax.swing.JLabel dobInUMLabel;
+    private javax.swing.JTextField dobInUMTextField;
     private javax.swing.JLabel drinksLabel;
     private javax.swing.JPanel drinksPanel;
+    private javax.swing.JToggleButton editInUMToggleButton;
+    private javax.swing.JLabel emailInUMLabel;
+    private javax.swing.JTextField emailInUMTextField;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JCheckBox frenchFries;
     private javax.swing.JTextField frenchFriesCount;
+    private javax.swing.JLabel genderInUMLabel;
+    private javax.swing.JTextField genderInUMTextField;
     private javax.swing.JLabel hiLabel;
     private javax.swing.JCheckBox hotChocolate;
     private javax.swing.JTextField hotChocolateCount;
     private javax.swing.JCheckBox iceCoffee;
     private javax.swing.JTextField iceCoffeeCount;
     private javax.swing.JLabel imageLabel;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JPasswordField inUMConfirmPasswordField;
+    private javax.swing.JPasswordField inUMPasswordField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox lavaCake;
     private javax.swing.JTextField lavaCakeCount;
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel makeOrdersPanel;
+    private javax.swing.JCheckBox managementInUMCheckBox;
     private javax.swing.JPanel mealsPanel;
     private javax.swing.JScrollPane mealsTabelPanel;
     private javax.swing.JTable mealsTable;
     private javax.swing.JCheckBox milkShake;
     private javax.swing.JTextField milkShakeCount;
+    private javax.swing.JLabel nameInUMLabel;
+    private javax.swing.JTextField nameInUMTextField;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTabbedPane navPanel;
     private javax.swing.JCheckBox nonvegSubmarine;
@@ -3666,11 +4360,19 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel oidLabel;
     private javax.swing.JLabel orderNoLabel;
     private javax.swing.JLabel orderNoLabel1;
+    private javax.swing.JLabel orderNoLabel2;
+    private javax.swing.JLabel passwordInUMLabel;
+    private javax.swing.JLabel passwordInUMLabel1;
+    private javax.swing.JLabel phoneInUMLabel;
+    private javax.swing.JTextField phoneInUMTextField;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JButton proceedButton;
     private javax.swing.JLabel recievedLabel;
     private javax.swing.JTextField recievedTextField;
+    private javax.swing.JButton saveUserButton;
+    private javax.swing.JButton saveUserButton1;
+    private javax.swing.JTextField searchInUMTextField;
     private javax.swing.JLabel serviceChargesLabel;
     private javax.swing.JTextField serviceChargesTextField;
     private javax.swing.JPanel sidePanel;
@@ -3682,8 +4384,16 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField strawberryConeCount;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JTextField totalTextField;
+    private javax.swing.JLabel uidInUMLabel;
+    private javax.swing.JLabel userDetailsLabel;
+    private javax.swing.JPanel userDetailsPanel;
+    private javax.swing.JList<String> userList;
+    private javax.swing.JLabel userListLabel;
+    private javax.swing.JLabel userListLabel1;
+    private javax.swing.JScrollPane userListScrollPane;
     private javax.swing.JPanel userManagementPanel;
-    private javax.swing.JButton userRegisterButton;
+    private javax.swing.JLabel usernameInUMLabel;
+    private javax.swing.JTextField usernameInUMTextField;
     private javax.swing.JCheckBox vanilaCone;
     private javax.swing.JTextField vanilaConeCount;
     private javax.swing.JCheckBox vanilaSundaes;

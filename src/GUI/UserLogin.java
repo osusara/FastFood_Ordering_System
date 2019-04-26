@@ -62,6 +62,7 @@ public class UserLogin extends javax.swing.JFrame {
         usernameTextField.setToolTipText("<html>Enter Your Username <br>\nEg: brian001");
         usernameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         usernameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        usernameTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
         usernameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernameTextFieldFocusGained(evt);
@@ -86,6 +87,7 @@ public class UserLogin extends javax.swing.JFrame {
         passwordField.setText("Password");
         passwordField.setToolTipText("<html>Enter Your Password <br>\nEg: fdsf34g");
         passwordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        passwordField.setSelectionColor(new java.awt.Color(102, 153, 255));
         passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusGained(evt);
@@ -99,7 +101,6 @@ public class UserLogin extends javax.swing.JFrame {
         confirmButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Login");
-        confirmButton.setBorder(null);
         confirmButton.setBorderPainted(false);
         confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmButton.setPreferredSize(new java.awt.Dimension(50, 23));
@@ -118,7 +119,6 @@ public class UserLogin extends javax.swing.JFrame {
         exitButton.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         exitButton.setForeground(new java.awt.Color(255, 255, 255));
         exitButton.setText("Exit");
-        exitButton.setBorder(null);
         exitButton.setBorderPainted(false);
         exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitButton.addActionListener(new java.awt.event.ActionListener() {
