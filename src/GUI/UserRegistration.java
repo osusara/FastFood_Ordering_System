@@ -301,9 +301,10 @@ public class UserRegistration extends javax.swing.JFrame {
         idLabel.setText("0");
         idLabel.setToolTipText("User's ID (Auto Generated)");
 
-        confirmButton.setBackground(new java.awt.Color(0, 102, 255));
+        confirmButton.setBackground(new java.awt.Color(30, 140, 50));
         confirmButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        confirmButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ok.png"))); // NOI18N
         confirmButton.setText("Confirm");
         confirmButton.setBorderPainted(false);
         confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -318,10 +319,11 @@ public class UserRegistration extends javax.swing.JFrame {
             }
         });
 
-        cancelButton.setBackground(new java.awt.Color(255, 51, 51));
+        cancelButton.setBackground(new java.awt.Color(255, 50, 30));
         cancelButton.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         cancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        cancelButton.setText("Cancel");
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cancel.png"))); // NOI18N
+        cancelButton.setText("Close");
         cancelButton.setBorderPainted(false);
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -398,10 +400,10 @@ public class UserRegistration extends javax.swing.JFrame {
                     .addComponent(userIDLabel)
                     .addComponent(idLabel))
                 .addGap(18, 18, 18)
-                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(cancelButton)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -412,7 +414,7 @@ public class UserRegistration extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
         );
 
         pack();
@@ -623,11 +625,13 @@ public class UserRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.dispose();
+        if(JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "User Registration", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+            this.dispose();
+        }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void nameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameTextFieldFocusGained
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nameTextFieldFocusGained
 
     private void nameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameTextFieldFocusLost

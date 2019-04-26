@@ -98,10 +98,11 @@ public class UserLogin extends javax.swing.JFrame {
         confirmButton.setBackground(new java.awt.Color(0, 102, 255));
         confirmButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
-        confirmButton.setText("Confirm");
+        confirmButton.setText("Login");
         confirmButton.setBorder(null);
         confirmButton.setBorderPainted(false);
         confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        confirmButton.setPreferredSize(new java.awt.Dimension(50, 23));
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 confirmButtonMouseEntered(evt);
@@ -149,7 +150,7 @@ public class UserLogin extends javax.swing.JFrame {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleLabel)
@@ -158,9 +159,9 @@ public class UserLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
@@ -172,7 +173,7 @@ public class UserLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
         );
 
         pack();
@@ -200,7 +201,7 @@ public class UserLogin extends javax.swing.JFrame {
     }
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "Login", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+        if(JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "User Login", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
             System.exit(0);
         }
         
@@ -212,7 +213,7 @@ public class UserLogin extends javax.swing.JFrame {
 
         try{
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM login WHERE username='"+username+"' and password='"+password+"' and type='Manager' and status='1';");
+            ResultSet rs = s.executeQuery("SELECT * FROM login WHERE username='"+username+"' and password='"+password+"' and status='1';");
             if(getResultSetRowCount(rs) == 1){
                 new ManagerScreen().setVisible(true);
                 this.dispose();
