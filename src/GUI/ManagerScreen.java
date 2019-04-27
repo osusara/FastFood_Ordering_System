@@ -1,6 +1,7 @@
 package GUI;
 
 import Database.DatabaseConnection;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -34,12 +35,13 @@ public class ManagerScreen extends javax.swing.JFrame {
         dateTimeLoad();
         loadID();
         userListLoad();
-        
-        confirmationPasswordField.setEchoChar((char)0);
+        analyticsDataLoad();
+
+        confirmationPasswordField.setEchoChar((char) 0);
         confirmationPasswordField.setForeground(Color.gray);
         searchInUMTextField.setForeground(Color.gray);
     }
-    
+
     public void loadID() {
         try {
             ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('order_id') AS C FROM `restaurentsystem`.`order`");
@@ -56,55 +58,56 @@ public class ManagerScreen extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
-    
-    public int useridLoad(){
+
+    public int useridLoad() {
         String username = new UserLogin().usernameSender();
         int uid = 0;
         try {
-            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
-            if(rs1.first())
-            uid = Integer.parseInt(rs1.getString("user_id"));
-        } catch (Exception ex) {
-            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return uid;
-    }
-    
-    public void userLoad(){
-        String username = new UserLogin().usernameSender();
-        int uid = 0;
-        String name="";
-        
-        try {
-            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
-            if(rs1.first()){
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '" + username + "'");
+            if (rs1.first()) {
                 uid = Integer.parseInt(rs1.getString("user_id"));
             }
-            
-            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = '"+uid+"'");
-            if(rs2.first()){
+        } catch (Exception ex) {
+            Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return uid;
+    }
+
+    public void userLoad() {
+        String username = new UserLogin().usernameSender();
+        int uid = 0;
+        String name = "";
+
+        try {
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '" + username + "'");
+            if (rs1.first()) {
+                uid = Integer.parseInt(rs1.getString("user_id"));
+            }
+
+            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = '" + uid + "'");
+            if (rs2.first()) {
                 name = rs2.getString("name");
             }
-            
+
             String nameA[] = name.split(" ");
-            
-            hiLabel.setText("Hi, "+nameA[0]);
+
+            hiLabel.setText("Hi, " + nameA[0]);
         } catch (Exception ex) {
             Logger.getLogger(UserLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void userListLoad(){
+
+    public void userListLoad() {
         DefaultListModel dlm = new DefaultListModel();
         String type = null;
         try {
             Statement s = DatabaseConnection.getConnection();
             ResultSet rs = s.executeQuery("SELECT * FROM user;");
-            while(rs.next()){
+            while (rs.next()) {
                 String uid = rs.getString("user_id");
                 String userName = rs.getString("name");
-                String listItem = uid +" | "+ userName;
+                String listItem = uid + " | " + userName;
                 dlm.addElement(listItem);
             }
             userList.setModel(dlm);
@@ -112,14 +115,14 @@ public class ManagerScreen extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    
-    public void dateTimeLoad(){
-        SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");  
+
+    public void dateTimeLoad() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
         Date date = new Date();
         dateLabel.setText("Today is " + formatter.format(date));
     }
-    
-    public void reset(){
+
+    public void reset() {
         cheeseBurger.setSelected(false);
         chickenBurger.setSelected(false);
         beefBurger.setSelected(false);
@@ -127,7 +130,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         nonvegSubmarine.setSelected(false);
         frenchFries.setSelected(false);
         chickenNuggets.setSelected(false);
-        
+
         cocacolaS.setSelected(false);
         cocacolaL.setSelected(false);
         spriteS.setSelected(false);
@@ -135,15 +138,14 @@ public class ManagerScreen extends javax.swing.JFrame {
         milkShake.setSelected(false);
         hotChocolate.setSelected(false);
         iceCoffee.setSelected(false);
-        
+
         vanilaCone.setSelected(false);
         chocolateCone.setSelected(false);
         strawberryCone.setSelected(false);
         vanilaSundaes.setSelected(false);
         chocolateSundaes.setSelected(false);
         lavaCake.setSelected(false);
-        
-        
+
         cheeseBurgerCount.setText(null);
         cheeseBurgerCount.setEnabled(false);
         chickenBurgerCount.setText(null);
@@ -158,7 +160,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         frenchFriesCount.setEnabled(false);
         chickenNuggetsCount.setText(null);
         chickenNuggetsCount.setEnabled(false);
-        
+
         cocacolaSCount.setText(null);
         cocacolaSCount.setEnabled(false);
         cocacolaLCount.setText(null);
@@ -173,7 +175,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         hotChocolateCount.setEnabled(false);
         iceCoffeeCount.setText(null);
         iceCoffeeCount.setEnabled(false);
-        
+
         vanilaConeCount.setText(null);
         vanilaConeCount.setEnabled(false);
         chocolateConeCount.setText(null);
@@ -186,34 +188,54 @@ public class ManagerScreen extends javax.swing.JFrame {
         chocolateSundaesCount.setEnabled(false);
         lavaCakeCount.setText(null);
         lavaCakeCount.setEnabled(false);
-        
+
         DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
         dtm.setRowCount(0);
         serviceChargesTextField.setText(null);
         totalTextField.setText(null);
-        
+
         totalTextField.setText(null);
         recievedTextField.setText(null);
         serviceChargesTextField.setText(null);
         balanceTextField.setText(null);
-        
+
         nameTextField.setText(null);
         phoneTextField.setText(null);
         emailTextField.setText(null);
     }
-    
-    public static int getResultSetRowCount(ResultSet resultSet){
+
+    public static int getResultSetRowCount(ResultSet resultSet) {
         int size = 0;
-        try{
+        try {
             resultSet.last();
             size = resultSet.getRow();
             resultSet.beforeFirst();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             return 0;
         }
         return size;
     }
     
+    public void analyticsDataLoad(){
+        DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();;
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` ORDER BY order_id DESC");
+            while(rs.next()){
+                Vector v = new Vector();
+                v.add(rs.getString("date"));
+                v.add(rs.getString("order_id"));
+                v.add(rs.getString("user_id"));
+                v.add(rs.getString("customer_id"));
+                Double amount = Double.parseDouble(rs.getString("total"));
+                v.add(amount);
+                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
+                dtm.addRow(v);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -287,7 +309,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         balanceTextField = new javax.swing.JTextField();
         recievedLabel = new javax.swing.JLabel();
         balanceLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        getCustomerDetailsPanel = new javax.swing.JPanel();
         emailTextField = new javax.swing.JTextField();
         emailLabel = new javax.swing.JLabel();
         phoneLabel = new javax.swing.JLabel();
@@ -333,7 +355,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         userListLabel1 = new javax.swing.JLabel();
         saveUserButton1 = new javax.swing.JButton();
         searchInUMTextField = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        AnalyticsPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ordersTable = new javax.swing.JTable();
+        userListLabel2 = new javax.swing.JLabel();
+        saveUserButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
@@ -1309,8 +1335,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         balanceLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         balanceLabel.setText("Balance");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        getCustomerDetailsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        getCustomerDetailsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
         emailTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         emailTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1347,25 +1373,25 @@ public class ManagerScreen extends javax.swing.JFrame {
         cidLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         cidLabel.setText("0");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout getCustomerDetailsPanelLayout = new javax.swing.GroupLayout(getCustomerDetailsPanel);
+        getCustomerDetailsPanel.setLayout(getCustomerDetailsPanelLayout);
+        getCustomerDetailsPanelLayout.setHorizontalGroup(
+            getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(getCustomerDetailsPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(getCustomerDetailsPanelLayout.createSequentialGroup()
+                        .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(customerNameLabel)
                             .addComponent(emailLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(phoneTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                             .addComponent(emailTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(getCustomerDetailsPanelLayout.createSequentialGroup()
+                        .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(getCustomerDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(customerIDLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1373,23 +1399,23 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        getCustomerDetailsPanelLayout.setVerticalGroup(
+            getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(getCustomerDetailsPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(customerIDLabel)
                     .addComponent(cidLabel))
                 .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(customerNameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(phoneLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(getCustomerDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailLabel))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -1449,7 +1475,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                     .addComponent(dessertPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dessertLabel, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(orderNoLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(getCustomerDetailsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(81, 81, 81))
         );
         mealsPanelLayout.setVerticalGroup(
@@ -1471,7 +1497,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                     .addGroup(mealsPanelLayout.createSequentialGroup()
                         .addComponent(orderNoLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(getCustomerDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mealsPanelLayout.createSequentialGroup()
@@ -1934,21 +1960,61 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         navPanel.addTab("User Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/userManagement.png")), userManagementPanel); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        AnalyticsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        AnalyticsPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+        ordersTable.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        ordersTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "Order ID", "Cashier ID", "Customer ID", "Amount", "Profit"
+            }
+        ));
+        ordersTable.setGridColor(new java.awt.Color(153, 153, 153));
+        ordersTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        jScrollPane1.setViewportView(ordersTable);
+
+        userListLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        userListLabel2.setText("Order Details");
+
+        saveUserButton2.setBackground(new java.awt.Color(255, 255, 255));
+        saveUserButton2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        saveUserButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
+        saveUserButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveUserButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout AnalyticsPanelLayout = new javax.swing.GroupLayout(AnalyticsPanel);
+        AnalyticsPanel.setLayout(AnalyticsPanelLayout);
+        AnalyticsPanelLayout.setHorizontalGroup(
+            AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userListLabel2)
+                    .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveUserButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 658, Short.MAX_VALUE)
+        AnalyticsPanelLayout.setVerticalGroup(
+            AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(userListLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveUserButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
-        navPanel.addTab("Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), jPanel2); // NOI18N
+        navPanel.addTab("Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), AnalyticsPanel); // NOI18N
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -1987,7 +2053,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "Do you really want to log out?", "Order Screen", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+        if (JOptionPane.showConfirmDialog(this, "Do you really want to log out?", "Order Screen", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
             new UserLogin().setVisible(true);
             this.dispose();
         }
@@ -2002,13 +2068,14 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void recievedTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_recievedTextFieldFocusLost
         String payment = recievedTextField.getText();
-        if(!payment.isEmpty() && !payment.endsWith("LKR"))
-        recievedTextField.setText(payment + " LKR");
-        
+        if (!payment.isEmpty() && !payment.endsWith("LKR")) {
+            recievedTextField.setText(payment + " LKR");
+        }
+
         String[] t = totalTextField.getText().split(" ");
         String total = t[0];
-        String balance = (Double.parseDouble(payment) - Double.parseDouble(total))+"";
-        balanceTextField.setText(balance+" LKR");
+        String balance = (Double.parseDouble(payment) - Double.parseDouble(total)) + "";
+        balanceTextField.setText(balance + " LKR");
     }//GEN-LAST:event_recievedTextFieldFocusLost
 
     private void recievedTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_recievedTextFieldFocusGained
@@ -2018,126 +2085,126 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_recievedTextFieldFocusGained
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "Do you really want cancel the order?", "Order cancel", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+        if (JOptionPane.showConfirmDialog(this, "Do you really want cancel the order?", "Order cancel", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
             reset();
         }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
-     
+
         //customer table
         int cid = Integer.parseInt(cidLabel.getText());
         String cname = nameTextField.getText();
         String phone = phoneTextField.getText();
         String email = emailTextField.getText();
-        
+
         try {
-            DatabaseConnection.getConnection().executeUpdate("INSERT INTO customer(customer_id, name, phone, email) VALUES ("+cid+", '"+cname+"', '"+phone+"', '"+email+"')");
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO customer(customer_id, name, phone, email) VALUES (" + cid + ", '" + cname + "', '" + phone + "', '" + email + "')");
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         //order table
         int oid = Integer.parseInt(oidLabel.getText());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date d = new Date();
         String date = formatter.format(d);
         String[] t = totalTextField.getText().split(" ");
         String total = t[0];
         String[] s = recievedTextField.getText().split(" ");
         String payment = s[0];
-        String balance = (Double.parseDouble(payment) - Double.parseDouble(total))+"";
+        String balance = (Double.parseDouble(payment) - Double.parseDouble(total)) + "";
         int uid = useridLoad();
-        
+
         try {
-            DatabaseConnection.getConnection().executeUpdate("INSERT INTO restaurentsystem.order(order_id, date, total, recieved, balance, customer_id, user_id) VALUES ("+oid+", '"+date+"', '"+total+"', '"+payment+"', '"+balance+"', "+cid+", "+uid+")");
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO restaurentsystem.order(order_id, date, total, recieved, balance, customer_id, user_id) VALUES (" + oid + ", '" + date + "', '" + total + "', '" + payment + "', '" + balance + "', " + cid + ", " + uid + ")");
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         //order_has table
         DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
         String[] meals = new String[100];
         String[] drinks = new String[100];
         String[] desserts = new String[100];
-        
+
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal");
             int i = 0;
-            while(rs.next()){
+            while (rs.next()) {
                 meals[i] = rs.getString("name");
                 i++;
             }
         } catch (Exception e) {
-            System.out.println("A - "+e);
+            System.out.println("A - " + e);
         }
-        
+
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink");
             int i = 0;
-            while(rs.next()){
+            while (rs.next()) {
                 drinks[i] = rs.getString("name");
                 i++;
             }
         } catch (Exception e) {
-            System.out.println("A - "+e);
+            System.out.println("A - " + e);
         }
-        
+
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert");
             int i = 0;
-            while(rs.next()){
+            while (rs.next()) {
                 desserts[i] = rs.getString("name");
                 i++;
             }
         } catch (Exception e) {
-            System.out.println("A - "+e);
+            System.out.println("A - " + e);
         }
-        
+
         for (int i = 0; i < mealsTable.getRowCount(); i++) {
             for (String meal : meals) {
-                if(dtm.getValueAt(i, 0).toString().equals(meal)){
+                if (dtm.getValueAt(i, 0).toString().equals(meal)) {
                     int mealid;
                     int qty = Integer.parseInt(dtm.getValueAt(i, 1).toString());
                     try {
-                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal WHERE name='"+meal+"'");
-                        if(rs.first()){
+                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal WHERE name='" + meal + "'");
+                        if (rs.first()) {
                             mealid = Integer.parseInt(rs.getString("meal_id"));
-                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_meal(order_id, meal_id, qty) VALUES ("+oid+", "+mealid+", "+qty+")");
+                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_meal(order_id, meal_id, qty) VALUES (" + oid + ", " + mealid + ", " + qty + ")");
                         }
-                        
+
                     } catch (Exception ex) {
                         Logger.getLogger(ManagerScreen.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
             for (String drink : drinks) {
-                if(dtm.getValueAt(i, 0).equals(drink)){
+                if (dtm.getValueAt(i, 0).equals(drink)) {
                     int drinkid;
                     int qty = Integer.parseInt(dtm.getValueAt(i, 1).toString());
                     try {
-                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink WHERE name='"+drink+"'");
-                        if(rs.first()){
+                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink WHERE name='" + drink + "'");
+                        if (rs.first()) {
                             drinkid = Integer.parseInt(rs.getString("drink_id"));
-                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_drink(order_id, drink_id, qty) VALUES ("+oid+", "+drinkid+", "+qty+")");
+                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_drink(order_id, drink_id, qty) VALUES (" + oid + ", " + drinkid + ", " + qty + ")");
                         }
-                        
+
                     } catch (Exception ex) {
                         Logger.getLogger(ManagerScreen.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
             for (String dessert : desserts) {
-                if(dtm.getValueAt(i, 0).equals(dessert)){
+                if (dtm.getValueAt(i, 0).equals(dessert)) {
                     int dessertid;
                     int qty = Integer.parseInt(dtm.getValueAt(i, 1).toString());
                     try {
-                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert WHERE name='"+dessert+"'");
-                        if(rs.first()){
+                        ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert WHERE name='" + dessert + "'");
+                        if (rs.first()) {
                             dessertid = Integer.parseInt(rs.getString("dessert_id"));
-                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_dessert(order_id, dessert_id, qty) VALUES ("+oid+", "+dessertid+", "+qty+")");
+                            DatabaseConnection.getConnection().executeUpdate("INSERT INTO order_has_dessert(order_id, dessert_id, qty) VALUES (" + oid + ", " + dessertid + ", " + qty + ")");
                         }
-                        
+
                     } catch (Exception ex) {
                         Logger.getLogger(ManagerScreen.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -2166,7 +2233,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void strawberryConeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_strawberryConeCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2180,10 +2247,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2191,7 +2258,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2200,11 +2267,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2218,10 +2285,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2229,7 +2296,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2238,11 +2305,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2250,7 +2317,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void chocolateConeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chocolateConeCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2264,10 +2331,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2275,7 +2342,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2284,11 +2351,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2302,10 +2369,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2313,7 +2380,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2322,11 +2389,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2334,7 +2401,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void vanilaConeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vanilaConeCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2348,10 +2415,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2359,7 +2426,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2368,11 +2435,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2386,10 +2453,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2397,7 +2464,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2406,11 +2473,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2418,7 +2485,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void lavaCakeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lavaCakeCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2432,10 +2499,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2443,7 +2510,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2452,11 +2519,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2470,10 +2537,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2481,7 +2548,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2490,11 +2557,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2502,7 +2569,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void chocolateSundaesCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chocolateSundaesCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2516,10 +2583,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2527,7 +2594,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2536,11 +2603,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2554,10 +2621,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2565,7 +2632,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2574,11 +2641,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2586,7 +2653,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void vanilaSundaesCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vanilaSundaesCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2600,10 +2667,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2611,7 +2678,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2620,11 +2687,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2638,10 +2705,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '"+dessert+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM dessert WHERE name = '" + dessert + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2649,7 +2716,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(dessert);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2658,73 +2725,73 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
     }//GEN-LAST:event_vanilaSundaesCountFocusLost
 
     private void lavaCakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lavaCakeActionPerformed
-        if(lavaCake.isSelected()){
+        if (lavaCake.isSelected()) {
             lavaCakeCount.setEnabled(true);
             lavaCakeCount.requestFocus();
-        }else{
+        } else {
             lavaCakeCount.setEnabled(false);
         }
     }//GEN-LAST:event_lavaCakeActionPerformed
 
     private void chocolateSundaesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chocolateSundaesActionPerformed
-        if(chocolateSundaes.isSelected()){
+        if (chocolateSundaes.isSelected()) {
             chocolateSundaesCount.setEnabled(true);
             chocolateSundaesCount.requestFocus();
-        }else{
+        } else {
             chocolateSundaesCount.setEnabled(false);
         }
     }//GEN-LAST:event_chocolateSundaesActionPerformed
 
     private void vanilaSundaesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanilaSundaesActionPerformed
-        if(vanilaSundaes.isSelected()){
+        if (vanilaSundaes.isSelected()) {
             vanilaSundaesCount.setEnabled(true);
             vanilaSundaesCount.requestFocus();
-        }else{
+        } else {
             vanilaSundaesCount.setEnabled(false);
         }
     }//GEN-LAST:event_vanilaSundaesActionPerformed
 
     private void strawberryConeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strawberryConeActionPerformed
-        if(strawberryCone.isSelected()){
+        if (strawberryCone.isSelected()) {
             strawberryConeCount.setEnabled(true);
             strawberryConeCount.requestFocus();
-        }else{
+        } else {
             strawberryConeCount.setEnabled(false);
         }
     }//GEN-LAST:event_strawberryConeActionPerformed
 
     private void chocolateConeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chocolateConeActionPerformed
-        if(chocolateCone.isSelected()){
+        if (chocolateCone.isSelected()) {
             chocolateConeCount.setEnabled(true);
             chocolateConeCount.requestFocus();
-        }else{
+        } else {
             chocolateConeCount.setEnabled(false);
         }
     }//GEN-LAST:event_chocolateConeActionPerformed
 
     private void vanilaConeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanilaConeActionPerformed
-        if(vanilaCone.isSelected()){
+        if (vanilaCone.isSelected()) {
             vanilaConeCount.setEnabled(true);
             vanilaConeCount.requestFocus();
-        }else{
+        } else {
             vanilaConeCount.setEnabled(false);
         }
     }//GEN-LAST:event_vanilaConeActionPerformed
 
     private void iceCoffeeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iceCoffeeCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2738,10 +2805,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2749,7 +2816,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2758,11 +2825,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2776,10 +2843,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2787,7 +2854,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2796,11 +2863,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2808,7 +2875,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void hotChocolateCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_hotChocolateCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2822,10 +2889,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2833,7 +2900,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2842,11 +2909,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2860,10 +2927,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2871,7 +2938,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2880,11 +2947,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2892,7 +2959,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void milkShakeCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_milkShakeCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2906,10 +2973,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2917,7 +2984,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2926,11 +2993,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2944,10 +3011,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -2955,7 +3022,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -2964,11 +3031,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -2976,7 +3043,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void spriteLCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriteLCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -2990,10 +3057,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3001,7 +3068,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3010,11 +3077,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3028,10 +3095,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3039,7 +3106,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3048,11 +3115,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3060,7 +3127,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void spriteSCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriteSCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3074,10 +3141,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3085,7 +3152,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3094,11 +3161,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3112,10 +3179,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3123,7 +3190,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3132,11 +3199,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3144,7 +3211,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void cocacolaLCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cocacolaLCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3158,10 +3225,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3169,7 +3236,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3178,11 +3245,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3196,10 +3263,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3207,7 +3274,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3216,11 +3283,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3228,7 +3295,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void cocacolaSCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cocacolaSCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3242,10 +3309,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3253,7 +3320,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3262,11 +3329,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3280,10 +3347,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '"+drink+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM drink WHERE name = '" + drink + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3291,7 +3358,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(drink);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3300,82 +3367,82 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
     }//GEN-LAST:event_cocacolaSCountFocusLost
 
     private void iceCoffeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iceCoffeeActionPerformed
-        if(iceCoffee.isSelected()){
+        if (iceCoffee.isSelected()) {
             iceCoffeeCount.setEnabled(true);
             iceCoffeeCount.requestFocus();
-        }else{
+        } else {
             iceCoffeeCount.setEnabled(false);
         }
     }//GEN-LAST:event_iceCoffeeActionPerformed
 
     private void hotChocolateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotChocolateActionPerformed
-        if(hotChocolate.isSelected()){
+        if (hotChocolate.isSelected()) {
             hotChocolateCount.setEnabled(true);
             hotChocolateCount.requestFocus();
-        }else{
+        } else {
             hotChocolateCount.setEnabled(false);
         }
     }//GEN-LAST:event_hotChocolateActionPerformed
 
     private void milkShakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_milkShakeActionPerformed
-        if(milkShake.isSelected()){
+        if (milkShake.isSelected()) {
             milkShakeCount.setEnabled(true);
             milkShakeCount.requestFocus();
-        }else{
+        } else {
             milkShakeCount.setEnabled(false);
         }
     }//GEN-LAST:event_milkShakeActionPerformed
 
     private void spriteLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriteLActionPerformed
-        if(spriteL.isSelected()){
+        if (spriteL.isSelected()) {
             spriteLCount.setEnabled(true);
             spriteLCount.requestFocus();
-        }else{
+        } else {
             spriteLCount.setEnabled(false);
         }
     }//GEN-LAST:event_spriteLActionPerformed
 
     private void spriteSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriteSActionPerformed
-        if(spriteS.isSelected()){
+        if (spriteS.isSelected()) {
             spriteSCount.setEnabled(true);
             spriteSCount.requestFocus();
-        }else{
+        } else {
             spriteSCount.setEnabled(false);
         }
     }//GEN-LAST:event_spriteSActionPerformed
 
     private void cocacolaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cocacolaLActionPerformed
-        if(cocacolaL.isSelected()){
+        if (cocacolaL.isSelected()) {
             cocacolaLCount.setEnabled(true);
             cocacolaLCount.requestFocus();
-        }else{
+        } else {
             cocacolaLCount.setEnabled(false);
         }
     }//GEN-LAST:event_cocacolaLActionPerformed
 
     private void cocacolaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cocacolaSActionPerformed
-        if(cocacolaS.isSelected()){
+        if (cocacolaS.isSelected()) {
             cocacolaSCount.setEnabled(true);
             cocacolaSCount.requestFocus();
-        }else{
+        } else {
             cocacolaSCount.setEnabled(false);
         }
     }//GEN-LAST:event_cocacolaSActionPerformed
 
     private void chickenNuggetsCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chickenNuggetsCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3389,10 +3456,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3400,7 +3467,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3409,11 +3476,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3427,10 +3494,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3438,7 +3505,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3447,11 +3514,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3459,7 +3526,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void frenchFriesCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_frenchFriesCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3473,10 +3540,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3484,7 +3551,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3493,11 +3560,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3511,10 +3578,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3522,7 +3589,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3531,37 +3598,37 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
     }//GEN-LAST:event_frenchFriesCountFocusLost
 
     private void chickenNuggetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickenNuggetsActionPerformed
-        if(chickenNuggets.isSelected()){
+        if (chickenNuggets.isSelected()) {
             chickenNuggetsCount.setEnabled(true);
             chickenNuggetsCount.requestFocus();
-        }else{
+        } else {
             chickenNuggetsCount.setEnabled(false);
         }
     }//GEN-LAST:event_chickenNuggetsActionPerformed
 
     private void frenchFriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frenchFriesActionPerformed
-        if(frenchFries.isSelected()){
+        if (frenchFries.isSelected()) {
             frenchFriesCount.setEnabled(true);
             frenchFriesCount.requestFocus();
-        }else{
+        } else {
             frenchFriesCount.setEnabled(false);
         }
     }//GEN-LAST:event_frenchFriesActionPerformed
 
     private void nonvegSubmarineCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nonvegSubmarineCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3575,10 +3642,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3586,7 +3653,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3595,11 +3662,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3613,10 +3680,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3624,7 +3691,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3633,11 +3700,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3645,7 +3712,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void vegSubmarineCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vegSubmarineCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3659,10 +3726,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3670,7 +3737,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3679,11 +3746,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3697,10 +3764,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3708,7 +3775,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3717,11 +3784,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3729,7 +3796,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void beefBurgerCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_beefBurgerCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3743,10 +3810,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3754,7 +3821,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3763,11 +3830,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3781,10 +3848,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3792,7 +3859,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3801,11 +3868,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3813,7 +3880,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void chickenBurgerCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_chickenBurgerCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3827,10 +3894,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3838,7 +3905,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3847,11 +3914,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3865,10 +3932,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3876,7 +3943,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3885,11 +3952,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3897,7 +3964,7 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void cheeseBurgerCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cheeseBurgerCountKeyTyped
         char c = evt.getKeyChar();
-        if(Character.isLetter(c)){
+        if (Character.isLetter(c)) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
@@ -3911,10 +3978,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3922,7 +3989,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3931,11 +3998,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
@@ -3949,10 +4016,10 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         try {
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '"+meal+"';");
-            if(rs.first()){
+            ResultSet rs = s.executeQuery("SELECT * FROM meal WHERE name = '" + meal + "';");
+            if (rs.first()) {
                 price = Double.parseDouble(rs.getString("unit_price"));
-            }else{
+            } else {
                 price = 0.0;
             }
 
@@ -3960,7 +4027,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             v.add(meal);
             v.add(qty);
             v.add(price);
-            v.add(qty*price);
+            v.add(qty * price);
 
             dtm.addRow(v);
 
@@ -3969,57 +4036,57 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
 
         double t = 0.00;
-        for(int i = 0; i <= dtm.getRowCount()-1; i++){
+        for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
             t += Double.parseDouble(dtm.getValueAt(i, 3).toString());
         }
 
-        double serviceCharges = (t*0.1);
+        double serviceCharges = (t * 0.1);
         double total = t + serviceCharges;
         serviceChargesTextField.setText(serviceCharges + " LKR");
         totalTextField.setText(total + " LKR");
     }//GEN-LAST:event_cheeseBurgerCountFocusLost
 
     private void nonvegSubmarineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nonvegSubmarineActionPerformed
-        if(nonvegSubmarine.isSelected()){
+        if (nonvegSubmarine.isSelected()) {
             nonvegSubmarineCount.setEnabled(true);
             nonvegSubmarineCount.requestFocus();
-        }else{
+        } else {
             nonvegSubmarineCount.setEnabled(false);
         }
     }//GEN-LAST:event_nonvegSubmarineActionPerformed
 
     private void vegSubmarineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vegSubmarineActionPerformed
-        if(vegSubmarine.isSelected()){
+        if (vegSubmarine.isSelected()) {
             vegSubmarineCount.setEnabled(true);
             vegSubmarineCount.requestFocus();
-        }else{
+        } else {
             vegSubmarineCount.setEnabled(false);
         }
     }//GEN-LAST:event_vegSubmarineActionPerformed
 
     private void chickenBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chickenBurgerActionPerformed
-        if(chickenBurger.isSelected()){
+        if (chickenBurger.isSelected()) {
             chickenBurgerCount.setEnabled(true);
             chickenBurgerCount.requestFocus();
-        }else{
+        } else {
             chickenBurgerCount.setEnabled(false);
         }
     }//GEN-LAST:event_chickenBurgerActionPerformed
 
     private void cheeseBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBurgerActionPerformed
-        if(cheeseBurger.isSelected()){
+        if (cheeseBurger.isSelected()) {
             cheeseBurgerCount.setEnabled(true);
             cheeseBurgerCount.requestFocus();
-        }else{
+        } else {
             cheeseBurgerCount.setEnabled(false);
         }
     }//GEN-LAST:event_cheeseBurgerActionPerformed
 
     private void beefBurgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beefBurgerActionPerformed
-        if(beefBurger.isSelected()){
+        if (beefBurger.isSelected()) {
             beefBurgerCount.setEnabled(true);
             beefBurgerCount.requestFocus();
-        }else{
+        } else {
             beefBurgerCount.setEnabled(false);
         }
     }//GEN-LAST:event_beefBurgerActionPerformed
@@ -4037,29 +4104,29 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneTextFieldKeyTyped
 
     private void userListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userListFocusGained
-        
+
     }//GEN-LAST:event_userListFocusGained
 
     private void userListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userListMouseClicked
         String selectedUser = userList.getSelectedValue();
         String su[] = selectedUser.split(" ");
         int selectedUserID = Integer.parseInt(su[0]);
-        
+
         try {
             String name = "";
             String gender = "";
             String dob = "";
-            String phone= "";
+            String phone = "";
             String email = "";
             String address = "";
             String username = "";
             String type = "";
             int status = 0;
-            
-            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = "+selectedUserID+"");
-            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = "+selectedUserID+"");
-            
-            while(rs1.next()){
+
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE user_id = " + selectedUserID + "");
+            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = " + selectedUserID + "");
+
+            while (rs1.next()) {
                 name = rs1.getString("name");
                 gender = rs1.getString("gender");
                 dob = rs1.getString("dob");
@@ -4067,15 +4134,15 @@ public class ManagerScreen extends javax.swing.JFrame {
                 email = rs1.getString("email");
                 address = rs1.getString("address");
             }
-            
-            while(rs2.next()){
+
+            while (rs2.next()) {
                 username = rs2.getString("username");
                 type = rs2.getString("type");
                 status = Integer.parseInt(rs2.getString("status"));
-                
+
             }
-            
-            uidInUMLabel.setText(selectedUserID+"");
+
+            uidInUMLabel.setText(selectedUserID + "");
             nameInUMTextField.setText(name);
             genderInUMTextField.setText(gender);
             dobInUMTextField.setText(dob);
@@ -4097,15 +4164,15 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmationPasswordFieldFocusGained
 
     private void confirmationPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmationPasswordFieldFocusLost
-        if(confirmationPasswordField.getText().isEmpty()){
+        if (confirmationPasswordField.getText().isEmpty()) {
             confirmationPasswordField.setForeground(Color.gray);
-            confirmationPasswordField.setEchoChar((char)0);
+            confirmationPasswordField.setEchoChar((char) 0);
             confirmationPasswordField.setText("Confirm Password");
         }
     }//GEN-LAST:event_confirmationPasswordFieldFocusLost
 
     private void editInUMToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInUMToggleButtonActionPerformed
-        if(editInUMToggleButton.isSelected()){
+        if (editInUMToggleButton.isSelected()) {
             nameInUMTextField.setEnabled(true);
             genderInUMTextField.setEnabled(true);
             dobInUMTextField.setEnabled(true);
@@ -4117,7 +4184,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             inUMConfirmPasswordField.setEnabled(true);
             managementInUMCheckBox.setEnabled(true);
             activeInUMCheckBox.setEnabled(true);
-        }else{
+        } else {
             nameInUMTextField.setEnabled(false);
             genderInUMTextField.setEnabled(false);
             dobInUMTextField.setEnabled(false);
@@ -4134,8 +4201,8 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     private void saveUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButtonActionPerformed
         try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = "+useridLoad()+" AND password = '"+confirmationPasswordField.getText()+"'");
-            if(getResultSetRowCount(rs) == 1 && editInUMToggleButton.isSelected()){
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = " + useridLoad() + " AND password = '" + confirmationPasswordField.getText() + "'");
+            if (getResultSetRowCount(rs) == 1 && editInUMToggleButton.isSelected()) {
                 int uid = Integer.parseInt(uidInUMLabel.getText());
                 String name = nameInUMTextField.getText();
                 String gender = genderInUMTextField.getText();
@@ -4148,53 +4215,58 @@ public class ManagerScreen extends javax.swing.JFrame {
                 String confirm = inUMConfirmPasswordField.getText();
                 boolean access = managementInUMCheckBox.isSelected();
                 boolean status = activeInUMCheckBox.isSelected();
-                
-                if(!name.isEmpty())
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET name='"+name+"' WHERE user_id="+uid+"");
-                if(!gender.isEmpty())
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET gender='"+gender+"' WHERE user_id="+uid+"");
-                if(!dob.isEmpty())
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET dob='"+dob+"' WHERE user_id="+uid+"");
-                if(!phone.isEmpty())
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET phone='"+phone+"' WHERE user_id="+uid+"");
-                if(!email.isEmpty())
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET email='"+email+"' WHERE user_id="+uid+"");
-                if(!address.isEmpty())
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET address='"+address+"' WHERE user_id="+uid+"");
-                
-                if(!username.isEmpty()){
-                    ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '"+username+"'");
-                    if(getResultSetRowCount(rs1) == 0){
-                        DatabaseConnection.getConnection().executeUpdate("UPDATE login SET username='"+username+"' WHERE user_id="+uid+"");
-                    }else{
+
+                if (!name.isEmpty()) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET name='" + name + "' WHERE user_id=" + uid + "");
+                }
+                if (!gender.isEmpty()) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET gender='" + gender + "' WHERE user_id=" + uid + "");
+                }
+                if (!dob.isEmpty()) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET dob='" + dob + "' WHERE user_id=" + uid + "");
+                }
+                if (!phone.isEmpty()) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET phone='" + phone + "' WHERE user_id=" + uid + "");
+                }
+                if (!email.isEmpty()) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET email='" + email + "' WHERE user_id=" + uid + "");
+                }
+                if (!address.isEmpty()) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE user SET address='" + address + "' WHERE user_id=" + uid + "");
+                }
+
+                if (!username.isEmpty()) {
+                    ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE username = '" + username + "'");
+                    if (getResultSetRowCount(rs1) == 0) {
+                        DatabaseConnection.getConnection().executeUpdate("UPDATE login SET username='" + username + "' WHERE user_id=" + uid + "");
+                    } else {
                         JOptionPane.showMessageDialog(this, "Username Already Exist");
                     }
                 }
-                
-                if(!password.isEmpty()){
-                    if(password.equals(confirm)){
-                        DatabaseConnection.getConnection().executeUpdate("UPDATE login SET password='"+password+"' WHERE user_id="+uid+"");
-                    }else{
+
+                if (!password.isEmpty()) {
+                    if (password.equals(confirm)) {
+                        DatabaseConnection.getConnection().executeUpdate("UPDATE login SET password='" + password + "' WHERE user_id=" + uid + "");
+                    } else {
                         JOptionPane.showMessageDialog(this, "Passwords Are Not Match");
                     }
                 }
-                
-                if(access){
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET type='Manager' WHERE user_id="+uid+"");
-                }else{
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET type='Cashier' WHERE user_id="+uid+"");
+
+                if (access) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET type='Manager' WHERE user_id=" + uid + "");
+                } else {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET type='Cashier' WHERE user_id=" + uid + "");
                 }
-                
-                if(status){
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET status=1 WHERE user_id="+uid+"");
-                }else{
-                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET status=0 WHERE user_id="+uid+"");
+
+                if (status) {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET status=1 WHERE user_id=" + uid + "");
+                } else {
+                    DatabaseConnection.getConnection().executeUpdate("UPDATE login SET status=0 WHERE user_id=" + uid + "");
                 }
-                
-                
+
                 JOptionPane.showMessageDialog(this, "User Information Updated");
                 confirmationPasswordField.setForeground(Color.gray);
-                confirmationPasswordField.setEchoChar((char)0);
+                confirmationPasswordField.setEchoChar((char) 0);
                 confirmationPasswordField.setText("Confirm Password");
             }
         } catch (Exception e) {
@@ -4232,15 +4304,15 @@ public class ManagerScreen extends javax.swing.JFrame {
             searchInUMTextField.setText(null);
         }
         searchInUMTextField.setForeground(Color.black);
-        
+
         DefaultListModel dlm = new DefaultListModel();
         String s = searchInUMTextField.getText();
         try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE name LIKE '%"+s+"%'");
-            while(rs.next()){
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM user WHERE name LIKE '%" + s + "%'");
+            while (rs.next()) {
                 String uid = rs.getString("user_id");
                 String userName = rs.getString("name");
-                String listItem = uid +" | "+ userName;
+                String listItem = uid + " | " + userName;
                 dlm.addElement(listItem);
             }
             userList.setModel(dlm);
@@ -4262,7 +4334,11 @@ public class ManagerScreen extends javax.swing.JFrame {
             searchInUMTextField.setText(null);
         }
     }//GEN-LAST:event_searchInUMTextFieldMouseClicked
-  
+
+    private void saveUserButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButton2ActionPerformed
+        analyticsDataLoad();
+    }//GEN-LAST:event_saveUserButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4299,6 +4375,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AnalyticsPanel;
     private javax.swing.JCheckBox activeInUMCheckBox;
     private javax.swing.JButton addUserButton;
     private javax.swing.JLabel addressInUMLabel;
@@ -4345,6 +4422,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField frenchFriesCount;
     private javax.swing.JLabel genderInUMLabel;
     private javax.swing.JTextField genderInUMTextField;
+    private javax.swing.JPanel getCustomerDetailsPanel;
     private javax.swing.JLabel hiLabel;
     private javax.swing.JCheckBox hotChocolate;
     private javax.swing.JTextField hotChocolateCount;
@@ -4353,8 +4431,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPasswordField inUMConfirmPasswordField;
     private javax.swing.JPasswordField inUMPasswordField;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JCheckBox lavaCake;
     private javax.swing.JTextField lavaCakeCount;
     private javax.swing.JButton logoutButton;
@@ -4376,6 +4453,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel orderNoLabel;
     private javax.swing.JLabel orderNoLabel1;
     private javax.swing.JLabel orderNoLabel2;
+    private javax.swing.JTable ordersTable;
     private javax.swing.JLabel passwordInUMLabel;
     private javax.swing.JLabel passwordInUMLabel1;
     private javax.swing.JLabel phoneInUMLabel;
@@ -4387,6 +4465,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField recievedTextField;
     private javax.swing.JButton saveUserButton;
     private javax.swing.JButton saveUserButton1;
+    private javax.swing.JButton saveUserButton2;
     private javax.swing.JTextField searchInUMTextField;
     private javax.swing.JLabel serviceChargesLabel;
     private javax.swing.JTextField serviceChargesTextField;
@@ -4405,6 +4484,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JList<String> userList;
     private javax.swing.JLabel userListLabel;
     private javax.swing.JLabel userListLabel1;
+    private javax.swing.JLabel userListLabel2;
     private javax.swing.JScrollPane userListScrollPane;
     private javax.swing.JPanel userManagementPanel;
     private javax.swing.JLabel usernameInUMLabel;
