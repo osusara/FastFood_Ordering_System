@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         
         confirmationPasswordField.setEchoChar((char)0);
         confirmationPasswordField.setForeground(Color.gray);
+        searchInUMTextField.setForeground(Color.gray);
     }
     
     public void loadID() {
@@ -331,13 +333,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         userListLabel1 = new javax.swing.JLabel();
         saveUserButton1 = new javax.swing.JButton();
         searchInUMTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
@@ -377,9 +377,9 @@ public class ManagerScreen extends javax.swing.JFrame {
             .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidePanelLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(58, 58, 58)
                 .addComponent(logoutButton)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1472,9 +1472,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addComponent(orderNoLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mealsPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(orderNoLabel)
@@ -1492,9 +1492,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                             .addComponent(totalLabel))
                         .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mealsPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelButton)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(proceedButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))))
         );
@@ -1648,7 +1648,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         managementInUMCheckBox.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         managementInUMCheckBox.setText("Management Access");
         managementInUMCheckBox.setToolTipText("Check If the User is a Person in Managerial Level");
-        managementInUMCheckBox.setBorder(null);
         managementInUMCheckBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         managementInUMCheckBox.setEnabled(false);
         managementInUMCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -1668,7 +1667,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         activeInUMCheckBox.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         activeInUMCheckBox.setText("Active");
         activeInUMCheckBox.setToolTipText("Check If the User is a Person in Managerial Level");
-        activeInUMCheckBox.setBorder(null);
         activeInUMCheckBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         activeInUMCheckBox.setEnabled(false);
         activeInUMCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -1722,11 +1720,11 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addComponent(managementInUMCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(activeInUMCheckBox)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(155, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(editInUMToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
+                .addGap(148, 148, 148))
         );
         userDetailsPanelLayout.setVerticalGroup(
             userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1773,9 +1771,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addGroup(userDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(managementInUMCheckBox)
                     .addComponent(activeInUMCheckBox))
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(editInUMToggleButton)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         userDetailsLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -1836,7 +1834,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addComponent(userListLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(controlPanelLayout.createSequentialGroup()
-                        .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1866,43 +1864,50 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         searchInUMTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         searchInUMTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchInUMTextField.setText("Search Names");
         searchInUMTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
         searchInUMTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         searchInUMTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        searchInUMTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchInUMTextFieldFocusLost(evt);
+            }
+        });
+        searchInUMTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchInUMTextFieldMouseClicked(evt);
+            }
+        });
         searchInUMTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 searchInUMTextFieldKeyTyped(evt);
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/search.png"))); // NOI18N
-
         javax.swing.GroupLayout userManagementPanelLayout = new javax.swing.GroupLayout(userManagementPanel);
         userManagementPanel.setLayout(userManagementPanelLayout);
         userManagementPanelLayout.setHorizontalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagementPanelLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(userListLabel)
-                    .addGroup(userManagementPanelLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(saveUserButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(controlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userManagementPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(userDetailsLabel)
-                        .addGap(378, 378, 378))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagementPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(userDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(40, Short.MAX_VALUE))))
+                        .addGap(47, 47, 47)
+                        .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userListLabel)
+                            .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(userManagementPanelLayout.createSequentialGroup()
+                                    .addComponent(searchInUMTextField)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(saveUserButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(userManagementPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(controlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userDetailsLabel))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         userManagementPanelLayout.setVerticalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1917,20 +1922,14 @@ public class ManagerScreen extends javax.swing.JFrame {
                     .addGroup(userManagementPanelLayout.createSequentialGroup()
                         .addComponent(userListLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(userManagementPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(saveUserButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(24, 24, 24))
-                            .addGroup(userManagementPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(searchInUMTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(saveUserButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchInUMTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(controlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(53, 53, 53))
+                .addGap(36, 36, 36))
         );
 
         navPanel.addTab("User Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/userManagement.png")), userManagementPanel); // NOI18N
@@ -1950,8 +1949,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         );
 
         navPanel.addTab("Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), jPanel2); // NOI18N
-
-        navPanel.setSelectedIndex(0);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -4138,7 +4135,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private void saveUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButtonActionPerformed
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = "+useridLoad()+" AND password = '"+confirmationPasswordField.getText()+"'");
-            if(getResultSetRowCount(rs) == 1){
+            if(getResultSetRowCount(rs) == 1 && editInUMToggleButton.isSelected()){
                 int uid = Integer.parseInt(uidInUMLabel.getText());
                 String name = nameInUMTextField.getText();
                 String gender = genderInUMTextField.getText();
@@ -4231,6 +4228,11 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_saveUserButton1ActionPerformed
 
     private void searchInUMTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchInUMTextFieldKeyTyped
+        if (searchInUMTextField.getForeground() == Color.gray) {
+            searchInUMTextField.setText(null);
+        }
+        searchInUMTextField.setForeground(Color.black);
+        
         DefaultListModel dlm = new DefaultListModel();
         String s = searchInUMTextField.getText();
         try {
@@ -4246,6 +4248,20 @@ public class ManagerScreen extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_searchInUMTextFieldKeyTyped
+
+    private void searchInUMTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchInUMTextFieldFocusLost
+        if (searchInUMTextField.getText().isEmpty()) {
+            searchInUMTextField.setForeground(Color.gray);
+            searchInUMTextField.setText("Search Names");
+        }
+    }//GEN-LAST:event_searchInUMTextFieldFocusLost
+
+    private void searchInUMTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchInUMTextFieldMouseClicked
+        searchInUMTextField.setBorder(BorderFactory.createLineBorder(Color.decode("#999999")));
+        if (searchInUMTextField.getForeground() == Color.gray) {
+            searchInUMTextField.setText(null);
+        }
+    }//GEN-LAST:event_searchInUMTextFieldMouseClicked
   
     /**
      * @param args the command line arguments
@@ -4337,7 +4353,6 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPasswordField inUMConfirmPasswordField;
     private javax.swing.JPasswordField inUMPasswordField;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JCheckBox lavaCake;
