@@ -365,7 +365,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         searchInUMTextField = new javax.swing.JTextField();
         AnalyticsPanel = new javax.swing.JPanel();
         ordersTableLabel = new javax.swing.JLabel();
-        orderDetailsPanel = new javax.swing.JPanel();
         orderDetailsLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -387,6 +386,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         ordersTableLabel1 = new javax.swing.JLabel();
         totalProfitTextField = new javax.swing.JTextField();
         totalProfitLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orderDetailsList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
@@ -1999,20 +2000,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         ordersTableLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         ordersTableLabel.setText("Orders Table");
 
-        orderDetailsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        orderDetailsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        javax.swing.GroupLayout orderDetailsPanelLayout = new javax.swing.GroupLayout(orderDetailsPanel);
-        orderDetailsPanel.setLayout(orderDetailsPanelLayout);
-        orderDetailsPanelLayout.setHorizontalGroup(
-            orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 292, Short.MAX_VALUE)
-        );
-        orderDetailsPanelLayout.setVerticalGroup(
-            orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
-        );
-
         orderDetailsLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         orderDetailsLabel.setText("Order Details");
 
@@ -2031,6 +2018,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         ));
         ordersTable.setGridColor(new java.awt.Color(153, 153, 153));
         ordersTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        ordersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ordersTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(ordersTable);
 
         refereshOrderDataButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -2249,6 +2241,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                     .addContainerGap(70, Short.MAX_VALUE)))
         );
 
+        orderDetailsList.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jScrollPane2.setViewportView(orderDetailsList);
+
         javax.swing.GroupLayout AnalyticsPanelLayout = new javax.swing.GroupLayout(AnalyticsPanel);
         AnalyticsPanel.setLayout(AnalyticsPanelLayout);
         AnalyticsPanelLayout.setHorizontalGroup(
@@ -2256,10 +2251,10 @@ public class ManagerScreen extends javax.swing.JFrame {
             .addGroup(AnalyticsPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(orderDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(orderDetailsLabel)
                     .addComponent(ordersTableLabel)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         AnalyticsPanelLayout.setVerticalGroup(
@@ -2272,8 +2267,8 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(orderDetailsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(orderDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         navPanel.addTab("Business Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), AnalyticsPanel); // NOI18N
@@ -4779,6 +4774,81 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ordreByPLTTextFieldKeyReleased
 
+    private void ordersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordersTableMouseClicked
+        int selectedRow = ordersTable.getSelectedRow();
+        DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
+        DefaultListModel dlm = new DefaultListModel();
+        
+        int oid = Integer.parseInt(dtm.getValueAt(selectedRow, 1).toString());
+        int cid = Integer.parseInt(dtm.getValueAt(selectedRow, 3).toString());
+
+        try {
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM customer WHERE customer_id = "+cid+"");
+            while(rs1.next()){
+                String cName = rs1.getString("name");
+                String phone = rs1.getString("phone");
+                String email = rs1.getString("email");
+                String listItem1 = "Customer : "+cName;
+                String listItem2 = "Phone : "+phone;
+                String listItem3 = "Email : "+email;
+                dlm.addElement("--------------------------- CUSTOMER DETAILS ---------------------------");
+                dlm.addElement(listItem1);
+                dlm.addElement(listItem2);
+                dlm.addElement(listItem3);
+                dlm.addElement("");
+                dlm.addElement("");
+                dlm.addElement("------------------------------ MEALS DETAILS ------------------------------");
+            }
+            
+            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_meal WHERE order_id = "+oid+"");
+            while(rs2.next()){
+                String mid = rs2.getString("meal_id");
+                String qty = rs2.getString("qty");
+                String m = "";
+                String up = "";
+                ResultSet rs21 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal WHERE meal_id = "+mid+"");
+                while(rs21.next()){
+                    m = rs21.getString("name");
+                    up = rs21.getString("unit_price");
+                }
+                String listMealItem = qty +" "+ m +"(s) ("+up+" LKR)";
+                dlm.addElement(listMealItem);
+            }
+            ResultSet rs3 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_drink WHERE order_id = "+oid+"");
+            while(rs3.next()){
+                String drid = rs3.getString("drink_id");
+                String qty = rs3.getString("qty");
+                String d = "";
+                String up = "";
+                ResultSet rs31 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink WHERE drink_id = "+drid+"");
+                while(rs31.next()){
+                    d = rs31.getString("name");
+                    up = rs31.getString("unit_price");
+                }
+                String listDrinkItem = qty +" "+ d +"(s) ("+up+" LKR)";
+                dlm.addElement(listDrinkItem);
+            }
+            ResultSet rs4 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_dessert WHERE order_id = "+oid+"");
+            while(rs4.next()){
+                String did = rs4.getString("dessert_id");
+                String qty = rs4.getString("qty");
+                String d = "";
+                String up = "";
+                ResultSet rs41 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert WHERE dessert_id = "+did+"");
+                while(rs41.next()){
+                    d = rs41.getString("name");
+                    up = rs41.getString("unit_price");
+                }
+                String listDessertItem = qty +" "+ d +"(s) ("+up+" LKR)";
+                dlm.addElement(listDessertItem);
+            }
+            
+            orderDetailsList.setModel(dlm);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_ordersTableMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -4880,6 +4950,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JPasswordField inUMPasswordField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox lavaCake;
     private javax.swing.JTextField lavaCakeCount;
     private javax.swing.JButton logoutButton;
@@ -4903,7 +4974,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField orderByOIDTextField;
     private javax.swing.JTextField orderByUIDTextField;
     private javax.swing.JLabel orderDetailsLabel;
-    private javax.swing.JPanel orderDetailsPanel;
+    private javax.swing.JList<String> orderDetailsList;
     private javax.swing.JLabel orderNoLabel;
     private javax.swing.JLabel orderNoLabel1;
     private javax.swing.JLabel orderNoLabel2;
