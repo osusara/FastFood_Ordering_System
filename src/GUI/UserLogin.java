@@ -213,7 +213,7 @@ public class UserLogin extends javax.swing.JFrame {
 
         try{
             Statement s = DatabaseConnection.getConnection();
-            ResultSet rs = s.executeQuery("SELECT * FROM login WHERE username='"+username+"' and password='"+password+"' and status='1';");
+            ResultSet rs = s.executeQuery("SELECT * FROM login WHERE username='"+username+"' and password='"+password+"' and type='Manager' and status='1';");
             if(getResultSetRowCount(rs) == 1){
                 new ManagerScreen().setVisible(true);
                 this.dispose();

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FoodOrderingReport" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2a5159e-2783-4c1c-bd2d-7f2d098a121e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     restaurentsystem.order.`order_id` AS order_order_id,
+     restaurentsystem.order.`date` AS order_date,
+     restaurentsystem.order.`total` AS order_total,
+     restaurentsystem.order.`recieved` AS order_recieved,
+     restaurentsystem.order.`balance` AS order_balance,
+     restaurentsystem.order.`customer_id` AS order_customer_id,
+     restaurentsystem.order.`user_id` AS order_user_id,
+     order_has_dessert.`order_id` AS order_has_dessert_order_id,
+     order_has_dessert.`dessert_id` AS order_has_dessert_dessert_id,
+     order_has_dessert.`qty` AS order_has_dessert_qty,
+     order_has_drink.`order_id` AS order_has_drink_order_id,
+     order_has_drink.`drink_id` AS order_has_drink_drink_id,
+     order_has_drink.`qty` AS order_has_drink_qty,
+     order_has_meal.`order_id` AS order_has_meal_order_id,
+     order_has_meal.`meal_id` AS order_has_meal_meal_id,
+     order_has_meal.`qty` AS order_has_meal_qty,
+     customer.`customer_id` AS customer_customer_id,
+     customer.`name` AS customer_name,
+     customer.`phone` AS customer_phone,
+     customer.`email` AS customer_email,
+     meal.`meal_id` AS meal_meal_id,
+     meal.`name` AS meal_name,
+     meal.`unit_price` AS meal_unit_price,
+     drink.`drink_id` AS drink_drink_id,
+     drink.`name` AS drink_name,
+     drink.`unit_price` AS drink_unit_price,
+     dessert.`dessert_id` AS dessert_dessert_id,
+     dessert.`name` AS dessert_name,
+     dessert.`unit_price` AS dessert_unit_price
+
+FROM restaurentsystem.order
+     INNER JOIN `order_has_dessert` order_has_dessert ON restaurentsystem.order.`order_id` = order_has_dessert.`order_id`
+     INNER JOIN `order_has_drink` order_has_drink ON restaurentsystem.order.`order_id` = order_has_drink.`order_id`
+     INNER JOIN `order_has_meal` order_has_meal ON restaurentsystem.order.`order_id` = order_has_meal.`order_id`
+     INNER JOIN `customer` customer ON restaurentsystem.order.`customer_id` = customer.`customer_id`
+     INNER JOIN `meal` meal ON order_has_meal.`meal_id` = meal.`meal_id`
+     INNER JOIN `drink` drink ON order_has_drink.`drink_id` = drink.`drink_id`
+     INNER JOIN `dessert` dessert ON order_has_dessert.`dessert_id` = dessert.`dessert_id`]]>
+	</queryString>
+	<field name="order_order_id" class="java.lang.Integer"/>
+	<field name="order_date" class="java.lang.String"/>
+	<field name="order_total" class="java.lang.String"/>
+	<field name="order_recieved" class="java.lang.String"/>
+	<field name="order_balance" class="java.lang.String"/>
+	<field name="order_customer_id" class="java.lang.Integer"/>
+	<field name="order_user_id" class="java.lang.Integer"/>
+	<field name="order_has_dessert_order_id" class="java.lang.Integer"/>
+	<field name="order_has_dessert_dessert_id" class="java.lang.Integer"/>
+	<field name="order_has_dessert_qty" class="java.lang.Integer"/>
+	<field name="order_has_drink_order_id" class="java.lang.Integer"/>
+	<field name="order_has_drink_drink_id" class="java.lang.Integer"/>
+	<field name="order_has_drink_qty" class="java.lang.Integer"/>
+	<field name="order_has_meal_order_id" class="java.lang.Integer"/>
+	<field name="order_has_meal_meal_id" class="java.lang.Integer"/>
+	<field name="order_has_meal_qty" class="java.lang.Integer"/>
+	<field name="customer_customer_id" class="java.lang.Integer"/>
+	<field name="customer_name" class="java.lang.String"/>
+	<field name="customer_phone" class="java.lang.String"/>
+	<field name="customer_email" class="java.lang.String"/>
+	<field name="meal_meal_id" class="java.lang.Integer"/>
+	<field name="meal_name" class="java.lang.String"/>
+	<field name="meal_unit_price" class="java.lang.String"/>
+	<field name="drink_drink_id" class="java.lang.Integer"/>
+	<field name="drink_name" class="java.lang.String"/>
+	<field name="drink_unit_price" class="java.lang.String"/>
+	<field name="dessert_dessert_id" class="java.lang.Integer"/>
+	<field name="dessert_name" class="java.lang.String"/>
+	<field name="dessert_unit_price" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="52" uuid="70974f6c-b13b-4305-bfad-442efe4959e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="38"/>
+				</textElement>
+				<text><![CDATA[OSSA FOOD CABIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="572" height="25" uuid="eda7377f-a69d-4b26-8511-211973f48c67"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[It's finger licking good]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="434" y="33" width="38" height="25" uuid="4fe4cb1f-ed0f-47b9-b446-364df63d5b0f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="33" width="100" height="25" uuid="187593ba-426a-484a-9502-8e5e2e4869e1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Monospaced" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{order_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="434" y="8" width="67" height="25" uuid="5b34df60-533b-496a-86d0-83e262be95ba"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Order No]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="501" y="8" width="71" height="25" uuid="9bbd95f0-3908-4a08-91c6-f599fcd8a8fa"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{order_order_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="8" width="28" height="25" uuid="3d0abdfa-c682-4e70-ba47-7868bc9759c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Hi!]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="47" y="8" width="122" height="25" uuid="2483845e-b838-428b-a1fe-7b1a4a2b9e41"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="33" width="150" height="25" uuid="180cbb42-ff30-4ed1-b472-4e8454026706"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Your order is ready.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="36" width="121" height="25" uuid="75d7536d-4ffd-4374-b02e-cd3f0675680e"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Order Items]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="36" width="64" height="25" uuid="97c880ff-62a4-45c7-9dd1-c8d5702b542b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="36" width="107" height="25" uuid="4c7913de-36e8-451a-b23a-c33c851c0b6d"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="36" width="119" height="25" uuid="3e5f29eb-71a4-4ee5-ac11-7896eb8d5da6"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="19" y="0" width="263" height="20" uuid="c987f394-26c8-4460-b628-eda5b10d13ab"/>
+				<textFieldExpression><![CDATA[$F{meal_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="0" width="61" height="20" uuid="9867fbde-2363-498f-bf05-28183a1ef336"/>
+				<textFieldExpression><![CDATA[$F{meal_unit_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="0" width="37" height="20" uuid="5dc1d743-f066-4aaf-80aa-67e9db0ef1cb"/>
+				<textFieldExpression><![CDATA[$F{order_has_meal_qty}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<textField>
+				<reportElement x="309" y="0" width="37" height="20" uuid="dd95706e-5852-45de-b7fd-8dfa590a82a5"/>
+				<textFieldExpression><![CDATA[$F{order_has_drink_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="0" width="263" height="20" uuid="d48799c2-e021-487d-a92c-9d2971d2497b"/>
+				<textFieldExpression><![CDATA[$F{drink_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="0" width="61" height="20" uuid="2b7c1927-127f-439c-9cb1-9d42fe704fc8"/>
+				<textFieldExpression><![CDATA[$F{drink_unit_price}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<textField>
+				<reportElement x="19" y="0" width="263" height="20" uuid="e895c5a9-0e7c-40b0-99c9-bf87432534ec"/>
+				<textFieldExpression><![CDATA[$F{dessert_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="0" width="37" height="20" uuid="121f1648-7ca2-4bbb-ae42-0f4e139f54cc"/>
+				<textFieldExpression><![CDATA[$F{order_has_dessert_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="392" y="0" width="61" height="20" uuid="376353fa-96b5-4d57-9aad-ee9337cb2fad"/>
+				<textFieldExpression><![CDATA[$F{dessert_unit_price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
