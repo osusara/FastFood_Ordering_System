@@ -5,11 +5,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +26,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -243,7 +255,25 @@ public class ManagerScreen extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-
+   
+    private void reportgen(){
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+            JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
+            String reportSource = "D:\\Osusara\\Documents\\Github Projects\\FastFood_Ordering_System\\src\\Resources\\FoodOrderingReport.jrxml";
+        
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+        
+            Map<String, Object> params = new HashMap<String, Object>();
+        
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, params, dataSource);
+            JasperViewer.viewReport(print, false);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -327,6 +357,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         customerIDLabel = new javax.swing.JLabel();
         cidLabel = new javax.swing.JLabel();
         orderNoLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         userManagementPanel = new javax.swing.JPanel();
         userListScrollPane = new javax.swing.JScrollPane();
         userList = new javax.swing.JList<>();
@@ -1459,6 +1490,13 @@ public class ManagerScreen extends javax.swing.JFrame {
         orderNoLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         orderNoLabel1.setText("Customer Details");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mealsPanelLayout = new javax.swing.GroupLayout(mealsPanel);
         mealsPanel.setLayout(mealsPanelLayout);
         mealsPanelLayout.setHorizontalGroup(
@@ -1475,10 +1513,15 @@ public class ManagerScreen extends javax.swing.JFrame {
                             .addComponent(drinksLabel)
                             .addComponent(drinksPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(mealsPanelLayout.createSequentialGroup()
-                        .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(mealsPanelLayout.createSequentialGroup()
-                                .addComponent(totalLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(mealsPanelLayout.createSequentialGroup()
+                                        .addComponent(totalLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mealsPanelLayout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(mealsPanelLayout.createSequentialGroup()
                                 .addComponent(orderNoLabel)
@@ -1545,12 +1588,17 @@ public class ManagerScreen extends javax.swing.JFrame {
                                 .addComponent(serviceChargesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(serviceChargesLabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(balanceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balanceLabel)
-                            .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(totalLabel))
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mealsPanelLayout.createSequentialGroup()
+                                .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(balanceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(balanceLabel)
+                                    .addComponent(totalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(totalLabel))
+                                .addContainerGap(22, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mealsPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mealsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(mealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -4849,6 +4897,10 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ordersTableMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        reportgen();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4948,6 +5000,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPasswordField inUMConfirmPasswordField;
     private javax.swing.JPasswordField inUMPasswordField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
