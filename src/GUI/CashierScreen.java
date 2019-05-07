@@ -5,11 +5,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +26,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -180,7 +192,47 @@ public class CashierScreen extends javax.swing.JFrame {
         emailTextField.setText(null);
     }
 
-
+    public static int getResultSetRowCount(ResultSet resultSet) {
+        int size = 0;
+        try {
+            resultSet.last();
+            size = resultSet.getRow();
+            resultSet.beforeFirst();
+        } catch (SQLException ex) {
+            return 0;
+        }
+        return size;
+    }
+   
+    private void reportGen(){
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+            JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
+            String reportSource = "D:\\Osusara\\Documents\\Github Projects\\FastFood_Ordering_System\\src\\Resources\\FoodOrderingReport.jrxml";
+        
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+        
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("oid", oidLabel.getText());
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            
+            params.put("date", formatter.format(date));
+            params.put("name", nameTextField.getText());
+            params.put("charges", serviceChargesTextField.getText());
+            params.put("total", totalTextField.getText());
+            params.put("payment", recievedTextField.getText());
+            params.put("balance", balanceTextField.getText());
+        
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, params, dataSource);
+            JasperViewer.viewReport(print, false);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -265,9 +317,9 @@ public class CashierScreen extends javax.swing.JFrame {
         cidLabel = new javax.swing.JLabel();
         orderNoLabel1 = new javax.swing.JLabel();
         userManagementPanel = new javax.swing.JPanel();
-        noAccessLabel1 = new javax.swing.JLabel();
+        casualMealsLabel1 = new javax.swing.JLabel();
         AnalyticsPanel = new javax.swing.JPanel();
-        noAccessLabel2 = new javax.swing.JLabel();
+        casualMealsLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
@@ -1459,13 +1511,12 @@ public class CashierScreen extends javax.swing.JFrame {
         navPanel.addTab("Make Orders", new javax.swing.ImageIcon(getClass().getResource("/Resources/food.png")), makeOrdersPanel, ""); // NOI18N
 
         userManagementPanel.setBackground(new java.awt.Color(255, 255, 255));
-        userManagementPanel.setEnabled(false);
         userManagementPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         userManagementPanel.setInheritsPopupMenu(true);
 
-        noAccessLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        noAccessLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        noAccessLabel1.setText("You have not permission to access this area");
+        casualMealsLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        casualMealsLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        casualMealsLabel1.setText("Access Denied");
 
         javax.swing.GroupLayout userManagementPanelLayout = new javax.swing.GroupLayout(userManagementPanel);
         userManagementPanel.setLayout(userManagementPanelLayout);
@@ -1474,39 +1525,48 @@ public class CashierScreen extends javax.swing.JFrame {
             .addGap(0, 995, Short.MAX_VALUE)
             .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(userManagementPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(noAccessLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(casualMealsLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         userManagementPanelLayout.setVerticalGroup(
             userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 658, Short.MAX_VALUE)
             .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(userManagementPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(noAccessLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(casualMealsLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         navPanel.addTab("User Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/userManagement.png")), userManagementPanel); // NOI18N
 
         AnalyticsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        AnalyticsPanel.setEnabled(false);
         AnalyticsPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        noAccessLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        noAccessLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        noAccessLabel2.setText("You have not permission to access this area");
+        casualMealsLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        casualMealsLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        casualMealsLabel2.setText("Access Denied");
 
         javax.swing.GroupLayout AnalyticsPanelLayout = new javax.swing.GroupLayout(AnalyticsPanel);
         AnalyticsPanel.setLayout(AnalyticsPanelLayout);
         AnalyticsPanelLayout.setHorizontalGroup(
             AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noAccessLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
+            .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(casualMealsLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         AnalyticsPanelLayout.setVerticalGroup(
             AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noAccessLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+            .addGap(0, 658, Short.MAX_VALUE)
+            .addGroup(AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(casualMealsLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         navPanel.addTab("Business Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), AnalyticsPanel); // NOI18N
@@ -1702,7 +1762,7 @@ public class CashierScreen extends javax.swing.JFrame {
                 }
             }
         }
-
+        reportGen();
         //Other Functions
         reset();
         loadID();
@@ -3642,6 +3702,8 @@ public class CashierScreen extends javax.swing.JFrame {
     private javax.swing.JTextField beefBurgerCount;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel casualMealsLabel;
+    private javax.swing.JLabel casualMealsLabel1;
+    private javax.swing.JLabel casualMealsLabel2;
     private javax.swing.JPanel casualMealsPanel;
     private javax.swing.JCheckBox cheeseBurger;
     private javax.swing.JTextField cheeseBurgerCount;
@@ -3688,8 +3750,6 @@ public class CashierScreen extends javax.swing.JFrame {
     private javax.swing.JTextField milkShakeCount;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTabbedPane navPanel;
-    private javax.swing.JLabel noAccessLabel1;
-    private javax.swing.JLabel noAccessLabel2;
     private javax.swing.JCheckBox nonvegSubmarine;
     private javax.swing.JTextField nonvegSubmarineCount;
     private javax.swing.JLabel oidLabel;
