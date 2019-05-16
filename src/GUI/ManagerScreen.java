@@ -404,7 +404,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         userListLabel1 = new javax.swing.JLabel();
         saveUserButton1 = new javax.swing.JButton();
         searchInUMTextField = new javax.swing.JTextField();
-        AnalyticsPanel = new javax.swing.JPanel();
+        analyticsPanel = new javax.swing.JPanel();
         ordersTableLabel = new javax.swing.JLabel();
         orderDetailsLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -429,6 +429,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         totalProfitLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         orderDetailsList = new javax.swing.JList<>();
+        grnPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
@@ -1331,10 +1332,10 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
         mealsTable.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 mealsTableInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         mealsTabelPanel.setViewportView(mealsTable);
@@ -2035,8 +2036,8 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         navPanel.addTab("User Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/userManagement.png")), userManagementPanel); // NOI18N
 
-        AnalyticsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        AnalyticsPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        analyticsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        analyticsPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         ordersTableLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         ordersTableLabel.setText("Orders Table");
@@ -2285,22 +2286,22 @@ public class ManagerScreen extends javax.swing.JFrame {
         orderDetailsList.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jScrollPane2.setViewportView(orderDetailsList);
 
-        javax.swing.GroupLayout AnalyticsPanelLayout = new javax.swing.GroupLayout(AnalyticsPanel);
-        AnalyticsPanel.setLayout(AnalyticsPanelLayout);
-        AnalyticsPanelLayout.setHorizontalGroup(
-            AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout analyticsPanelLayout = new javax.swing.GroupLayout(analyticsPanel);
+        analyticsPanel.setLayout(analyticsPanelLayout);
+        analyticsPanelLayout.setHorizontalGroup(
+            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(analyticsPanelLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(orderDetailsLabel)
                     .addComponent(ordersTableLabel)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-        AnalyticsPanelLayout.setVerticalGroup(
-            AnalyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AnalyticsPanelLayout.createSequentialGroup()
+        analyticsPanelLayout.setVerticalGroup(
+            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(analyticsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ordersTableLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2312,7 +2313,22 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        navPanel.addTab("Business Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), AnalyticsPanel); // NOI18N
+        navPanel.addTab("Business Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), analyticsPanel); // NOI18N
+
+        grnPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout grnPanelLayout = new javax.swing.GroupLayout(grnPanel);
+        grnPanel.setLayout(grnPanelLayout);
+        grnPanelLayout.setHorizontalGroup(
+            grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 995, Short.MAX_VALUE)
+        );
+        grnPanelLayout.setVerticalGroup(
+            grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 658, Short.MAX_VALUE)
+        );
+
+        navPanel.addTab("Good Receive", grnPanel);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -4926,11 +4942,11 @@ public class ManagerScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AnalyticsPanel;
     private javax.swing.JCheckBox activeInUMCheckBox;
     private javax.swing.JButton addUserButton;
     private javax.swing.JLabel addressInUMLabel;
     private javax.swing.JTextField addressInUMTextField;
+    private javax.swing.JPanel analyticsPanel;
     private javax.swing.JLabel balanceLabel;
     private javax.swing.JTextField balanceTextField;
     private javax.swing.JCheckBox beefBurger;
@@ -4981,6 +4997,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel genderInUMLabel;
     private javax.swing.JTextField genderInUMTextField;
     private javax.swing.JPanel getCustomerDetailsPanel;
+    private javax.swing.JPanel grnPanel;
     private javax.swing.JLabel hiLabel;
     private javax.swing.JCheckBox hotChocolate;
     private javax.swing.JTextField hotChocolateCount;
