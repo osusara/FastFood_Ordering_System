@@ -368,6 +368,61 @@ public class ManagerScreen extends javax.swing.JFrame {
         customerIDLabel = new javax.swing.JLabel();
         cidLabel = new javax.swing.JLabel();
         orderNoLabel1 = new javax.swing.JLabel();
+        analyticsPanel = new javax.swing.JPanel();
+        ordersTableLabel = new javax.swing.JLabel();
+        orderDetailsLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ordersTable = new javax.swing.JTable();
+        refereshOrderDataButton = new javax.swing.JButton();
+        filterOrdersPanel = new javax.swing.JPanel();
+        filterByCustomerLabel = new javax.swing.JLabel();
+        filterByCashierLabel = new javax.swing.JLabel();
+        filterByOrderLabel = new javax.swing.JLabel();
+        filterByDateLabel = new javax.swing.JLabel();
+        orderByOIDTextField = new javax.swing.JTextField();
+        orderByUIDTextField = new javax.swing.JTextField();
+        orderByCIDTextField = new javax.swing.JTextField();
+        filterByPHTLabel = new javax.swing.JLabel();
+        filterByPLTLabel = new javax.swing.JLabel();
+        ordreByPHTTextField = new javax.swing.JTextField();
+        ordreByPLTTextField = new javax.swing.JTextField();
+        orderByDateTextField = new javax.swing.JTextField();
+        ordersTableLabel1 = new javax.swing.JLabel();
+        totalProfitTextField = new javax.swing.JTextField();
+        totalProfitLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orderDetailsList = new javax.swing.JList<>();
+        grnPanel = new javax.swing.JPanel();
+        stockTableLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        stockTable = new javax.swing.JTable();
+        itemSearchTextField = new javax.swing.JTextField();
+        stockRefreshButton = new javax.swing.JButton();
+        supplierDetailsLabel = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        supplierDetailsList = new javax.swing.JList<>();
+        grnItemReceiveLabel = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        grnDateTextField = new javax.swing.JTextField();
+        grnDateLabel = new javax.swing.JLabel();
+        itemIDTextField = new javax.swing.JTextField();
+        grnItemIDLabel = new javax.swing.JLabel();
+        supplierIDTextField = new javax.swing.JTextField();
+        grnSupplierIDLabel = new javax.swing.JLabel();
+        grnQtyLabel = new javax.swing.JLabel();
+        grnQtyTextField = new javax.swing.JTextField();
+        grnTotalLabel = new javax.swing.JLabel();
+        grnQtyTextField1 = new javax.swing.JTextField();
+        grnSupplierLabel = new javax.swing.JLabel();
+        grnQtyTextField2 = new javax.swing.JTextField();
+        grnItemLabel = new javax.swing.JLabel();
+        grnItemTextField = new javax.swing.JTextField();
+        grnUnitPriceLabel = new javax.swing.JLabel();
+        grnUnitPriceTextField = new javax.swing.JTextField();
+        addItemButton = new javax.swing.JButton();
+        addItemButton1 = new javax.swing.JButton();
         userManagementPanel = new javax.swing.JPanel();
         userListScrollPane = new javax.swing.JScrollPane();
         userList = new javax.swing.JList<>();
@@ -402,34 +457,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         saveUserButton = new javax.swing.JButton();
         addUserButton = new javax.swing.JButton();
         userListLabel1 = new javax.swing.JLabel();
-        saveUserButton1 = new javax.swing.JButton();
+        userRefreshButton = new javax.swing.JButton();
         searchInUMTextField = new javax.swing.JTextField();
-        analyticsPanel = new javax.swing.JPanel();
-        ordersTableLabel = new javax.swing.JLabel();
-        orderDetailsLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ordersTable = new javax.swing.JTable();
-        refereshOrderDataButton = new javax.swing.JButton();
-        filterOrdersPanel = new javax.swing.JPanel();
-        filterByCustomerLabel = new javax.swing.JLabel();
-        filterByCashierLabel = new javax.swing.JLabel();
-        filterByOrderLabel = new javax.swing.JLabel();
-        filterByDateLabel = new javax.swing.JLabel();
-        orderByOIDTextField = new javax.swing.JTextField();
-        orderByUIDTextField = new javax.swing.JTextField();
-        orderByCIDTextField = new javax.swing.JTextField();
-        filterByPHTLabel = new javax.swing.JLabel();
-        filterByPLTLabel = new javax.swing.JLabel();
-        ordreByPHTTextField = new javax.swing.JTextField();
-        ordreByPLTTextField = new javax.swing.JTextField();
-        orderByDateTextField = new javax.swing.JTextField();
-        ordersTableLabel1 = new javax.swing.JLabel();
-        totalProfitTextField = new javax.swing.JTextField();
-        totalProfitLabel = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        orderDetailsList = new javax.swing.JList<>();
-        grnPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
@@ -1620,6 +1649,640 @@ public class ManagerScreen extends javax.swing.JFrame {
 
         navPanel.addTab("Make Orders", new javax.swing.ImageIcon(getClass().getResource("/Resources/food.png")), makeOrdersPanel, ""); // NOI18N
 
+        analyticsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        analyticsPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        ordersTableLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ordersTableLabel.setText("Orders Table");
+
+        orderDetailsLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        orderDetailsLabel.setText("Order Details");
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+
+        ordersTable.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        ordersTable.setForeground(new java.awt.Color(51, 51, 51));
+        ordersTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Date", "Order ID", "Cashier ID", "Customer ID", "Amount", "Profit"
+            }
+        ));
+        ordersTable.setGridColor(new java.awt.Color(153, 153, 153));
+        ordersTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        ordersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ordersTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ordersTable);
+
+        refereshOrderDataButton.setBackground(new java.awt.Color(255, 255, 255));
+        refereshOrderDataButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        refereshOrderDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
+        refereshOrderDataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refereshOrderDataButtonActionPerformed(evt);
+            }
+        });
+
+        filterOrdersPanel.setBackground(new java.awt.Color(255, 255, 255));
+        filterOrdersPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        filterOrdersPanel.setForeground(new java.awt.Color(51, 51, 51));
+
+        filterByCustomerLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        filterByCustomerLabel.setText("By Customer ID");
+
+        filterByCashierLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        filterByCashierLabel.setText("By Cashier ID");
+
+        filterByOrderLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        filterByOrderLabel.setText("By Order ID");
+
+        filterByDateLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        filterByDateLabel.setText("By Date");
+
+        orderByOIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        orderByOIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        orderByOIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        orderByOIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        orderByOIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        orderByOIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                orderByOIDTextFieldKeyReleased(evt);
+            }
+        });
+
+        orderByUIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        orderByUIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        orderByUIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        orderByUIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        orderByUIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        orderByUIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                orderByUIDTextFieldKeyReleased(evt);
+            }
+        });
+
+        orderByCIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        orderByCIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        orderByCIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        orderByCIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        orderByCIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        orderByCIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                orderByCIDTextFieldKeyReleased(evt);
+            }
+        });
+
+        filterByPHTLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        filterByPHTLabel.setText("By Profit Higher Than");
+
+        filterByPLTLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        filterByPLTLabel.setText("By Profit Lower Than");
+
+        ordreByPHTTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ordreByPHTTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ordreByPHTTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        ordreByPHTTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        ordreByPHTTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        ordreByPHTTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ordreByPHTTextFieldKeyReleased(evt);
+            }
+        });
+
+        ordreByPLTTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ordreByPLTTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ordreByPLTTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        ordreByPLTTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        ordreByPLTTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        ordreByPLTTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ordreByPLTTextFieldKeyReleased(evt);
+            }
+        });
+
+        orderByDateTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        orderByDateTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        orderByDateTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        orderByDateTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        orderByDateTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        orderByDateTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                orderByDateTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                orderByDateTextFieldKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout filterOrdersPanelLayout = new javax.swing.GroupLayout(filterOrdersPanel);
+        filterOrdersPanel.setLayout(filterOrdersPanelLayout);
+        filterOrdersPanelLayout.setHorizontalGroup(
+            filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, filterOrdersPanelLayout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(filterOrdersPanelLayout.createSequentialGroup()
+                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filterByPLTLabel)
+                            .addComponent(filterByPHTLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ordreByPLTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ordreByPHTTextField)))
+                    .addGroup(filterOrdersPanelLayout.createSequentialGroup()
+                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filterByCustomerLabel)
+                            .addComponent(filterByCashierLabel)
+                            .addComponent(filterByOrderLabel)
+                            .addComponent(filterByDateLabel))
+                        .addGap(46, 46, 46)
+                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(orderByCIDTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(orderByUIDTextField)
+                            .addComponent(orderByOIDTextField)
+                            .addComponent(orderByDateTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(13, 13, 13))
+        );
+        filterOrdersPanelLayout.setVerticalGroup(
+            filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filterOrdersPanelLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(filterByDateLabel)
+                    .addComponent(orderByDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterByOrderLabel)
+                    .addComponent(orderByOIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterByCashierLabel)
+                    .addComponent(orderByUIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterByCustomerLabel)
+                    .addComponent(orderByCIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterByPHTLabel)
+                    .addComponent(ordreByPHTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterByPLTLabel)
+                    .addComponent(ordreByPLTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ordersTableLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ordersTableLabel1.setText("Filter Orders");
+
+        totalProfitTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        totalProfitTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        totalProfitTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        totalProfitTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        totalProfitTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+
+        totalProfitLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        totalProfitLabel.setText("Total Profit");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(refereshOrderDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
+                .addComponent(totalProfitLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalProfitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ordersTableLabel1)
+                    .addComponent(filterOrdersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(356, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ordersTableLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 214, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(totalProfitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(totalProfitLabel))
+                            .addComponent(refereshOrderDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(filterOrdersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(19, 19, 19)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(70, Short.MAX_VALUE)))
+        );
+
+        orderDetailsList.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jScrollPane2.setViewportView(orderDetailsList);
+
+        javax.swing.GroupLayout analyticsPanelLayout = new javax.swing.GroupLayout(analyticsPanel);
+        analyticsPanel.setLayout(analyticsPanelLayout);
+        analyticsPanelLayout.setHorizontalGroup(
+            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(analyticsPanelLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(orderDetailsLabel)
+                    .addComponent(ordersTableLabel)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        analyticsPanelLayout.setVerticalGroup(
+            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(analyticsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ordersTableLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(orderDetailsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        navPanel.addTab("Business Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), analyticsPanel); // NOI18N
+
+        grnPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        stockTableLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stockTableLabel.setText("Stock Details");
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+
+        stockTable.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stockTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item ID", "Item Name", "Quantity", "Unit Price"
+            }
+        ));
+        jScrollPane3.setViewportView(stockTable);
+
+        itemSearchTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        itemSearchTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemSearchTextField.setText("Search Items");
+        itemSearchTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        itemSearchTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        itemSearchTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        itemSearchTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                itemSearchTextFieldFocusLost(evt);
+            }
+        });
+        itemSearchTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemSearchTextFieldMouseClicked(evt);
+            }
+        });
+        itemSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemSearchTextFieldKeyTyped(evt);
+            }
+        });
+
+        stockRefreshButton.setBackground(new java.awt.Color(255, 255, 255));
+        stockRefreshButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        stockRefreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
+        stockRefreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockRefreshButtonActionPerformed(evt);
+            }
+        });
+
+        supplierDetailsLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        supplierDetailsLabel.setText("Supplier Details");
+
+        supplierDetailsList.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jScrollPane4.setViewportView(supplierDetailsList);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(supplierDetailsLabel)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(itemSearchTextField)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stockRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(stockRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(supplierDetailsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        grnItemReceiveLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnItemReceiveLabel.setText("Receive Items");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+
+        grnDateTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnDateTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnDateTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnDateTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnDateTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnDateTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grnDateTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnDateTextFieldKeyTyped(evt);
+            }
+        });
+
+        grnDateLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnDateLabel.setText("Date");
+
+        itemIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        itemIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        itemIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        itemIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        itemIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                itemIDTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemIDTextFieldKeyTyped(evt);
+            }
+        });
+
+        grnItemIDLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnItemIDLabel.setText("Item ID");
+
+        supplierIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        supplierIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        supplierIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        supplierIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        supplierIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        supplierIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                supplierIDTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                supplierIDTextFieldKeyTyped(evt);
+            }
+        });
+
+        grnSupplierIDLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnSupplierIDLabel.setText("Supplier ID");
+
+        grnQtyLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnQtyLabel.setText("Quantity");
+
+        grnQtyTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnQtyTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnQtyTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnQtyTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnQtyTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnQtyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grnQtyTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnQtyTextFieldKeyTyped(evt);
+            }
+        });
+
+        grnTotalLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnTotalLabel.setText("Total");
+
+        grnQtyTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnQtyTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnQtyTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnQtyTextField1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnQtyTextField1.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnQtyTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grnQtyTextField1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnQtyTextField1KeyTyped(evt);
+            }
+        });
+
+        grnSupplierLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnSupplierLabel.setText("Supplier");
+
+        grnQtyTextField2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnQtyTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnQtyTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnQtyTextField2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnQtyTextField2.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnQtyTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grnQtyTextField2KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnQtyTextField2KeyTyped(evt);
+            }
+        });
+
+        grnItemLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnItemLabel.setText("Item");
+
+        grnItemTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnItemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnItemTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnItemTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnItemTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnItemTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grnItemTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnItemTextFieldKeyTyped(evt);
+            }
+        });
+
+        grnUnitPriceLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnUnitPriceLabel.setText("Unit Price");
+
+        grnUnitPriceTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnUnitPriceTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnUnitPriceTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnUnitPriceTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnUnitPriceTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnUnitPriceTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grnUnitPriceTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnUnitPriceTextFieldKeyTyped(evt);
+            }
+        });
+
+        addItemButton.setBackground(new java.awt.Color(255, 255, 255));
+        addItemButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        addItemButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/addIem.png"))); // NOI18N
+        addItemButton.setText("Add Item");
+        addItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemButtonActionPerformed(evt);
+            }
+        });
+
+        addItemButton1.setBackground(new java.awt.Color(255, 255, 255));
+        addItemButton1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        addItemButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/grn.png"))); // NOI18N
+        addItemButton1.setText("Invoice");
+        addItemButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addItemButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(grnSupplierIDLabel)
+                            .addComponent(grnDateLabel)
+                            .addComponent(grnUnitPriceLabel)
+                            .addComponent(grnItemLabel)
+                            .addComponent(grnSupplierLabel)
+                            .addComponent(grnQtyLabel)
+                            .addComponent(grnTotalLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(supplierIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addComponent(grnItemIDLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(itemIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(grnQtyTextField2)
+                            .addComponent(grnItemTextField)
+                            .addComponent(grnUnitPriceTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(grnQtyTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(grnDateTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(grnQtyTextField1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(addItemButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnDateLabel)
+                    .addComponent(grnDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(itemIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grnItemIDLabel)
+                    .addComponent(supplierIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grnSupplierIDLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnSupplierLabel)
+                    .addComponent(grnQtyTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnItemLabel)
+                    .addComponent(grnItemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnUnitPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grnUnitPriceLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grnQtyLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnQtyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grnTotalLabel))
+                .addGap(29, 29, 29)
+                .addComponent(addItemButton)
+                .addGap(18, 18, 18)
+                .addComponent(addItemButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout grnPanelLayout = new javax.swing.GroupLayout(grnPanel);
+        grnPanel.setLayout(grnPanelLayout);
+        grnPanelLayout.setHorizontalGroup(
+            grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(grnPanelLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stockTableLabel)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(grnItemReceiveLabel)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
+        );
+        grnPanelLayout.setVerticalGroup(
+            grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(grnPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stockTableLabel)
+                    .addComponent(grnItemReceiveLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        navPanel.addTab("Stock Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/stock.png")), grnPanel); // NOI18N
+
         userManagementPanel.setBackground(new java.awt.Color(255, 255, 255));
         userManagementPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         userManagementPanel.setInheritsPopupMenu(true);
@@ -1955,12 +2618,12 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        saveUserButton1.setBackground(new java.awt.Color(255, 255, 255));
-        saveUserButton1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        saveUserButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
-        saveUserButton1.addActionListener(new java.awt.event.ActionListener() {
+        userRefreshButton.setBackground(new java.awt.Color(255, 255, 255));
+        userRefreshButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        userRefreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
+        userRefreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveUserButton1ActionPerformed(evt);
+                userRefreshButtonActionPerformed(evt);
             }
         });
 
@@ -2000,7 +2663,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                                 .addGroup(userManagementPanelLayout.createSequentialGroup()
                                     .addComponent(searchInUMTextField)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(saveUserButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(userRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(userManagementPanelLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -2027,7 +2690,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addComponent(userListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(userManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(saveUserButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchInUMTextField))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(controlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2035,300 +2698,6 @@ public class ManagerScreen extends javax.swing.JFrame {
         );
 
         navPanel.addTab("User Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/userManagement.png")), userManagementPanel); // NOI18N
-
-        analyticsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        analyticsPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-
-        ordersTableLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        ordersTableLabel.setText("Orders Table");
-
-        orderDetailsLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        orderDetailsLabel.setText("Order Details");
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-
-        ordersTable.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        ordersTable.setForeground(new java.awt.Color(51, 51, 51));
-        ordersTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Date", "Order ID", "Cashier ID", "Customer ID", "Amount", "Profit"
-            }
-        ));
-        ordersTable.setGridColor(new java.awt.Color(153, 153, 153));
-        ordersTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
-        ordersTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ordersTableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(ordersTable);
-
-        refereshOrderDataButton.setBackground(new java.awt.Color(255, 255, 255));
-        refereshOrderDataButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        refereshOrderDataButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
-        refereshOrderDataButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refereshOrderDataButtonActionPerformed(evt);
-            }
-        });
-
-        filterOrdersPanel.setBackground(new java.awt.Color(255, 255, 255));
-        filterOrdersPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        filterOrdersPanel.setForeground(new java.awt.Color(51, 51, 51));
-
-        filterByCustomerLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        filterByCustomerLabel.setText("By Customer ID");
-
-        filterByCashierLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        filterByCashierLabel.setText("By Cashier ID");
-
-        filterByOrderLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        filterByOrderLabel.setText("By Order ID");
-
-        filterByDateLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        filterByDateLabel.setText("By Date");
-
-        orderByOIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        orderByOIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        orderByOIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        orderByOIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        orderByOIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-        orderByOIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                orderByOIDTextFieldKeyReleased(evt);
-            }
-        });
-
-        orderByUIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        orderByUIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        orderByUIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        orderByUIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        orderByUIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-        orderByUIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                orderByUIDTextFieldKeyReleased(evt);
-            }
-        });
-
-        orderByCIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        orderByCIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        orderByCIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        orderByCIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        orderByCIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-        orderByCIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                orderByCIDTextFieldKeyReleased(evt);
-            }
-        });
-
-        filterByPHTLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        filterByPHTLabel.setText("By Profit Higher Than");
-
-        filterByPLTLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        filterByPLTLabel.setText("By Profit Lower Than");
-
-        ordreByPHTTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        ordreByPHTTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ordreByPHTTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        ordreByPHTTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        ordreByPHTTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-        ordreByPHTTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ordreByPHTTextFieldKeyReleased(evt);
-            }
-        });
-
-        ordreByPLTTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        ordreByPLTTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ordreByPLTTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        ordreByPLTTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        ordreByPLTTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-        ordreByPLTTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ordreByPLTTextFieldKeyReleased(evt);
-            }
-        });
-
-        orderByDateTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        orderByDateTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        orderByDateTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        orderByDateTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        orderByDateTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-        orderByDateTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                orderByDateTextFieldKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                orderByDateTextFieldKeyTyped(evt);
-            }
-        });
-
-        javax.swing.GroupLayout filterOrdersPanelLayout = new javax.swing.GroupLayout(filterOrdersPanel);
-        filterOrdersPanel.setLayout(filterOrdersPanelLayout);
-        filterOrdersPanelLayout.setHorizontalGroup(
-            filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, filterOrdersPanelLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(filterOrdersPanelLayout.createSequentialGroup()
-                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(filterByPLTLabel)
-                            .addComponent(filterByPHTLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ordreByPLTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ordreByPHTTextField)))
-                    .addGroup(filterOrdersPanelLayout.createSequentialGroup()
-                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(filterByCustomerLabel)
-                            .addComponent(filterByCashierLabel)
-                            .addComponent(filterByOrderLabel)
-                            .addComponent(filterByDateLabel))
-                        .addGap(46, 46, 46)
-                        .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(orderByCIDTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(orderByUIDTextField)
-                            .addComponent(orderByOIDTextField)
-                            .addComponent(orderByDateTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(13, 13, 13))
-        );
-        filterOrdersPanelLayout.setVerticalGroup(
-            filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(filterOrdersPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(filterByDateLabel)
-                    .addComponent(orderByDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filterByOrderLabel)
-                    .addComponent(orderByOIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filterByCashierLabel)
-                    .addComponent(orderByUIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filterByCustomerLabel)
-                    .addComponent(orderByCIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filterByPHTLabel)
-                    .addComponent(ordreByPHTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(filterOrdersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filterByPLTLabel)
-                    .addComponent(ordreByPLTTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        ordersTableLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        ordersTableLabel1.setText("Filter Orders");
-
-        totalProfitTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        totalProfitTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        totalProfitTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        totalProfitTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        totalProfitTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
-
-        totalProfitLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        totalProfitLabel.setText("Total Profit");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(refereshOrderDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
-                .addComponent(totalProfitLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalProfitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ordersTableLabel1)
-                    .addComponent(filterOrdersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(19, 19, 19)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(356, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ordersTableLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 214, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(totalProfitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(totalProfitLabel))
-                            .addComponent(refereshOrderDataButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(filterOrdersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(19, 19, 19)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(70, Short.MAX_VALUE)))
-        );
-
-        orderDetailsList.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jScrollPane2.setViewportView(orderDetailsList);
-
-        javax.swing.GroupLayout analyticsPanelLayout = new javax.swing.GroupLayout(analyticsPanel);
-        analyticsPanel.setLayout(analyticsPanelLayout);
-        analyticsPanelLayout.setHorizontalGroup(
-            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(analyticsPanelLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(orderDetailsLabel)
-                    .addComponent(ordersTableLabel)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        analyticsPanelLayout.setVerticalGroup(
-            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(analyticsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ordersTableLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(orderDetailsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-
-        navPanel.addTab("Business Analytics", new javax.swing.ImageIcon(getClass().getResource("/Resources/analytics.png")), analyticsPanel); // NOI18N
-
-        grnPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout grnPanelLayout = new javax.swing.GroupLayout(grnPanel);
-        grnPanel.setLayout(grnPanelLayout);
-        grnPanelLayout.setHorizontalGroup(
-            grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
-        );
-        grnPanelLayout.setVerticalGroup(
-            grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 658, Short.MAX_VALUE)
-        );
-
-        navPanel.addTab("Good Receive", grnPanel);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -4609,9 +4978,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_phoneInUMTextFieldKeyTyped
 
-    private void saveUserButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveUserButton1ActionPerformed
+    private void userRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userRefreshButtonActionPerformed
         userListLoad();
-    }//GEN-LAST:event_saveUserButton1ActionPerformed
+    }//GEN-LAST:event_userRefreshButtonActionPerformed
 
     private void searchInUMTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchInUMTextFieldKeyTyped
         if (searchInUMTextField.getForeground() == Color.gray) {
@@ -4906,6 +5275,94 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ordersTableMouseClicked
 
+    private void grnDateTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnDateTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnDateTextFieldKeyReleased
+
+    private void grnDateTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnDateTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnDateTextFieldKeyTyped
+
+    private void itemIDTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemIDTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemIDTextFieldKeyReleased
+
+    private void itemIDTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemIDTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemIDTextFieldKeyTyped
+
+    private void supplierIDTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplierIDTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplierIDTextFieldKeyReleased
+
+    private void supplierIDTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplierIDTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplierIDTextFieldKeyTyped
+
+    private void grnQtyTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnQtyTextFieldKeyReleased
+
+    private void grnQtyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnQtyTextFieldKeyTyped
+
+    private void grnQtyTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnQtyTextField1KeyReleased
+
+    private void grnQtyTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnQtyTextField1KeyTyped
+
+    private void grnQtyTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField2KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnQtyTextField2KeyReleased
+
+    private void grnQtyTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnQtyTextField2KeyTyped
+
+    private void grnItemTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnItemTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnItemTextFieldKeyReleased
+
+    private void grnItemTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnItemTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnItemTextFieldKeyTyped
+
+    private void grnUnitPriceTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnUnitPriceTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnUnitPriceTextFieldKeyReleased
+
+    private void grnUnitPriceTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnUnitPriceTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_grnUnitPriceTextFieldKeyTyped
+
+    private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addItemButtonActionPerformed
+
+    private void addItemButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addItemButton1ActionPerformed
+
+    private void itemSearchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemSearchTextFieldFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemSearchTextFieldFocusLost
+
+    private void itemSearchTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemSearchTextFieldMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemSearchTextFieldMouseClicked
+
+    private void itemSearchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemSearchTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemSearchTextFieldKeyTyped
+
+    private void stockRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockRefreshButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockRefreshButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4943,6 +5400,8 @@ public class ManagerScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox activeInUMCheckBox;
+    private javax.swing.JButton addItemButton;
+    private javax.swing.JButton addItemButton1;
     private javax.swing.JButton addUserButton;
     private javax.swing.JLabel addressInUMLabel;
     private javax.swing.JTextField addressInUMTextField;
@@ -4997,7 +5456,22 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel genderInUMLabel;
     private javax.swing.JTextField genderInUMTextField;
     private javax.swing.JPanel getCustomerDetailsPanel;
+    private javax.swing.JLabel grnDateLabel;
+    private javax.swing.JTextField grnDateTextField;
+    private javax.swing.JLabel grnItemIDLabel;
+    private javax.swing.JLabel grnItemLabel;
+    private javax.swing.JLabel grnItemReceiveLabel;
+    private javax.swing.JTextField grnItemTextField;
     private javax.swing.JPanel grnPanel;
+    private javax.swing.JLabel grnQtyLabel;
+    private javax.swing.JTextField grnQtyTextField;
+    private javax.swing.JTextField grnQtyTextField1;
+    private javax.swing.JTextField grnQtyTextField2;
+    private javax.swing.JLabel grnSupplierIDLabel;
+    private javax.swing.JLabel grnSupplierLabel;
+    private javax.swing.JLabel grnTotalLabel;
+    private javax.swing.JLabel grnUnitPriceLabel;
+    private javax.swing.JTextField grnUnitPriceTextField;
     private javax.swing.JLabel hiLabel;
     private javax.swing.JCheckBox hotChocolate;
     private javax.swing.JTextField hotChocolateCount;
@@ -5006,9 +5480,15 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPasswordField inUMConfirmPasswordField;
     private javax.swing.JPasswordField inUMPasswordField;
+    private javax.swing.JTextField itemIDTextField;
+    private javax.swing.JTextField itemSearchTextField;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JCheckBox lavaCake;
     private javax.swing.JTextField lavaCakeCount;
     private javax.swing.JButton logoutButton;
@@ -5052,7 +5532,6 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField recievedTextField;
     private javax.swing.JButton refereshOrderDataButton;
     private javax.swing.JButton saveUserButton;
-    private javax.swing.JButton saveUserButton1;
     private javax.swing.JTextField searchInUMTextField;
     private javax.swing.JLabel serviceChargesLabel;
     private javax.swing.JTextField serviceChargesTextField;
@@ -5061,8 +5540,14 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField spriteLCount;
     private javax.swing.JCheckBox spriteS;
     private javax.swing.JTextField spriteSCount;
+    private javax.swing.JButton stockRefreshButton;
+    private javax.swing.JTable stockTable;
+    private javax.swing.JLabel stockTableLabel;
     private javax.swing.JCheckBox strawberryCone;
     private javax.swing.JTextField strawberryConeCount;
+    private javax.swing.JLabel supplierDetailsLabel;
+    private javax.swing.JList<String> supplierDetailsList;
+    private javax.swing.JTextField supplierIDTextField;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JLabel totalProfitLabel;
     private javax.swing.JTextField totalProfitTextField;
@@ -5075,6 +5560,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel userListLabel1;
     private javax.swing.JScrollPane userListScrollPane;
     private javax.swing.JPanel userManagementPanel;
+    private javax.swing.JButton userRefreshButton;
     private javax.swing.JLabel usernameInUMLabel;
     private javax.swing.JTextField usernameInUMTextField;
     private javax.swing.JCheckBox vanilaCone;
