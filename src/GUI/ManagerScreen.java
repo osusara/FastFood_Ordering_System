@@ -48,10 +48,12 @@ public class ManagerScreen extends javax.swing.JFrame {
         loadID();
         userListLoad();
         analyticsDataLoad();
+        stockDataLoad();
 
         confirmationPasswordField.setEchoChar((char) 0);
         confirmationPasswordField.setForeground(Color.gray);
         searchInUMTextField.setForeground(Color.gray);
+        itemSearchTextField.setForeground(Color.gray);
     }
 
     public void loadID() {
@@ -229,7 +231,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     }
     
     public void analyticsDataLoad(){
-        DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();;
+        DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` ORDER BY order_id DESC");
             dtm.setRowCount(0);
@@ -251,6 +253,27 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
             totalProfitTextField.setText(tp+" LKR");
             
+            rs.close();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void stockDataLoad(){
+        DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item");
+            dtm.setRowCount(0);
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getString("item_id"));
+                v.add(rs.getString("name"));
+                v.add(rs.getString("qty"));
+                v.add(rs.getString("unit_price"));
+                dtm.addRow(v);
+            }
+            rs.close();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -1361,10 +1384,10 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
         mealsTable.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 mealsTableInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         mealsTabelPanel.setViewportView(mealsTable);
@@ -1945,6 +1968,11 @@ public class ManagerScreen extends javax.swing.JFrame {
                 "Item ID", "Item Name", "Quantity", "Unit Price"
             }
         ));
+        stockTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                stockTableMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(stockTable);
 
         itemSearchTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -5348,20 +5376,81 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_addItemButton1ActionPerformed
 
     private void itemSearchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemSearchTextFieldFocusLost
-        // TODO add your handling code here:
+        if (itemSearchTextField.getText().isEmpty()) {
+            itemSearchTextField.setForeground(Color.gray);
+            itemSearchTextField.setText("Search Items");
+        }
     }//GEN-LAST:event_itemSearchTextFieldFocusLost
 
     private void itemSearchTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemSearchTextFieldMouseClicked
-        // TODO add your handling code here:
+        itemSearchTextField.setBorder(BorderFactory.createLineBorder(Color.decode("#999999")));
+        if (itemSearchTextField.getForeground() == Color.gray) {
+            itemSearchTextField.setText(null);
+        }
     }//GEN-LAST:event_itemSearchTextFieldMouseClicked
 
     private void itemSearchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemSearchTextFieldKeyTyped
-        // TODO add your handling code here:
+        if (itemSearchTextField.getForeground() == Color.gray) {
+            itemSearchTextField.setText(null);
+        }
+        itemSearchTextField.setForeground(Color.black);
+
+        DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
+        String s = itemSearchTextField.getText();
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE name LIKE '%" + s + "%'");
+            dtm.setRowCount(0);
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getString("item_id"));
+                v.add(rs.getString("name"));
+                v.add(rs.getString("qty"));
+                v.add(rs.getString("unit_price"));
+                dtm.addRow(v);
+            }
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_itemSearchTextFieldKeyTyped
 
     private void stockRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockRefreshButtonActionPerformed
-        // TODO add your handling code here:
+        itemSearchTextField.setForeground(Color.gray);
+        itemSearchTextField.setText("Search Items");
+        stockDataLoad();
     }//GEN-LAST:event_stockRefreshButtonActionPerformed
+
+    private void stockTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockTableMouseClicked
+        int selectedRow = stockTable.getSelectedRow();
+        DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
+        DefaultListModel dlm = new DefaultListModel();
+        
+        int iid = Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString());
+
+        try {
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE item_id = "+iid+"");
+            while(rs1.next()){
+                String sid = rs1.getString("supplier_id");
+                ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM supplier WHERE supplier_id = "+sid+"");
+                while(rs2.next()){
+                    String name = rs2.getString("name");
+                    String phone = rs2.getString("phone");
+                    String email = rs2.getString("email");
+                    String listItem1 = "Supplier ID : "+sid;
+                    String listItem2 = "Name : "+name;
+                    String listItem3 = "Phone : "+phone;
+                    String listItem4 = "Email : "+email;
+                    dlm.addElement("--------------------------- SUPPLIER DETAILS ---------------------------");
+                    dlm.addElement(listItem1);
+                    dlm.addElement(listItem2);
+                    dlm.addElement(listItem3);
+                    dlm.addElement(listItem4);
+                }
+            }
+        }catch(Exception e){
+            
+        }
+    }//GEN-LAST:event_stockTableMouseClicked
 
     /**
      * @param args the command line arguments
