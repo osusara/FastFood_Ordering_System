@@ -2681,12 +2681,12 @@
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="itemIDTextField" min="-2" pref="44" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="grnQtyTextField2" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="grnSupplierTextField" alignment="0" max="32767" attributes="0"/>
                                           <Component id="grnItemTextField" alignment="0" max="32767" attributes="0"/>
                                           <Component id="grnUnitPriceTextField" alignment="1" max="32767" attributes="0"/>
                                           <Component id="grnQtyTextField" alignment="1" max="32767" attributes="0"/>
                                           <Component id="grnDateTextField" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="grnQtyTextField1" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="grnTotalTextField" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="addItemButton1" alignment="0" max="32767" attributes="0"/>
@@ -2713,7 +2713,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="grnSupplierLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="grnQtyTextField2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="grnSupplierTextField" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -2732,7 +2732,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="grnQtyTextField1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Component id="grnTotalTextField" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="grnTotalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -2885,7 +2885,7 @@
                         <Property name="text" type="java.lang.String" value="Total"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="grnQtyTextField1">
+                    <Component class="javax.swing.JTextField" name="grnTotalTextField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Century Gothic" size="14" style="0"/>
@@ -2906,8 +2906,8 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnQtyTextField1KeyReleased"/>
-                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnQtyTextField1KeyTyped"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnTotalTextFieldKeyReleased"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnTotalTextFieldKeyTyped"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="grnSupplierLabel">
@@ -2918,7 +2918,7 @@
                         <Property name="text" type="java.lang.String" value="Supplier"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="grnQtyTextField2">
+                    <Component class="javax.swing.JTextField" name="grnSupplierTextField">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Century Gothic" size="14" style="0"/>
@@ -2939,8 +2939,8 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnQtyTextField2KeyReleased"/>
-                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnQtyTextField2KeyTyped"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnSupplierTextFieldKeyReleased"/>
+                        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grnSupplierTextFieldKeyTyped"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="grnItemLabel">

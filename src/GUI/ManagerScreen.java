@@ -437,9 +437,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         grnQtyLabel = new javax.swing.JLabel();
         grnQtyTextField = new javax.swing.JTextField();
         grnTotalLabel = new javax.swing.JLabel();
-        grnQtyTextField1 = new javax.swing.JTextField();
+        grnTotalTextField = new javax.swing.JTextField();
         grnSupplierLabel = new javax.swing.JLabel();
-        grnQtyTextField2 = new javax.swing.JTextField();
+        grnSupplierTextField = new javax.swing.JTextField();
         grnItemLabel = new javax.swing.JLabel();
         grnItemTextField = new javax.swing.JTextField();
         grnUnitPriceLabel = new javax.swing.JLabel();
@@ -2121,34 +2121,34 @@ public class ManagerScreen extends javax.swing.JFrame {
         grnTotalLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         grnTotalLabel.setText("Total");
 
-        grnQtyTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        grnQtyTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        grnQtyTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        grnQtyTextField1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        grnQtyTextField1.setSelectionColor(new java.awt.Color(102, 153, 255));
-        grnQtyTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        grnTotalTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnTotalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnTotalTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnTotalTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnTotalTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnTotalTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                grnQtyTextField1KeyReleased(evt);
+                grnTotalTextFieldKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                grnQtyTextField1KeyTyped(evt);
+                grnTotalTextFieldKeyTyped(evt);
             }
         });
 
         grnSupplierLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         grnSupplierLabel.setText("Supplier");
 
-        grnQtyTextField2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        grnQtyTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        grnQtyTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        grnQtyTextField2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        grnQtyTextField2.setSelectionColor(new java.awt.Color(102, 153, 255));
-        grnQtyTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        grnSupplierTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnSupplierTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnSupplierTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnSupplierTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnSupplierTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnSupplierTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                grnQtyTextField2KeyReleased(evt);
+                grnSupplierTextFieldKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                grnQtyTextField2KeyTyped(evt);
+                grnSupplierTextFieldKeyTyped(evt);
             }
         });
 
@@ -2231,12 +2231,12 @@ public class ManagerScreen extends javax.swing.JFrame {
                                 .addComponent(grnItemIDLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(itemIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(grnQtyTextField2)
+                            .addComponent(grnSupplierTextField)
                             .addComponent(grnItemTextField)
                             .addComponent(grnUnitPriceTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(grnQtyTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(grnDateTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(grnQtyTextField1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(grnTotalTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(addItemButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -2256,7 +2256,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(grnSupplierLabel)
-                    .addComponent(grnQtyTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(grnSupplierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(grnItemLabel)
@@ -2271,7 +2271,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                     .addComponent(grnQtyLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(grnQtyTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grnTotalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(grnTotalLabel))
                 .addGap(29, 29, 29)
                 .addComponent(addItemButton)
@@ -5335,21 +5335,21 @@ public class ManagerScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_grnQtyTextFieldKeyTyped
 
-    private void grnQtyTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField1KeyReleased
+    private void grnTotalTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnTotalTextFieldKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_grnQtyTextField1KeyReleased
+    }//GEN-LAST:event_grnTotalTextFieldKeyReleased
 
-    private void grnQtyTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField1KeyTyped
+    private void grnTotalTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnTotalTextFieldKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_grnQtyTextField1KeyTyped
+    }//GEN-LAST:event_grnTotalTextFieldKeyTyped
 
-    private void grnQtyTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField2KeyReleased
+    private void grnSupplierTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnSupplierTextFieldKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_grnQtyTextField2KeyReleased
+    }//GEN-LAST:event_grnSupplierTextFieldKeyReleased
 
-    private void grnQtyTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextField2KeyTyped
+    private void grnSupplierTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnSupplierTextFieldKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_grnQtyTextField2KeyTyped
+    }//GEN-LAST:event_grnSupplierTextFieldKeyTyped
 
     private void grnItemTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnItemTextFieldKeyReleased
         // TODO add your handling code here:
@@ -5368,7 +5368,20 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_grnUnitPriceTextFieldKeyTyped
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
-        // TODO add your handling code here:
+        String date = grnDateTextField.getText();
+        String sid = supplierIDTextField.getText();
+        String iid = itemIDTextField.getText();
+        String supllier = grnSupplierTextField.getText();
+        String item = grnItemTextField.getText();
+        String unitPrice = grnUnitPriceTextField.getText();
+        String qty = grnQtyTextField.getText();
+        String total = grnTotalTextField.getText();
+        
+        try {
+            DatabaseConnection.getConnection().executeUpdate("INSERT INTO item (item_id, name, qty, unit_price, supplier_id) VALUES ("+iid+",'"+item+"', "+qty+", '"+unitPrice+"', "+sid+")");
+        } catch (Exception e) {
+        }
+        
     }//GEN-LAST:event_addItemButtonActionPerformed
 
     private void addItemButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButton1ActionPerformed
@@ -5554,11 +5567,11 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JPanel grnPanel;
     private javax.swing.JLabel grnQtyLabel;
     private javax.swing.JTextField grnQtyTextField;
-    private javax.swing.JTextField grnQtyTextField1;
-    private javax.swing.JTextField grnQtyTextField2;
     private javax.swing.JLabel grnSupplierIDLabel;
     private javax.swing.JLabel grnSupplierLabel;
+    private javax.swing.JTextField grnSupplierTextField;
     private javax.swing.JLabel grnTotalLabel;
+    private javax.swing.JTextField grnTotalTextField;
     private javax.swing.JLabel grnUnitPriceLabel;
     private javax.swing.JTextField grnUnitPriceTextField;
     private javax.swing.JLabel hiLabel;
