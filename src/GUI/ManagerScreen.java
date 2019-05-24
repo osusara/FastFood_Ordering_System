@@ -56,6 +56,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         confirmationInStockPasswordField.setForeground(Color.gray);
         searchInUMTextField.setForeground(Color.gray);
         itemSearchTextField.setForeground(Color.gray);
+
+        grnDateTextField.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
     }
 
     public void loadID() {
@@ -80,7 +82,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 int i = rs4.getInt("F");
                 supplierIDTextField.setText("" + (++i));
             }
-            
+
             rs1.close();
             rs2.close();
             rs3.close();
@@ -246,13 +248,13 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
         return size;
     }
-    
-    public void analyticsDataLoad(){
+
+    public void analyticsDataLoad() {
         DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` ORDER BY order_id DESC");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -260,24 +262,24 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
                 dtm.addRow(v);
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
-            
+            totalProfitTextField.setText(tp + " LKR");
+
             rs.close();
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    public void stockDataLoad(){
+
+    public void stockDataLoad() {
         DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item");
@@ -295,36 +297,36 @@ public class ManagerScreen extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-   
-    private void reportGen(){
+
+    private void reportGen() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
             JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
             String reportSource = "D:\\Osusara\\Documents\\Github Projects\\FastFood_Ordering_System\\src\\Resources\\FoodOrderingReport.jrxml";
-        
+
             JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
-        
+
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("oid", oidLabel.getText());
-            
+
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = new Date();
-            
+
             params.put("date", formatter.format(date));
             params.put("name", nameTextField.getText());
             params.put("charges", serviceChargesTextField.getText());
             params.put("total", totalTextField.getText());
             params.put("payment", recievedTextField.getText());
             params.put("balance", balanceTextField.getText());
-        
+
             JasperPrint print = JasperFillManager.fillReport(jasperReport, params, dataSource);
             JasperViewer.viewReport(print, false);
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -5243,16 +5245,16 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_mealsTableInputMethodTextChanged
 
     private void orderByDateTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orderByDateTextFieldKeyTyped
-        
+
     }//GEN-LAST:event_orderByDateTextFieldKeyTyped
 
     private void orderByDateTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_orderByDateTextFieldKeyReleased
         DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         String date = orderByDateTextField.getText();
         try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE date LIKE '"+date+"%'");
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE date LIKE '" + date + "%'");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -5260,15 +5262,15 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
                 dtm.addRow(v);
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
+            totalProfitTextField.setText(tp + " LKR");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5278,9 +5280,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         int oid = Integer.parseInt(orderByOIDTextField.getText());
         try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE order_id LIKE '"+oid+"%'");
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE order_id LIKE '" + oid + "%'");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -5288,15 +5290,15 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
                 dtm.addRow(v);
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
+            totalProfitTextField.setText(tp + " LKR");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5306,9 +5308,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         int uid = Integer.parseInt(orderByUIDTextField.getText());
         try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE user_id LIKE '"+uid+"%'");
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE user_id LIKE '" + uid + "%'");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -5316,15 +5318,15 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
                 dtm.addRow(v);
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
+            totalProfitTextField.setText(tp + " LKR");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5334,9 +5336,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         int cid = Integer.parseInt(orderByCIDTextField.getText());
         try {
-            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE customer_id LIKE '"+cid+"%'");
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order` WHERE customer_id LIKE '" + cid + "%'");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -5344,15 +5346,15 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
                 dtm.addRow(v);
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
+            totalProfitTextField.setText(tp + " LKR");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5364,7 +5366,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order`");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -5372,16 +5374,17 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
-                if(Double.parseDouble(v.get(5).toString()) >= profit)
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
+                if (Double.parseDouble(v.get(5).toString()) >= profit) {
                     dtm.addRow(v);
+                }
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
+            totalProfitTextField.setText(tp + " LKR");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5393,7 +5396,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM `restaurentsystem`.`order`");
             dtm.setRowCount(0);
-            while(rs.next()){
+            while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("date"));
                 v.add(rs.getString("order_id"));
@@ -5401,16 +5404,17 @@ public class ManagerScreen extends javax.swing.JFrame {
                 v.add(rs.getString("customer_id"));
                 Double amount = Double.parseDouble(rs.getString("total"));
                 v.add(amount);
-                v.add(((amount*10/11)*15/100)+(amount-(amount*10/11)));
-                if(Double.parseDouble(v.get(5).toString()) <= profit)
+                v.add(((amount * 10 / 11) * 15 / 100) + (amount - (amount * 10 / 11)));
+                if (Double.parseDouble(v.get(5).toString()) <= profit) {
                     dtm.addRow(v);
+                }
             }
-            
+
             Double tp = 0.00;
             for (int i = 0; i <= dtm.getRowCount() - 1; i++) {
                 tp += Double.parseDouble(dtm.getValueAt(i, 5).toString());
             }
-            totalProfitTextField.setText(tp+" LKR");
+            totalProfitTextField.setText(tp + " LKR");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5420,19 +5424,19 @@ public class ManagerScreen extends javax.swing.JFrame {
         int selectedRow = ordersTable.getSelectedRow();
         DefaultTableModel dtm = (DefaultTableModel) ordersTable.getModel();
         DefaultListModel dlm = new DefaultListModel();
-        
+
         int oid = Integer.parseInt(dtm.getValueAt(selectedRow, 1).toString());
         int cid = Integer.parseInt(dtm.getValueAt(selectedRow, 3).toString());
 
         try {
-            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM customer WHERE customer_id = "+cid+"");
-            while(rs1.next()){
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM customer WHERE customer_id = " + cid + "");
+            while (rs1.next()) {
                 String cName = rs1.getString("name");
                 String phone = rs1.getString("phone");
                 String email = rs1.getString("email");
-                String listItem1 = "Customer : "+cName;
-                String listItem2 = "Phone : "+phone;
-                String listItem3 = "Email : "+email;
+                String listItem1 = "Customer : " + cName;
+                String listItem2 = "Phone : " + phone;
+                String listItem3 = "Email : " + email;
                 dlm.addElement("--------------------------- CUSTOMER DETAILS ---------------------------");
                 dlm.addElement(listItem1);
                 dlm.addElement(listItem2);
@@ -5441,50 +5445,50 @@ public class ManagerScreen extends javax.swing.JFrame {
                 dlm.addElement("");
                 dlm.addElement("------------------------------ MEALS DETAILS ------------------------------");
             }
-            
-            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_meal WHERE order_id = "+oid+"");
-            while(rs2.next()){
+
+            ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_meal WHERE order_id = " + oid + "");
+            while (rs2.next()) {
                 String mid = rs2.getString("meal_id");
                 String qty = rs2.getString("qty");
                 String m = "";
                 String up = "";
-                ResultSet rs21 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal WHERE meal_id = "+mid+"");
-                while(rs21.next()){
+                ResultSet rs21 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM meal WHERE meal_id = " + mid + "");
+                while (rs21.next()) {
                     m = rs21.getString("name");
                     up = rs21.getString("unit_price");
                 }
-                String listMealItem = qty +" "+ m +"(s) ("+up+" LKR)";
+                String listMealItem = qty + " " + m + "(s) (" + up + " LKR)";
                 dlm.addElement(listMealItem);
             }
-            ResultSet rs3 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_drink WHERE order_id = "+oid+"");
-            while(rs3.next()){
+            ResultSet rs3 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_drink WHERE order_id = " + oid + "");
+            while (rs3.next()) {
                 String drid = rs3.getString("drink_id");
                 String qty = rs3.getString("qty");
                 String d = "";
                 String up = "";
-                ResultSet rs31 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink WHERE drink_id = "+drid+"");
-                while(rs31.next()){
+                ResultSet rs31 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM drink WHERE drink_id = " + drid + "");
+                while (rs31.next()) {
                     d = rs31.getString("name");
                     up = rs31.getString("unit_price");
                 }
-                String listDrinkItem = qty +" "+ d +"(s) ("+up+" LKR)";
+                String listDrinkItem = qty + " " + d + "(s) (" + up + " LKR)";
                 dlm.addElement(listDrinkItem);
             }
-            ResultSet rs4 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_dessert WHERE order_id = "+oid+"");
-            while(rs4.next()){
+            ResultSet rs4 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM order_has_dessert WHERE order_id = " + oid + "");
+            while (rs4.next()) {
                 String did = rs4.getString("dessert_id");
                 String qty = rs4.getString("qty");
                 String d = "";
                 String up = "";
-                ResultSet rs41 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert WHERE dessert_id = "+did+"");
-                while(rs41.next()){
+                ResultSet rs41 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM dessert WHERE dessert_id = " + did + "");
+                while (rs41.next()) {
                     d = rs41.getString("name");
                     up = rs41.getString("unit_price");
                 }
-                String listDessertItem = qty +" "+ d +"(s) ("+up+" LKR)";
+                String listDessertItem = qty + " " + d + "(s) (" + up + " LKR)";
                 dlm.addElement(listDessertItem);
             }
-            
+
             orderDetailsList.setModel(dlm);
         } catch (Exception e) {
             System.out.println(e);
@@ -5540,18 +5544,18 @@ public class ManagerScreen extends javax.swing.JFrame {
         int selectedRow = stockTable.getSelectedRow();
         DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
         DefaultListModel dlm = new DefaultListModel();
-        
+
         int iid = Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString());
-        itemIDTextField.setText(iid+"");
+        itemIDTextField.setText(iid + "");
 
         try {
-            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE item_id = "+iid+"");
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE item_id = " + iid + "");
             grnItemTextField.setText(rs1.getString("name"));
             grnUnitPriceTextField.setText(rs1.getString("unit_price"));
-            while(rs1.next()){
+            while (rs1.next()) {
                 String sid = rs1.getString("supplier_id");
-                ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM supplier WHERE supplier_id = "+sid+"");
-                while(rs2.next()){
+                ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM supplier WHERE supplier_id = " + sid + "");
+                while (rs2.next()) {
                     supplierIDTextField.setText(rs2.getString("supplier_id"));
                     grnSupplierTextField.setText(rs2.getString("name"));
                     grnSupplierPhoneTextField.setText(rs2.getString("phone"));
@@ -5559,10 +5563,10 @@ public class ManagerScreen extends javax.swing.JFrame {
                     String name = rs2.getString("name");
                     String phone = rs2.getString("phone");
                     String email = rs2.getString("email");
-                    String listItem1 = "Supplier ID : "+sid;
-                    String listItem2 = "Name : "+name;
-                    String listItem3 = "Phone : "+phone;
-                    String listItem4 = "Email : "+email;
+                    String listItem1 = "Supplier ID : " + sid;
+                    String listItem2 = "Name : " + name;
+                    String listItem3 = "Phone : " + phone;
+                    String listItem4 = "Email : " + email;
                     dlm.addElement("--------------------------- SUPPLIER DETAILS ---------------------------");
                     dlm.addElement(listItem1);
                     dlm.addElement(listItem2);
@@ -5570,8 +5574,8 @@ public class ManagerScreen extends javax.swing.JFrame {
                     dlm.addElement(listItem4);
                 }
             }
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }//GEN-LAST:event_stockTableMouseClicked
 
@@ -5596,7 +5600,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_addItemButton1ActionPerformed
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
-        
+
 
     }//GEN-LAST:event_addItemButtonActionPerformed
 
@@ -5617,18 +5621,26 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_supplierIDTextFieldKeyReleased
 
     private void addNewItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewItemButtonActionPerformed
-        String date = grnDateTextField.getText();
-        String sid = supplierIDTextField.getText();
-        String iid = itemIDTextField.getText();
-        String supllier = grnSupplierTextField.getText();
-        String item = grnItemTextField.getText();
-        String unitPrice = grnUnitPriceTextField.getText();
-        String qty = grnQtyTextField.getText();
-        String total = grnTotalTextField.getText();
-
         try {
-            DatabaseConnection.getConnection().executeUpdate("INSERT INTO item (item_id, name, qty, unit_price, supplier_id) VALUES ("+iid+",'"+item+"', "+qty+", '"+unitPrice+"', "+sid+")");
-            DatabaseConnection.getConnection().executeUpdate("INSERT INTO item (item_id, name, qty, unit_price, supplier_id) VALUES ("+iid+",'"+item+"', "+qty+", '"+unitPrice+"', "+sid+")");
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = " + useridLoad() + " AND password = '" + confirmationInStockPasswordField.getText() + "'");
+            System.out.println(getResultSetRowCount(rs));
+            if (getResultSetRowCount(rs) == 1) {
+                String date = grnDateTextField.getText();
+                String sid = supplierIDTextField.getText();
+                String iid = itemIDTextField.getText();
+                String supplier = grnSupplierTextField.getText();
+                String item = grnItemTextField.getText();
+                String phone = grnSupplierPhoneTextField.getText();
+                String email = grnSupplierEmailTextField.getText();
+                String unitPrice = grnUnitPriceTextField.getText();
+                String qty = grnQtyTextField.getText();
+                String total = grnTotalTextField.getText();
+
+                DatabaseConnection.getConnection().executeUpdate("INSERT INTO supplier (supplier_id, name, phone, address) VALUES (" + sid + ",'" + supplier + "', '" + phone + "', '" + email + "')");
+                DatabaseConnection.getConnection().executeUpdate("INSERT INTO item (item_id, name, qty, unit_price, supplier_id) VALUES (" + iid + ",'" + item + "', " + qty + ", '" + unitPrice + "', " + sid + ")");
+
+                JOptionPane.showMessageDialog(this, "New Item Added");
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -5689,7 +5701,11 @@ public class ManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_grnQtyTextFieldKeyTyped
 
     private void grnQtyTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnQtyTextFieldKeyReleased
-        // TODO add your handling code here:
+        double up = Double.parseDouble(grnUnitPriceTextField.getText());
+        double qty = Double.parseDouble(grnQtyTextField.getText());
+
+        double total = up * qty;
+        grnTotalTextField.setText(total + "");
     }//GEN-LAST:event_grnQtyTextFieldKeyReleased
 
     private void itemIDTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemIDTextFieldKeyTyped
