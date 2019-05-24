@@ -62,6 +62,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         try {
             ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('order_id') AS C FROM `restaurentsystem`.`order`");
             ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('customer_id') AS D FROM `restaurentsystem`.`customer`");
+            ResultSet rs3 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('item_id') AS E FROM `restaurentsystem`.`item`");
+            ResultSet rs4 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('supplier_id') AS F FROM `restaurentsystem`.`supplier`");
             if (rs1.next()) {
                 int i = rs1.getInt("C");
                 oidLabel.setText("" + (++i));
@@ -70,6 +72,19 @@ public class ManagerScreen extends javax.swing.JFrame {
                 int i = rs2.getInt("D");
                 cidLabel.setText("" + (++i));
             }
+            if (rs3.next()) {
+                int i = rs3.getInt("E");
+                itemIDTextField.setText("" + (++i));
+            }
+            if (rs4.next()) {
+                int i = rs4.getInt("F");
+                supplierIDTextField.setText("" + (++i));
+            }
+            
+            rs1.close();
+            rs2.close();
+            rs3.close();
+            rs4.close();
         } catch (Exception ex) {
             System.out.println(ex);
         }

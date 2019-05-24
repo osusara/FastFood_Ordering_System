@@ -2656,10 +2656,7 @@
                                               <Component id="addItemButton1" min="-2" pref="170" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="grnItemReceiveLabel" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="273" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="grnItemReceiveLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
