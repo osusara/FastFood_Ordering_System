@@ -66,6 +66,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('customer_id') AS D FROM `restaurentsystem`.`customer`");
             ResultSet rs3 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('item_id') AS E FROM `restaurentsystem`.`item`");
             ResultSet rs4 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('supplier_id') AS F FROM `restaurentsystem`.`supplier`");
+            ResultSet rs5 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('grn_id') AS G FROM `restaurentsystem`.`grn`");
             if (rs1.next()) {
                 int i = rs1.getInt("C");
                 oidLabel.setText("" + (++i));
@@ -82,11 +83,16 @@ public class ManagerScreen extends javax.swing.JFrame {
                 int i = rs4.getInt("F");
                 supplierIDTextField.setText("" + (++i));
             }
+            if (rs5.next()) {
+                int i = rs5.getInt("G");
+                grnidLabel.setText("" + (++i));
+            }
 
             rs1.close();
             rs2.close();
             rs3.close();
             rs4.close();
+            rs5.close();
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -469,6 +475,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         grnItemReceiveLabel = new javax.swing.JLabel();
         addItemButton1 = new javax.swing.JButton();
         addItemButton = new javax.swing.JButton();
+        grnNoLabel = new javax.swing.JLabel();
+        grnidLabel = new javax.swing.JLabel();
         addNewItemButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
         confirmationInStockPasswordField = new javax.swing.JPasswordField();
@@ -1393,12 +1401,12 @@ public class ManagerScreen extends javax.swing.JFrame {
         mealsTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
         mealsTable.setShowHorizontalLines(false);
         mealsTable.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 mealsTableAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         mealsTable.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1412,10 +1420,10 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
         mealsTable.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 mealsTableInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         mealsTabelPanel.setViewportView(mealsTable);
@@ -2366,6 +2374,12 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
 
+        grnNoLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnNoLabel.setText("GRN ID");
+
+        grnidLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        grnidLabel.setText("0");
+
         javax.swing.GroupLayout receiveItemsPanelLayout = new javax.swing.GroupLayout(receiveItemsPanel);
         receiveItemsPanel.setLayout(receiveItemsPanelLayout);
         receiveItemsPanelLayout.setHorizontalGroup(
@@ -2385,11 +2399,13 @@ public class ManagerScreen extends javax.swing.JFrame {
                                 .addComponent(addItemButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(addItemButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(receiveItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(receiveItemsPanelLayout.createSequentialGroup()
-                                    .addComponent(grnItemReceiveLabel)
-                                    .addGap(273, 273, 273))
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, receiveItemsPanelLayout.createSequentialGroup()
+                                .addComponent(grnItemReceiveLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(grnNoLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(grnidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         receiveItemsPanelLayout.setVerticalGroup(
@@ -2400,7 +2416,11 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(supplierDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(grnItemReceiveLabel)
+                .addGroup(receiveItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grnItemReceiveLabel)
+                    .addGroup(receiveItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(grnNoLabel)
+                        .addComponent(grnidLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
@@ -5543,39 +5563,30 @@ public class ManagerScreen extends javax.swing.JFrame {
     private void stockTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockTableMouseClicked
         int selectedRow = stockTable.getSelectedRow();
         DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
-        DefaultListModel dlm = new DefaultListModel();
 
         int iid = Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString());
         itemIDTextField.setText(iid + "");
 
         try {
             ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE item_id = " + iid + "");
-            grnItemTextField.setText(rs1.getString("name"));
-            grnUnitPriceTextField.setText(rs1.getString("unit_price"));
             while (rs1.next()) {
+                grnItemTextField.setText(rs1.getString("name"));
+                grnUnitPriceTextField.setText(rs1.getString("unit_price"));
                 String sid = rs1.getString("supplier_id");
                 ResultSet rs2 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM supplier WHERE supplier_id = " + sid + "");
                 while (rs2.next()) {
-                    supplierIDTextField.setText(rs2.getString("supplier_id"));
+                    supplierIDTextField.setText(sid);
                     grnSupplierTextField.setText(rs2.getString("name"));
                     grnSupplierPhoneTextField.setText(rs2.getString("phone"));
                     grnSupplierEmailTextField.setText(rs2.getString("email"));
-                    String name = rs2.getString("name");
-                    String phone = rs2.getString("phone");
-                    String email = rs2.getString("email");
-                    String listItem1 = "Supplier ID : " + sid;
-                    String listItem2 = "Name : " + name;
-                    String listItem3 = "Phone : " + phone;
-                    String listItem4 = "Email : " + email;
-                    dlm.addElement("--------------------------- SUPPLIER DETAILS ---------------------------");
-                    dlm.addElement(listItem1);
-                    dlm.addElement(listItem2);
-                    dlm.addElement(listItem3);
-                    dlm.addElement(listItem4);
                 }
-            }
-        } catch (Exception e) {
 
+                rs2.close();
+            }
+
+            rs1.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_stockTableMouseClicked
 
@@ -5635,15 +5646,19 @@ public class ManagerScreen extends javax.swing.JFrame {
                 String unitPrice = grnUnitPriceTextField.getText();
                 String qty = grnQtyTextField.getText();
                 String total = grnTotalTextField.getText();
+                String grnid = grnidLabel.getText();
 
-                DatabaseConnection.getConnection().executeUpdate("INSERT INTO supplier (supplier_id, name, phone, address) VALUES (" + sid + ",'" + supplier + "', '" + phone + "', '" + email + "')");
+                DatabaseConnection.getConnection().executeUpdate("INSERT INTO supplier (supplier_id, name, phone, email) VALUES (" + sid + ",'" + supplier + "', '" + phone + "', '" + email + "')");
                 DatabaseConnection.getConnection().executeUpdate("INSERT INTO item (item_id, name, qty, unit_price, supplier_id) VALUES (" + iid + ",'" + item + "', " + qty + ", '" + unitPrice + "', " + sid + ")");
+                DatabaseConnection.getConnection().executeUpdate("INSERT INTO grn (grn_id, date, qty, total, supplier_id, item_id) VALUES (" + grnid + ",'" + date + "', " + qty + ", '" + total + "', " + sid + ", " + iid + ")");
 
                 JOptionPane.showMessageDialog(this, "New Item Added");
             }
         } catch (Exception e) {
             System.out.println(e);
         }
+        
+        loadID();
     }//GEN-LAST:event_addNewItemButtonActionPerformed
 
     private void removeItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemButtonActionPerformed
@@ -5818,6 +5833,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel grnItemReceiveLabel;
     private javax.swing.JLabel grnItemReceiveLabel2;
     private javax.swing.JTextField grnItemTextField;
+    private javax.swing.JLabel grnNoLabel;
     private javax.swing.JPanel grnPanel;
     private javax.swing.JLabel grnQtyLabel;
     private javax.swing.JTextField grnQtyTextField;
@@ -5832,6 +5848,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField grnTotalTextField;
     private javax.swing.JLabel grnUnitPriceLabel;
     private javax.swing.JTextField grnUnitPriceTextField;
+    private javax.swing.JLabel grnidLabel;
     private javax.swing.JLabel hiLabel;
     private javax.swing.JCheckBox hotChocolate;
     private javax.swing.JTextField hotChocolateCount;
