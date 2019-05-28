@@ -56,8 +56,11 @@ public class ManagerScreen extends javax.swing.JFrame {
         searchInUMTextField.setForeground(Color.gray);
         itemSearchTextField.setForeground(Color.gray);
         supplierSearchTextField.setForeground(Color.gray);
-
-        grnDateTextField.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        itemSearchInKitchenTextField.setForeground(Color.gray);
+        
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        grnDateTextField.setText(date);
+        kitchenDateTextField.setText(date);
     }
 
     public void loadID() {
@@ -67,6 +70,7 @@ public class ManagerScreen extends javax.swing.JFrame {
             ResultSet rs3 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('item_id') AS E FROM `restaurentsystem`.`item`");
             ResultSet rs4 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('supplier_id') AS F FROM `restaurentsystem`.`supplier`");
             ResultSet rs5 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('grn_id') AS G FROM `restaurentsystem`.`grn`");
+            ResultSet rs6 = DatabaseConnection.getConnection().executeQuery("SELECT COUNT('record_id') AS H FROM `restaurentsystem`.`kitchen_records`");
             if (rs1.next()) {
                 int i = rs1.getInt("C");
                 oidLabel.setText("" + (++i));
@@ -87,12 +91,18 @@ public class ManagerScreen extends javax.swing.JFrame {
                 int i = rs5.getInt("G");
                 grnidLabel.setText("" + (++i));
             }
+            
+            if(rs6.next()){
+                int i = rs6.getInt("H");
+                kridLabel.setText("" + (++i));
+            }
 
             rs1.close();
             rs2.close();
             rs3.close();
             rs4.close();
             rs5.close();
+            rs6.close();
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -296,17 +306,20 @@ public class ManagerScreen extends javax.swing.JFrame {
     }
 
     public void stockDataLoad() {
-        DefaultTableModel dtm = (DefaultTableModel) stockTable.getModel();
+        DefaultTableModel dtm1 = (DefaultTableModel) stockTable.getModel();
+        DefaultTableModel dtm2 = (DefaultTableModel) stockInKitchenTable.getModel();
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item");
-            dtm.setRowCount(0);
+            dtm1.setRowCount(0);
+            dtm2.setRowCount(0);
             while (rs.next()) {
                 Vector v = new Vector();
                 v.add(rs.getString("item_id"));
                 v.add(rs.getString("name"));
                 v.add(rs.getString("qty"));
                 v.add(rs.getString("unit_price"));
-                dtm.addRow(v);
+                dtm1.addRow(v);
+                dtm2.addRow(v);
             }
             rs.close();
         } catch (Exception e) {
@@ -315,7 +328,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     }
     
     public void supplierDataLoad() {
-        DefaultTableModel dtm = (DefaultTableModel) stockTable1.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) supplierTable.getModel();
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM supplier");
             dtm.setRowCount(0);
@@ -511,11 +524,31 @@ public class ManagerScreen extends javax.swing.JFrame {
         grnItemReceiveLabel2 = new javax.swing.JLabel();
         stockDetailsPanel1 = new javax.swing.JPanel();
         stockTabelPanel1 = new javax.swing.JScrollPane();
-        stockTable1 = new javax.swing.JTable();
+        supplierTable = new javax.swing.JTable();
         supplierSearchTextField = new javax.swing.JTextField();
         supplierRefreshButton = new javax.swing.JButton();
         grnItemReceiveLabel3 = new javax.swing.JLabel();
         addItemButton1 = new javax.swing.JButton();
+        kitchenManagementPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        kitchenItemIDLabel = new javax.swing.JLabel();
+        kitchenItemIDTextField = new javax.swing.JTextField();
+        kitchenItemLabel = new javax.swing.JLabel();
+        kitchenItemTextField = new javax.swing.JTextField();
+        recordIDLabel = new javax.swing.JLabel();
+        kridLabel = new javax.swing.JLabel();
+        kitchenDateLabel = new javax.swing.JLabel();
+        kitchenDateTextField = new javax.swing.JTextField();
+        kitchenQtyLabel = new javax.swing.JLabel();
+        kitchenQtyTextField = new javax.swing.JTextField();
+        getItemButton = new javax.swing.JButton();
+        stockDetailsPanel2 = new javax.swing.JPanel();
+        stockTabelPanel2 = new javax.swing.JScrollPane();
+        stockInKitchenTable = new javax.swing.JTable();
+        itemSearchInKitchenTextField = new javax.swing.JTextField();
+        stockRefreshInKitchenButton = new javax.swing.JButton();
+        stockTableLabel2 = new javax.swing.JLabel();
+        stockTableLabel3 = new javax.swing.JLabel();
         userManagementPanel = new javax.swing.JPanel();
         userListScrollPane = new javax.swing.JScrollPane();
         userList = new javax.swing.JList<>();
@@ -556,8 +589,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurent Orders Management System | Home");
         setBackground(new java.awt.Color(255, 255, 255));
-        setResizable(false);
-        setSize(new java.awt.Dimension(1280, 720));
+        setSize(new java.awt.Dimension(1366, 768));
 
         mainPanel.setBackground(new java.awt.Color(51, 51, 51));
         mainPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -595,9 +627,9 @@ public class ManagerScreen extends javax.swing.JFrame {
             .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidePanelLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(85, 85, 85)
                 .addComponent(logoutButton)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,9 +640,9 @@ public class ManagerScreen extends javax.swing.JFrame {
                 .addComponent(dateLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton)
-                .addGap(35, 35, 35))
+                .addGap(32, 32, 32))
         );
 
         navPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -1454,10 +1486,10 @@ public class ManagerScreen extends javax.swing.JFrame {
             }
         });
         mealsTable.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 mealsTableInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         mealsTabelPanel.setViewportView(mealsTable);
@@ -2038,6 +2070,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 "Item ID", "Item Name", "Quantity", "Unit Price"
             }
         ));
+        stockTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
         stockTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 stockTableMouseClicked(evt);
@@ -2508,8 +2541,8 @@ public class ManagerScreen extends javax.swing.JFrame {
         stockDetailsPanel1.setBackground(new java.awt.Color(255, 255, 255));
         stockDetailsPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
-        stockTable1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        stockTable1.setModel(new javax.swing.table.DefaultTableModel(
+        supplierTable.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        supplierTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -2517,12 +2550,13 @@ public class ManagerScreen extends javax.swing.JFrame {
                 "Supplier ID", "Supplier Name"
             }
         ));
-        stockTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        supplierTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        supplierTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                stockTable1MouseClicked(evt);
+                supplierTableMouseClicked(evt);
             }
         });
-        stockTabelPanel1.setViewportView(stockTable1);
+        stockTabelPanel1.setViewportView(supplierTable);
 
         supplierSearchTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         supplierSearchTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -2600,7 +2634,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         grnPanelLayout.setHorizontalGroup(
             grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(grnPanelLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(grnPanelLayout.createSequentialGroup()
                         .addComponent(addItemButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2634,7 +2668,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                         .addComponent(stockTableLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(receiveItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, grnPanelLayout.createSequentialGroup()
                         .addGroup(grnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2649,6 +2683,272 @@ public class ManagerScreen extends javax.swing.JFrame {
         );
 
         navPanel.addTab("Stock Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/stock.png")), grnPanel); // NOI18N
+
+        kitchenManagementPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+
+        kitchenItemIDLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenItemIDLabel.setText("Item ID");
+
+        kitchenItemIDTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenItemIDTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        kitchenItemIDTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        kitchenItemIDTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        kitchenItemIDTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        kitchenItemIDTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kitchenItemIDTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kitchenItemIDTextFieldKeyTyped(evt);
+            }
+        });
+
+        kitchenItemLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenItemLabel.setText("Item");
+
+        kitchenItemTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenItemTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        kitchenItemTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        kitchenItemTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        kitchenItemTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        kitchenItemTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kitchenItemTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kitchenItemTextFieldKeyTyped(evt);
+            }
+        });
+
+        recordIDLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        recordIDLabel.setText("Record ID");
+
+        kridLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        kridLabel.setText("0");
+
+        kitchenDateLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenDateLabel.setText("Date");
+
+        kitchenDateTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenDateTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        kitchenDateTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        kitchenDateTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        kitchenDateTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        kitchenDateTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kitchenDateTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kitchenDateTextFieldKeyTyped(evt);
+            }
+        });
+
+        kitchenQtyLabel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenQtyLabel.setText("Quantity");
+
+        kitchenQtyTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        kitchenQtyTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        kitchenQtyTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        kitchenQtyTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        kitchenQtyTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        kitchenQtyTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kitchenQtyTextFieldKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kitchenQtyTextFieldKeyTyped(evt);
+            }
+        });
+
+        getItemButton.setBackground(new java.awt.Color(255, 255, 255));
+        getItemButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        getItemButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/ingredients.png"))); // NOI18N
+        getItemButton.setText("Get Items");
+        getItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getItemButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kitchenDateLabel)
+                            .addComponent(recordIDLabel))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(kridLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(kitchenDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kitchenQtyLabel)
+                            .addComponent(kitchenItemIDLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(kitchenItemIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(kitchenItemLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(kitchenItemTextField))
+                            .addComponent(kitchenQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(getItemButton)
+                .addGap(92, 92, 92))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(recordIDLabel)
+                    .addComponent(kridLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kitchenDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kitchenDateLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kitchenItemIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kitchenItemLabel)
+                    .addComponent(kitchenItemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kitchenItemIDLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kitchenQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kitchenQtyLabel))
+                .addGap(28, 28, 28)
+                .addComponent(getItemButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        stockDetailsPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        stockDetailsPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+
+        stockInKitchenTable.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stockInKitchenTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item ID", "Item Name", "Quantity", "Unit Price"
+            }
+        ));
+        stockInKitchenTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        stockInKitchenTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                stockInKitchenTableMouseClicked(evt);
+            }
+        });
+        stockTabelPanel2.setViewportView(stockInKitchenTable);
+
+        itemSearchInKitchenTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        itemSearchInKitchenTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemSearchInKitchenTextField.setText("Search Items");
+        itemSearchInKitchenTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        itemSearchInKitchenTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        itemSearchInKitchenTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        itemSearchInKitchenTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                itemSearchInKitchenTextFieldFocusLost(evt);
+            }
+        });
+        itemSearchInKitchenTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemSearchInKitchenTextFieldMouseClicked(evt);
+            }
+        });
+        itemSearchInKitchenTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemSearchInKitchenTextFieldKeyTyped(evt);
+            }
+        });
+
+        stockRefreshInKitchenButton.setBackground(new java.awt.Color(255, 255, 255));
+        stockRefreshInKitchenButton.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        stockRefreshInKitchenButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/refresh.png"))); // NOI18N
+        stockRefreshInKitchenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockRefreshInKitchenButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout stockDetailsPanel2Layout = new javax.swing.GroupLayout(stockDetailsPanel2);
+        stockDetailsPanel2.setLayout(stockDetailsPanel2Layout);
+        stockDetailsPanel2Layout.setHorizontalGroup(
+            stockDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stockDetailsPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(stockDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stockTabelPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addGroup(stockDetailsPanel2Layout.createSequentialGroup()
+                        .addComponent(itemSearchInKitchenTextField)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stockRefreshInKitchenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19))
+        );
+        stockDetailsPanel2Layout.setVerticalGroup(
+            stockDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stockDetailsPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(stockDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(stockRefreshInKitchenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemSearchInKitchenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(stockTabelPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        stockTableLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stockTableLabel2.setText("Stock Details");
+
+        stockTableLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stockTableLabel3.setText("Get Items");
+
+        javax.swing.GroupLayout kitchenManagementPanelLayout = new javax.swing.GroupLayout(kitchenManagementPanel);
+        kitchenManagementPanel.setLayout(kitchenManagementPanelLayout);
+        kitchenManagementPanelLayout.setHorizontalGroup(
+            kitchenManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kitchenManagementPanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(kitchenManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stockDetailsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stockTableLabel2))
+                .addGap(39, 39, 39)
+                .addGroup(kitchenManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stockTableLabel3)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        kitchenManagementPanelLayout.setVerticalGroup(
+            kitchenManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kitchenManagementPanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(kitchenManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stockTableLabel2)
+                    .addComponent(stockTableLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kitchenManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(stockDetailsPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(347, Short.MAX_VALUE))
+        );
+
+        navPanel.addTab("Kitchen Management", new javax.swing.ImageIcon(getClass().getResource("/Resources/kitchen.png")), kitchenManagementPanel); // NOI18N
 
         userManagementPanel.setBackground(new java.awt.Color(255, 255, 255));
         userManagementPanel.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -3090,13 +3390,13 @@ public class ManagerScreen extends javax.swing.JFrame {
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(navPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(navPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(navPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
             .addComponent(sidePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -3106,7 +3406,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1259, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1336, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3118,7 +3418,14 @@ public class ManagerScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
-        new UserRegistration().setVisible(true);
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM login WHERE user_id = " + useridLoad() + " AND password = '" + confirmationPasswordField.getText() + "'");
+            if (getResultSetRowCount(rs) == 1) {
+                new UserRegistration().setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -5915,9 +6222,9 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateSupplierButtonActionPerformed
 
-    private void stockTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockTable1MouseClicked
-        int selectedRow = stockTable1.getSelectedRow();
-        DefaultTableModel dtm = (DefaultTableModel) stockTable1.getModel();
+    private void supplierTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supplierTableMouseClicked
+        int selectedRow = supplierTable.getSelectedRow();
+        DefaultTableModel dtm = (DefaultTableModel) supplierTable.getModel();
 
         int sid = Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString());
         newSupplierIDTextField.setText(sid + "");
@@ -5934,7 +6241,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }//GEN-LAST:event_stockTable1MouseClicked
+    }//GEN-LAST:event_supplierTableMouseClicked
 
     private void supplierSearchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierSearchTextFieldFocusLost
         if (supplierSearchTextField.getText().isEmpty()) {
@@ -5956,7 +6263,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
         supplierSearchTextField.setForeground(Color.black);
 
-        DefaultTableModel dtm = (DefaultTableModel) stockTable1.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) supplierTable.getModel();
         String s = supplierSearchTextField.getText();
         try {
             ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM supplier WHERE name LIKE '%" + s + "%'");
@@ -6025,6 +6332,133 @@ public class ManagerScreen extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_dobInUMTextFieldKeyTyped
+
+    private void stockInKitchenTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockInKitchenTableMouseClicked
+        int selectedRow = stockInKitchenTable.getSelectedRow();
+        DefaultTableModel dtm = (DefaultTableModel) stockInKitchenTable.getModel();
+
+        int iid = Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString());
+        kitchenItemIDTextField.setText(iid + "");
+
+        try {
+            ResultSet rs1 = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE item_id = " + iid + "");
+            while (rs1.next()) {
+                kitchenItemTextField.setText(rs1.getString("name"));
+            }
+
+            rs1.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_stockInKitchenTableMouseClicked
+
+    private void itemSearchInKitchenTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemSearchInKitchenTextFieldFocusLost
+        if (itemSearchInKitchenTextField.getText().isEmpty()) {
+            itemSearchInKitchenTextField.setForeground(Color.gray);
+            itemSearchInKitchenTextField.setText("Search Items");
+        }
+    }//GEN-LAST:event_itemSearchInKitchenTextFieldFocusLost
+
+    private void itemSearchInKitchenTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemSearchInKitchenTextFieldMouseClicked
+        itemSearchInKitchenTextField.setBorder(BorderFactory.createLineBorder(Color.decode("#999999")));
+        if (itemSearchInKitchenTextField.getForeground() == Color.gray) {
+            itemSearchInKitchenTextField.setText(null);
+        }
+    }//GEN-LAST:event_itemSearchInKitchenTextFieldMouseClicked
+
+    private void itemSearchInKitchenTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemSearchInKitchenTextFieldKeyTyped
+        if (itemSearchInKitchenTextField.getForeground() == Color.gray) {
+            itemSearchInKitchenTextField.setText(null);
+        }
+        itemSearchInKitchenTextField.setForeground(Color.black);
+
+        DefaultTableModel dtm = (DefaultTableModel) stockInKitchenTable.getModel();
+        String s = itemSearchInKitchenTextField.getText();
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM item WHERE name LIKE '%" + s + "%'");
+            dtm.setRowCount(0);
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getString("item_id"));
+                v.add(rs.getString("name"));
+                v.add(rs.getString("qty"));
+                v.add(rs.getString("unit_price"));
+                dtm.addRow(v);
+            }
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_itemSearchInKitchenTextFieldKeyTyped
+
+    private void stockRefreshInKitchenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockRefreshInKitchenButtonActionPerformed
+        itemSearchTextField.setForeground(Color.gray);
+        itemSearchTextField.setText("Search Items");
+        reset();
+        loadID();
+        stockDataLoad();
+    }//GEN-LAST:event_stockRefreshInKitchenButtonActionPerformed
+
+    private void kitchenItemIDTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenItemIDTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenItemIDTextFieldKeyReleased
+
+    private void kitchenItemIDTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenItemIDTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenItemIDTextFieldKeyTyped
+
+    private void kitchenItemTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenItemTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenItemTextFieldKeyReleased
+
+    private void kitchenItemTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenItemTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenItemTextFieldKeyTyped
+
+    private void kitchenDateTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenDateTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenDateTextFieldKeyReleased
+
+    private void kitchenDateTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenDateTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenDateTextFieldKeyTyped
+
+    private void kitchenQtyTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenQtyTextFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenQtyTextFieldKeyReleased
+
+    private void kitchenQtyTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kitchenQtyTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kitchenQtyTextFieldKeyTyped
+
+    private void getItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getItemButtonActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) stockInKitchenTable.getModel();
+        String rid = kridLabel.getText();
+        String date = kitchenDateTextField.getText();
+        String iid = kitchenItemIDTextField.getText();
+        int cqty = Integer.parseInt(dtm.getValueAt(stockInKitchenTable.getSelectedRow(), 2).toString());
+        int qty = Integer.parseInt(kitchenQtyTextField.getText());
+        int tqty = cqty-qty;
+        
+        if(cqty >= qty){
+            try {
+                Statement s1 = DatabaseConnection.getConnection();
+                s1.executeUpdate("INSERT INTO kitchen_records (record_id, date, qty, item_id, user_id) VALUES ("+rid+", '"+date+"', "+qty+", "+iid+", "+useridLoad()+")");
+            
+                Statement s2 = DatabaseConnection.getConnection();
+                s2.executeUpdate("UPDATE item SET qty="+tqty+" WHERE item_id="+iid+"");
+            
+                s1.close();
+                s2.close();
+                
+                JOptionPane.showMessageDialog(this, "Items Transfered to Kitchen");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Not Enough Amount of This Item in Kitchen");
+        }
+    }//GEN-LAST:event_getItemButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -6121,6 +6555,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JLabel genderInUMLabel;
     private javax.swing.JTextField genderInUMTextField;
     private javax.swing.JPanel getCustomerDetailsPanel;
+    private javax.swing.JButton getItemButton;
     private javax.swing.JLabel grnDateLabel;
     private javax.swing.JTextField grnDateTextField;
     private javax.swing.JLabel grnItemIDLabel;
@@ -6155,7 +6590,19 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JPasswordField inUMConfirmPasswordField;
     private javax.swing.JPasswordField inUMPasswordField;
     private javax.swing.JTextField itemIDTextField;
+    private javax.swing.JTextField itemSearchInKitchenTextField;
     private javax.swing.JTextField itemSearchTextField;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel kitchenDateLabel;
+    private javax.swing.JTextField kitchenDateTextField;
+    private javax.swing.JLabel kitchenItemIDLabel;
+    private javax.swing.JTextField kitchenItemIDTextField;
+    private javax.swing.JLabel kitchenItemLabel;
+    private javax.swing.JTextField kitchenItemTextField;
+    private javax.swing.JPanel kitchenManagementPanel;
+    private javax.swing.JLabel kitchenQtyLabel;
+    private javax.swing.JTextField kitchenQtyTextField;
+    private javax.swing.JLabel kridLabel;
     private javax.swing.JCheckBox lavaCake;
     private javax.swing.JTextField lavaCakeCount;
     private javax.swing.JButton logoutButton;
@@ -6203,6 +6650,7 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JPanel receiveItemsPanel;
     private javax.swing.JLabel recievedLabel;
     private javax.swing.JTextField recievedTextField;
+    private javax.swing.JLabel recordIDLabel;
     private javax.swing.JButton refereshOrderDataButton;
     private javax.swing.JButton saveUserButton;
     private javax.swing.JTextField searchInUMTextField;
@@ -6215,19 +6663,25 @@ public class ManagerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField spriteSCount;
     private javax.swing.JPanel stockDetailsPanel;
     private javax.swing.JPanel stockDetailsPanel1;
+    private javax.swing.JPanel stockDetailsPanel2;
+    private javax.swing.JTable stockInKitchenTable;
     private javax.swing.JButton stockRefreshButton;
+    private javax.swing.JButton stockRefreshInKitchenButton;
     private javax.swing.JScrollPane stockTabelPanel;
     private javax.swing.JScrollPane stockTabelPanel1;
+    private javax.swing.JScrollPane stockTabelPanel2;
     private javax.swing.JTable stockTable;
-    private javax.swing.JTable stockTable1;
     private javax.swing.JLabel stockTableLabel;
     private javax.swing.JLabel stockTableLabel1;
+    private javax.swing.JLabel stockTableLabel2;
+    private javax.swing.JLabel stockTableLabel3;
     private javax.swing.JCheckBox strawberryCone;
     private javax.swing.JTextField strawberryConeCount;
     private javax.swing.JPanel supplierDetailsPanel;
     private javax.swing.JTextField supplierIDTextField;
     private javax.swing.JButton supplierRefreshButton;
     private javax.swing.JTextField supplierSearchTextField;
+    private javax.swing.JTable supplierTable;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JLabel totalProfitLabel;
     private javax.swing.JTextField totalProfitTextField;

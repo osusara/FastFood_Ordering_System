@@ -6,8 +6,10 @@
 package GUI;
 
 import Database.DatabaseConnection;
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.util.Vector;
+import javax.swing.BorderFactory;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +24,9 @@ public class GRNList extends javax.swing.JFrame {
     public GRNList() {
         initComponents();
         grnDataLoad();
+        
+        grnSearchTextField.setForeground(Color.gray);
+        grnSearchTextField.setText("Search Date");
     }
 
     public void grnDataLoad() {
@@ -57,6 +62,7 @@ public class GRNList extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         grnTable = new javax.swing.JTable();
+        grnSearchTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -71,7 +77,30 @@ public class GRNList extends javax.swing.JFrame {
                 "GRN ID", "Date", "Item", "Quantity", "Total", "Supplier", "User"
             }
         ));
+        grnTable.setSelectionBackground(new java.awt.Color(102, 153, 255));
         jScrollPane1.setViewportView(grnTable);
+
+        grnSearchTextField.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        grnSearchTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        grnSearchTextField.setText("Search Date");
+        grnSearchTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        grnSearchTextField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        grnSearchTextField.setSelectionColor(new java.awt.Color(102, 153, 255));
+        grnSearchTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                grnSearchTextFieldFocusLost(evt);
+            }
+        });
+        grnSearchTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grnSearchTextFieldMouseClicked(evt);
+            }
+        });
+        grnSearchTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                grnSearchTextFieldKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,14 +108,18 @@ public class GRNList extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(grnSearchTextField)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(grnSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -104,6 +137,48 @@ public class GRNList extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void grnSearchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_grnSearchTextFieldFocusLost
+        if (grnSearchTextField.getText().isEmpty()) {
+            grnSearchTextField.setForeground(Color.gray);
+            grnSearchTextField.setText("Search Date");
+        }
+    }//GEN-LAST:event_grnSearchTextFieldFocusLost
+
+    private void grnSearchTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grnSearchTextFieldMouseClicked
+        grnSearchTextField.setBorder(BorderFactory.createLineBorder(Color.decode("#999999")));
+        if (grnSearchTextField.getForeground() == Color.gray) {
+            grnSearchTextField.setText(null);
+        }
+    }//GEN-LAST:event_grnSearchTextFieldMouseClicked
+
+    private void grnSearchTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grnSearchTextFieldKeyTyped
+        if (grnSearchTextField.getForeground() == Color.gray) {
+            grnSearchTextField.setText(null);
+        }
+        grnSearchTextField.setForeground(Color.black);
+
+        DefaultTableModel dtm = (DefaultTableModel) grnTable.getModel();
+        String s = grnSearchTextField.getText();
+        try {
+            ResultSet rs = DatabaseConnection.getConnection().executeQuery("SELECT * FROM grn WHERE date LIKE '%" + s + "%'");
+            dtm.setRowCount(0);
+            while (rs.next()) {
+                Vector v = new Vector();
+                v.add(rs.getString("grn_id"));
+                v.add(rs.getString("date"));
+                v.add(rs.getString("item_id"));
+                v.add(rs.getString("qty"));
+                v.add(rs.getString("total"));
+                v.add(rs.getString("supplier_id"));
+                v.add(rs.getString("user_id"));
+                dtm.addRow(v);
+            }
+            rs.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_grnSearchTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -141,6 +216,7 @@ public class GRNList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField grnSearchTextField;
     private javax.swing.JTable grnTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
