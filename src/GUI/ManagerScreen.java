@@ -344,7 +344,7 @@ public class ManagerScreen extends javax.swing.JFrame {
         }
     }
 
-    private void reportGen() {
+    private void orderReportGen() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
             JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
@@ -364,6 +364,39 @@ public class ManagerScreen extends javax.swing.JFrame {
             params.put("total", totalTextField.getText());
             params.put("payment", recievedTextField.getText());
             params.put("balance", balanceTextField.getText());
+
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, params, dataSource);
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    private void grnReportGen() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) mealsTable.getModel();
+            JRTableModelDataSource dataSource = new JRTableModelDataSource(dtm);
+            String reportSource = "D:\\Osusara\\Documents\\Github Projects\\FastFood_Ordering_System\\src\\Resources\\grnReport.jrxml";
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("grnid", grnidLabel.getText());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+
+            params.put("date", formatter.format(date));
+            params.put("iid", grnDateTextField.getText());
+            params.put("item", grnItemTextField.getText());
+            params.put("sid", supplierIDTextField.getText());
+            params.put("supplier", grnSupplierTextField.getText());
+            params.put("unitPrice", grnUnitPriceTextField.getText());
+            params.put("qty", grnQtyTextField.getText());
+            params.put("total", grnTotalTextField.getText());
+            params.put("exp", grnExpTextField.getText());
+            params.put("uid", useridLoad());
 
             JasperPrint print = JasperFillManager.fillReport(jasperReport, params, dataSource);
             JasperViewer.viewReport(print, false);
@@ -3651,7 +3684,7 @@ public class ManagerScreen extends javax.swing.JFrame {
                 }
             }
         }
-        reportGen();
+        orderReportGen();
         //Other Functions
         reset();
         loadID();

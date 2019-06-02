@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="grnReport" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="971307d5-99fa-40db-8777-0a0790d508fe">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="grnid" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="iid" class="java.lang.String"/>
+	<parameter name="item" class="java.lang.String"/>
+	<parameter name="sid" class="java.lang.String"/>
+	<parameter name="supplier" class="java.lang.String"/>
+	<parameter name="unitPrice" class="java.lang.String"/>
+	<parameter name="qty" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="exp" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     grn.`grn_id` AS grn_grn_id,
+     grn.`date` AS grn_date,
+     grn.`qty` AS grn_qty,
+     grn.`total` AS grn_total,
+     grn.`supplier_id` AS grn_supplier_id,
+     grn.`item_id` AS grn_item_id,
+     grn.`user_id` AS grn_user_id,
+     item.`item_id` AS item_item_id,
+     item.`name` AS item_name,
+     item.`unit_price` AS item_unit_price,
+     item_batch.`exp_date` AS item_batch_exp_date,
+     item_batch.`item_id` AS item_batch_item_id,
+     item_batch.`batch_id` AS item_batch_batch_id
+FROM
+     `item` item INNER JOIN `grn` grn ON item.`item_id` = grn.`item_id`
+     INNER JOIN `item_batch` item_batch ON item.`item_id` = item_batch.`item_id`]]>
+	</queryString>
+	<field name="grn_grn_id" class="java.lang.Integer"/>
+	<field name="grn_date" class="java.lang.String"/>
+	<field name="grn_qty" class="java.lang.Integer"/>
+	<field name="grn_total" class="java.lang.String"/>
+	<field name="grn_supplier_id" class="java.lang.Integer"/>
+	<field name="grn_item_id" class="java.lang.Integer"/>
+	<field name="grn_user_id" class="java.lang.Integer"/>
+	<field name="item_item_id" class="java.lang.Integer"/>
+	<field name="item_name" class="java.lang.String"/>
+	<field name="item_unit_price" class="java.lang.String"/>
+	<field name="item_batch_exp_date" class="java.lang.String"/>
+	<field name="item_batch_item_id" class="java.lang.Integer"/>
+	<field name="item_batch_batch_id" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="54" width="572" height="25" uuid="21853512-5ff7-4962-8029-52d7c19b3b49"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[Good Recieve Note]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="572" height="52" uuid="78ce6cc8-2d0c-4f63-b886-6c07fd390180"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="38"/>
+				</textElement>
+				<text><![CDATA[OSSA FOOD CABIN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="10" width="87" height="25" uuid="de946fd9-218d-476b-b941-1211413f1d17"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Supplier ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="10" width="52" height="25" uuid="0098b8aa-91d3-4a90-9d6f-add4303cc68a"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[GRN ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="35" width="38" height="25" uuid="7014beb7-ad25-44b0-a881-4867867a156a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="35" width="65" height="25" uuid="33fb77fa-0a79-4cdf-b8b4-01b4497aeec0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Supplier]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="488" y="15" width="84" height="20" uuid="b9b17222-d634-4fef-b63b-b16b232540df"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grnid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="35" width="100" height="20" uuid="586ea37c-c5fd-47de-9fc2-c8d965b87ea7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="15" width="100" height="20" uuid="21e03fef-37d7-4d6f-bd96-219f207860f8"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="35" width="100" height="20" uuid="c0249847-b0e4-4a7b-a8b7-2f70c6f19cb2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{supplier}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="19" y="61" width="531" height="2" uuid="480b02da-c16e-4a68-bb47-2b9ce24ff0b5"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="453" y="0" width="119" height="25" uuid="e3597a3c-1e2f-400d-9f00-a38e23abdcee"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="0" width="64" height="25" uuid="78f628e9-3a26-4898-adc0-607d1f04ba71"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="0" width="107" height="25" uuid="4228295d-717d-4ea9-8713-1214df5fd08f"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="59" height="25" uuid="33f6b158-118c-4759-b8ed-1139c4d53c22"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Item ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="0" width="149" height="25" uuid="236d3a09-09bd-4ec6-8185-67ae0537b340"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Item Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="74" height="25" uuid="afad6672-ca4a-4595-a62f-459168b06fc4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Exp Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="21" y="0" width="38" height="20" uuid="efb0efbc-6521-4e97-8701-cb2086bfa556"/>
+				<textFieldExpression><![CDATA[$F{grn_item_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="0" width="122" height="20" uuid="ce2dd504-160b-4923-8ce7-38a3a71da8be"/>
+				<textFieldExpression><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="60" height="20" uuid="fac26ec6-8dd2-43ec-90b8-c283c1fb9722"/>
+				<textFieldExpression><![CDATA[$F{item_batch_exp_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="53" height="20" uuid="0e3c919f-86ac-4837-9408-dea62df3b331"/>
+				<textFieldExpression><![CDATA[$F{grn_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="0" width="84" height="20" uuid="e781bbf4-6d92-4a45-9055-5ee13c48408c"/>
+				<textFieldExpression><![CDATA[$F{item_unit_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="98" height="20" uuid="43f9d80a-9058-49ea-9f2e-401ae6acc92c"/>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="82" splitType="Stretch">
+			<line>
+				<reportElement x="19" y="0" width="531" height="1" uuid="c62c02c3-bde8-4bfb-b456-4955a4e547ca"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="61" width="572" height="21" uuid="9782e6f5-f86c-4946-b08b-67f48ca05c32"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[Have a nice day :)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="19" y="47" width="531" height="1" uuid="4c106714-37fe-42f1-90d7-189d42f1421d"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
